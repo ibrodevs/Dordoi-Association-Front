@@ -216,7 +216,7 @@ const AboutLeadership = () => {
             <>
               {/* Первые 2 карточки - вертикально */}
               {leaders.length > 0 && (
-                <div className="flex flex-col gap-8 max-w-2xl mx-auto mb-8">
+                <div className="flex flex-col gap-12 max-w-2xl mx-auto mb-8">
                   {leaders.slice(0, 2).map((leader, idx) => {
                     const index = idx;
                     return (
@@ -229,8 +229,8 @@ const AboutLeadership = () => {
                         className="group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-slate-200/60 overflow-hidden cursor-pointer"
                         onClick={() => openLeaderModal(leader)}
                       >
-                        <div className="relative p-8">
-                          <div className="flex flex-col lg:flex-row gap-8">
+                        <div className="relative p-12">
+                          <div className="flex flex-col lg:flex-row gap-12">
                             {/* Аватар руководителя с градиентом */}
                             <motion.div
                               className="flex-shrink-0 relative"
@@ -241,10 +241,10 @@ const AboutLeadership = () => {
                                 <img
                                   src={leader.photo}
                                   alt={leader.name}
-                                  className="w-full h-38 rounded-3xl object-contain shadow-2xl group-hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-slate-50 to-slate-100"
+                                  className="w-full h-48 rounded-3xl object-contain shadow-2xl group-hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-slate-50 to-slate-100"
                                 />
                               ) : (
-                                <div className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
+                                <div className={`w-40 h-40 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
                                   <div className="absolute inset-0 flex items-center justify-center">
                                     <span className="text-white text-4xl font-bold tracking-wider">
                                       {getInitials(leader.name)}
@@ -294,7 +294,7 @@ const AboutLeadership = () => {
                             {/* Информация о руководителе */}
                             <div className="flex-1 min-w-0">
                               <motion.h3 
-                                className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-cyan-600 group-hover:bg-clip-text transition-all duration-500"
+                                className="text-3xl font-bold text-slate-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-cyan-600 group-hover:bg-clip-text transition-all duration-500"
                                 whileHover={{ x: 5 }}
                               >
                                 {leader.name}
@@ -368,7 +368,7 @@ const AboutLeadership = () => {
 
               {/* Остальные карточки - по 2 в ряд */}
               {leaders.length > 2 && (
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
                   {leaders.slice(2).map((leader, idx) => {
                     const index = idx + 2;
                     return (
@@ -381,8 +381,8 @@ const AboutLeadership = () => {
                   className="group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-slate-200/60 overflow-hidden cursor-pointer"
                   onClick={() => openLeaderModal(leader)}
                 >
-                  <div className="relative p-8">
-                    <div className="flex flex-col lg:flex-row gap-8">
+                  <div className="relative p-12">
+                    <div className="flex flex-col lg:flex-row gap-12">
                       {/* Аватар руководителя с градиентом */}
                       <motion.div
                         className="flex-shrink-0 relative"
@@ -393,10 +393,10 @@ const AboutLeadership = () => {
                           <img
                             src={leader.photo}
                             alt={leader.name}
-                            className="w-full h-32 rounded-3xl object-contain shadow-2xl group-hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-slate-50 to-slate-100"
+                            className="w-full h-40 rounded-3xl object-contain shadow-2xl group-hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-slate-50 to-slate-100"
                           />
                         ) : (
-                          <div className={`w-full h-32 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
+                          <div className={`w-full h-40 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
                             <div className="absolute inset-0 flex items-center justify-center">
                               <span className="text-white text-4xl font-bold tracking-wider">
                                 {getInitials(leader.name)}
@@ -446,7 +446,7 @@ const AboutLeadership = () => {
                       {/* Информация о руководителе */}
                       <div className="flex-1 min-w-0">
                         <motion.h3 
-                          className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-cyan-600 group-hover:bg-clip-text transition-all duration-500"
+                          className="text-3xl font-bold text-slate-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-cyan-600 group-hover:bg-clip-text transition-all duration-500"
                           whileHover={{ x: 5 }}
                         >
                           {leader.name}
