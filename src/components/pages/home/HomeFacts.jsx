@@ -275,7 +275,7 @@ const HomeFacts = () => {
   };
 
   return (
-    <section ref={ref} className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 overflow-hidden">
+    <section ref={ref} className="relative py-20 bg-white overflow-hidden">
       {/* Фоновые элементы */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 right-10 w-64 h-64 bg-blue-200 rounded-full blur-3xl"></div>

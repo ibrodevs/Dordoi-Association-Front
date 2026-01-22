@@ -241,7 +241,7 @@ const AboutLeadership = () => {
                                 <img
                                   src={leader.photo}
                                   alt={leader.name}
-                                  className="w-32 h-32 rounded-3xl object-contain shadow-2xl group-hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-slate-50 to-slate-100"
+                                  className="w-full h-38 rounded-3xl object-contain shadow-2xl group-hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-slate-50 to-slate-100"
                                 />
                               ) : (
                                 <div className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
@@ -393,10 +393,10 @@ const AboutLeadership = () => {
                           <img
                             src={leader.photo}
                             alt={leader.name}
-                            className="w-32 h-32 rounded-3xl object-contain shadow-2xl group-hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-slate-50 to-slate-100"
+                            className="w-full h-32 rounded-3xl object-contain shadow-2xl group-hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-slate-50 to-slate-100"
                           />
                         ) : (
-                          <div className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
+                          <div className={`w-full h-32 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
                             <div className="absolute inset-0 flex items-center justify-center">
                               <span className="text-white text-4xl font-bold tracking-wider">
                                 {getInitials(leader.name)}
@@ -556,10 +556,10 @@ const AboutLeadership = () => {
                     <img
                       src={selectedLeader.photo}
                       alt={selectedLeader.name}
-                      className="w-72 h-72 rounded-3xl object-contain shadow-2xl bg-gradient-to-br from-slate-50 to-slate-100"
+                      className="w-full h-full rounded-3xl object-contain shadow-2xl"
                     />
                   ) : (
-                    <div className={`w-72 h-72 rounded-3xl bg-gradient-to-br ${generateGradient(selectedLeader.name)} relative overflow-hidden shadow-2xl`}>
+                    <div className={`w-full h-72 rounded-3xl bg-gradient-to-br ${generateGradient(selectedLeader.name)} relative overflow-hidden shadow-2xl`}>
                       <div className="absolute inset-0 flex items-center justify-center">
                         <span className="text-white text-7xl font-bold tracking-wider">
                           {getInitials(selectedLeader.name)}

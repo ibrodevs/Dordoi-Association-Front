@@ -540,11 +540,11 @@ const AboutStructure = () => {
                   <div className="relative z-10">
                     {/* Фото компании */}
                     <div className="mb-6">
-                      <div className="w-full h-full bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-xl transition-all duration-500 overflow-hidden">
+                      <div className="w-full aspect-video bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-xl transition-all duration-500 overflow-hidden">
                         <img 
                           src={subsidiary.logo} 
                           alt={subsidiary.name} 
-                          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
                         />
                       </div>
                     </div>

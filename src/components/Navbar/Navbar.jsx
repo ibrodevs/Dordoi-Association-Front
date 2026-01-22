@@ -100,8 +100,8 @@ const Navbar = () => {
       icon: ActivitiesIcon,
       path: '/activities',
       submenu: [
-        { key: 'activities_business_trade', label: t('nav.activities_business_trade'), path: '/activities/business-trade' },
-        { key: 'activities_infrastructure', label: t('nav.activities_infrastructure'), path: '/activities/infrastructure' },
+        { key: 'activities_services', label: t('nav.activities_services'), path: '/activities/services' },
+        { key: 'activities_production', label: t('nav.activities_production'), path: '/activities/production' },
         { key: 'activities_education', label: t('nav.activities_education'), path: '/activities/education' },
         { key: 'activities_culture_leisure', label: t('nav.activities_culture_leisure'), path: '/activities/culture-leisure' },
         { key: 'activities_sports', label: t('nav.activities_sports'), path: '/activities/sports' },
