@@ -4733,6 +4733,7 @@
     "types": {
       "email": "Email",
       "phone": "Телефон",
+      "address": "Дарек",
       "contactPerson": "Байланыш адам",
       "workingHours": "Иш убактысы",
       "emergency": "Өзгөчө кырдаал байланышы",

@@ -25,8 +25,6 @@ import ActivitiesSports from './components/pages/activities/ActivitiesSports';
 import PressNews from './components/pages/press/PressNews';
 import PressMedia from './components/pages/press/PressMedia';
 import PressPublications from './components/pages/press/PressPublications';
-import PressEvents from './components/pages/press/PressEvents';
-import PressReleases from './components/pages/press/PressReleases';
 import Details from './components/pages/press/Details';
 import GalleryDetail from './components/pages/press/GalleryDetail';
 import PublicationDetail from './components/pages/press/PublicationDetail';
@@ -39,10 +37,7 @@ import PartnersConferences from './components/pages/partners/PartnersConferences
 import PartnersRole from './components/pages/partners/PartnersRole';
 
 // Подразделы Contacts
-import ContactsAddress from './components/pages/contacts/ContactsAddress';
 import ContactsInfo from './components/pages/contacts/ContactsInfo';
-import ContactsSocial from './components/pages/contacts/ContactsSocial';
-import ContactsForm from './components/pages/contacts/ContactsForm';
 import Footer from './components/Footer';
 
 
@@ -114,10 +109,10 @@ function App() {
             <Route path="/partners/role" element={<PartnersRole />} />
 
             {/* Страницы Contacts */}
-            <Route path="/contacts/address" element={<ContactsAddress />} />
+            {/* <Route path="/contacts/address" element={<ContactsAddress />} /> */}
             <Route path="/contacts/info" element={<ContactsInfo />} />
-            <Route path="/contacts/social" element={<ContactsSocial />} />
-            <Route path="/contacts/form" element={<ContactsForm />} />
+            {/* <Route path="/contacts/social" element={<ContactsSocial />} /> */}
+            {/* <Route path="/contacts/form" element={<ContactsForm />} /> */}
 
             {/* Страница 404 */}
             <Route path="*" element={<NotFoundPage />} />

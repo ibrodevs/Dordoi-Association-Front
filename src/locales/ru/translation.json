@@ -4676,6 +4676,7 @@
     "types": {
       "email": "Email",
       "phone": "Телефон",
+      "address": "Адрес",
       "contactPerson": "Контактное лицо",
       "workingHours": "Время работы",
       "emergency": "Экстренная связь",

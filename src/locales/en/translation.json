@@ -4732,6 +4732,7 @@
     "types": {
       "email": "Email",
       "phone": "Phone",
+      "address": "Address",
       "contactPerson": "Contact Person",
       "workingHours": "Working Hours",
       "emergency": "Emergency Contact",

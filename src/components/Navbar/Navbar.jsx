@@ -139,7 +139,7 @@ const Navbar = () => {
       icon: ContactsIcon,
       path: '/contacts',
       submenu: [
-        { key: 'contacts_address', label: t('nav.contacts_address'), path: '/contacts/address' },
+        // { key: 'contacts_address', label: t('nav.contacts_address'), path: '/contacts/address' },
         { key: 'contacts_info', label: t('nav.contacts_info'), path: '/contacts/info' },
         // { key: 'contacts_social', label: t('nav.contacts_social'), path: '/contacts/social' },
         // { key: 'contacts_form', label: t('nav.contacts_form'), path: '/contacts/form' }
