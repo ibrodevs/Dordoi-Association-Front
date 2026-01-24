@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { CameraIcon, TrophyIcon, GlobeIcon, HandshakeIcon, BriefcaseIcon } from '../../icons';
 import { apiRequest } from '../../../api';
+import PressBackground from '../../PressBackground';
 
 const GalleryDetail = () => {
   const { id } = useParams();
@@ -345,7 +346,8 @@ const GalleryDetail = () => {
   }
 
   return (
-    <section className="relative py-24 bg-gradient-to-br from-slate-50 to-blue-50/30 overflow-hidden">
+    <PressBackground>
+      <section className="relative py-24 bg-gradient-to-br from-slate-50 to-blue-50/30 overflow-hidden">
       {/* Фоновые элементы */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl"></div>
@@ -514,6 +516,7 @@ const GalleryDetail = () => {
         )}
       </AnimatePresence>
     </section>
+    </PressBackground>
   );
 };
 

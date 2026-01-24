@@ -3,6 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { apiRequest } from '../../../api';
+import AboutBackground from '../../AboutBackground';
 
 const AboutStructure = () => {
   const ref = useRef(null);
@@ -330,7 +331,8 @@ const AboutStructure = () => {
   };
 
   return (
-    <section ref={ref} className="relative py-20 bg-white overflow-hidden">
+    <AboutBackground>
+      <section ref={ref} className="relative py-20 overflow-hidden">
       {/* Фоновые элементы */}
       <div className="absolute inset-0 opacity-3">
         <motion.div
@@ -579,6 +581,7 @@ const AboutStructure = () => {
         </motion.div>
       </div>
     </section>
+    </AboutBackground>
   );
 };
 

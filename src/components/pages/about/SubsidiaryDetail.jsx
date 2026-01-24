@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { apiRequest } from '../../../api';
+import AboutBackground from '../../AboutBackground';
 
 const SubsidiaryDetail = () => {
   const location = useLocation();
@@ -273,7 +274,7 @@ const SubsidiaryDetail = () => {
   };
 
   return (
-    <>
+    <AboutBackground>
       <style jsx global>{`
         .ck-content {
           font-size: 1.125rem;
@@ -598,7 +599,7 @@ const SubsidiaryDetail = () => {
 
       {/* Модальное окно для просмотра изображений */}
       {selectedImage && <ImageModal />}
-    </>
+    </AboutBackground>
   );
 };
 

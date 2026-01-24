@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { apiRequest } from '../../../api';
+import PressBackground from '../../PressBackground';
 
 const PressPublications = () => {
   const { t, i18n } = useTranslation();
@@ -85,7 +86,8 @@ const PressPublications = () => {
   }
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <PressBackground>
+      <section className="relative py-20 ">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-16">
@@ -129,12 +131,30 @@ const PressPublications = () => {
               {/* Content */}
               <div className="relative p-8">
 
+                {/* Photo */}
+                {publication.photo && (
+                  <div className="mb-6">
+                    <div className="w-full aspect-video bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl flex items-center justify-center overflow-hidden">
+                      <img 
+                        src={publication.photo} 
+                        alt={publication.title} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                    </div>
+                  </div>
+                )}
+
                 {/* Title */}
                 <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors duration-300 leading-tight">
                   {publication.title}
                 </h3>
 
-                
+                {/* Description */}
+                {publication.description && (
+                  <p className="text-slate-600 text-sm mb-6 line-clamp-3 leading-relaxed">
+                    {publication.description}
+                  </p>
+                )}
 
                 {/* Action button */}
                 <div className="flex items-center justify-between">
@@ -162,6 +182,7 @@ const PressPublications = () => {
         </div>
       </div>
     </section>
+    </PressBackground>
   );
 };
 

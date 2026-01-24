@@ -93,7 +93,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section ref={ref} className="relative py-20 bg-white overflow-hidden">
+    <section ref={ref} className="relative py-20  overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}

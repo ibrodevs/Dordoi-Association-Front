@@ -106,7 +106,7 @@ const ActivitiesSection = () => {
   }));
 
   return (
-    <section ref={ref} className="relative py-20 bg-white overflow-hidden">
+    <section ref={ref} className="relative py-20 overflow-hidden">
       {/* Фоновые элементы */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-10 left-10 w-72 h-72 bg-blue-200 rounded-full blur-3xl"></div>

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { apiRequest } from '../../../api';
+import PressBackground from '../../PressBackground';
 
 const PressNews = () => {
   const { t, i18n } = useTranslation();
@@ -181,7 +182,8 @@ const PressNews = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <PressBackground>
+      <div className="min-h-screen">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]" />
@@ -462,6 +464,7 @@ const PressNews = () => {
         </div>
       )}
     </div>
+    </PressBackground>
   );
 };
 

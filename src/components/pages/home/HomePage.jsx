@@ -9,9 +9,10 @@ import InternationalPartnersSection from './InternationalPartnersSection'
 import PartnersSection from './PartnersSection'
 import StructurePreview from './StructurePreview'
 import HomeFacts from './HomeFacts'
+import PremiumCorporateBackground from '../../PremiumCorporateBackground'
 function HomePage() {
   return (
-    <div>
+    <PremiumCorporateBackground>
         <HeroSlider />
         <AboutSection />
         <NewsAndEventsSection />
@@ -22,7 +23,7 @@ function HomePage() {
         <ActivitiesSection />
         <PartnersSection />
         {/* <InternationalPartnersSection /> */}
-    </div>
+    </PremiumCorporateBackground>
   )
 }
 

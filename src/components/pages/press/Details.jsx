@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { apiRequest } from '../../../api';
+import PressBackground from '../../PressBackground';
 
 const NewsDetailPage = () => {
   const { id } = useParams();
@@ -347,7 +348,8 @@ const NewsDetailPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <PressBackground>
+      <div className="min-h-screen bg-white">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
@@ -695,6 +697,7 @@ const NewsDetailPage = () => {
         )}
       </AnimatePresence>
     </div>
+    </PressBackground>
   );
 };
 

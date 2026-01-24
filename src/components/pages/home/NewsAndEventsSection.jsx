@@ -129,7 +129,7 @@ const NewsAndEventsSection = () => {
   };
 
   return (
-    <section ref={ref} className="relative py-20 bg-white overflow-hidden">
+    <section ref={ref} className="relative py-20  overflow-hidden">
       {/* Фоновые элементы */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 right-10 w-64 h-64 bg-blue-200 rounded-full blur-3xl"></div>
@@ -146,7 +146,7 @@ const NewsAndEventsSection = () => {
         >
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-white border border-blue-200 shadow-sm mb-6"
+            className="inline-flex items-center px-4 py-2 rounded-full border border-blue-200 shadow-sm mb-6"
           >
             <span className="text-blue-600 text-sm font-semibold">{t('news.badge')}</span>
           </motion.div>

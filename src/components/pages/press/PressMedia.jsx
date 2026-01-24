@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { CameraIcon, TrophyIcon, GlobeIcon, HandshakeIcon, BriefcaseIcon } from '../../icons';
 import { apiRequest } from '../../../api';
+import PressBackground from '../../PressBackground';
 
 const PressMedia = () => {
   const ref = useRef(null);
@@ -157,7 +158,8 @@ const PressMedia = () => {
   };
 
   return (
-    <section ref={ref} className="relative py-24 bg-gradient-to-br from-slate-50 to-blue-50/30 overflow-hidden">
+    <PressBackground>
+      <section ref={ref} className="relative py-24 overflow-hidden">
       {/* Фоновые элементы */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl"></div>
@@ -304,6 +306,7 @@ const PressMedia = () => {
         </motion.div>
       </div>
     </section>
+    </PressBackground>
   );
 };
 

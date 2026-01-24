@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import AboutBackground from '../../AboutBackground';
 
 const AboutHistory = () => {
   const ref = useRef(null);
@@ -65,7 +66,8 @@ const AboutHistory = () => {
   };
 
   return (
-    <section ref={ref} className="relative py-12 sm:py-16 lg:py-20 bg-white overflow-hidden">
+    <AboutBackground>
+      <section ref={ref} className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
       {/* Фоновые элементы */}
       <div className="absolute inset-0 opacity-3 sm:opacity-5">
         <motion.div
@@ -192,6 +194,7 @@ const AboutHistory = () => {
         </motion.div>
       </div>
     </section>
+    </AboutBackground>
   );
 };
 

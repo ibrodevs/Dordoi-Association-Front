@@ -38,7 +38,7 @@ const StructurePreview = () => {
   }, [i18n.language]);
 
   return (
-    <section ref={ref} className="bg-white relative py-20 overflow-hidden">
+    <section ref={ref} className=" relative py-20 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок секции */}
         <motion.div

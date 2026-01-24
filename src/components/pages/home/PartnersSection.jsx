@@ -84,7 +84,7 @@ const PartnersSection = () => {
   ];
 
   return (
-    <section ref={ref} className="relative py-20 bg-white overflow-hidden">
+    <section ref={ref} className="relative py-20 overflow-hidden">
 
       <div className="">
         {/* Заголовок секции */}

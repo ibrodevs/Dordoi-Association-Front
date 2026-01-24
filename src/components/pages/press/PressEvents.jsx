@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import PressBackground from '../../PressBackground';
 
 const PressEvents = () => {
   const ref = useRef(null);
@@ -429,7 +430,8 @@ const PressEvents = () => {
   );
 
   return (
-    <section ref={ref} className="relative py-20 bg-gradient-to-br from-slate-50 to-violet-50 overflow-hidden">
+    <PressBackground>
+      <section ref={ref} className="relative py-20 bg-gradient-to-br from-slate-50 to-violet-50 overflow-hidden">
       {/* Анимированный фон */}
       <div className="absolute inset-0 opacity-10">
         <motion.div
@@ -1060,6 +1062,7 @@ const PressEvents = () => {
         )}
       </AnimatePresence>
     </section>
+    </PressBackground>
   );
 };
 

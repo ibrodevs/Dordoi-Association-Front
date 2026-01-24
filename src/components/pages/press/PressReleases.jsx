@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { DocumentIcon, DownloadIcon, HardDriveIcon, GlobeIcon, NewspaperIcon, ChartIcon, DollarSignIcon, TrendingUpIcon, LeafIcon, StarIcon } from '../../icons';
+import PressBackground from '../../PressBackground';
 
 const PressReleases = () => {
   const ref = useRef(null);
@@ -426,7 +427,8 @@ const PressReleases = () => {
   );
 
   return (
-    <section ref={ref} className="relative py-20 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+    <PressBackground>
+      <section ref={ref} className="relative py-20 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
       {/* Анимированный фон */}
       <div className="absolute inset-0 opacity-10">
         <motion.div
@@ -1141,6 +1143,7 @@ const PressReleases = () => {
         </div>
       </motion.div>
     </section>
+    </PressBackground>
   );
 };
 

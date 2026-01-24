@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { apiRequest } from '../../../api';
+import AboutBackground from '../../AboutBackground';
 
 const AboutLeadership = () => {
   const ref = useRef(null);
@@ -137,7 +138,8 @@ const AboutLeadership = () => {
   };
 
   return (
-    <section ref={ref} className="relative py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 overflow-hidden">
+    <AboutBackground>
+      <section ref={ref} className="relative py-24 overflow-hidden">
       {/* Улучшенный анимированный фон */}
       <div className="absolute inset-0 opacity-10">
         <motion.div
@@ -619,6 +621,7 @@ const AboutLeadership = () => {
         )}
       </AnimatePresence>
     </section>
+    </AboutBackground>
   );
 };
 

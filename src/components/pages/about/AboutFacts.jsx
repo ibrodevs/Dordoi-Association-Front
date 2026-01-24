@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { apiRequest } from '../../../api';
+import AboutBackground from '../../AboutBackground';
 
 const AboutFacts = () => {
   const ref = useRef(null);
@@ -252,7 +253,8 @@ const AboutFacts = () => {
   };
 
   return (
-    <section ref={ref} className="relative py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 overflow-hidden">
+    <AboutBackground>
+      <section ref={ref} className="relative py-24 overflow-hidden">
       {/* Улучшенные декоративные элементы фона */}
       <div className="absolute inset-0 opacity-15">
         <motion.div
@@ -482,6 +484,7 @@ const AboutFacts = () => {
 )}
 
     </section>
+    </AboutBackground>
   );
 };
 

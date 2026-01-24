@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import PressBackground from '../../PressBackground';
 
 const PublicationDetail = () => {
   const { id } = useParams();
@@ -100,7 +101,8 @@ const PublicationDetail = () => {
   }
 
   return (
-    <section className="relative py-32 bg-gradient-to-br from-slate-50 via-white to-blue-50 min-h-screen">
+    <PressBackground>
+      <section className="relative py-32 bg-gradient-to-br from-slate-50 via-white to-blue-50 min-h-screen">
       {/* Enhanced Background */}
       <div className="absolute inset-0 opacity-10">
         <motion.div
@@ -241,6 +243,7 @@ const PublicationDetail = () => {
         </div>
       </div>
     </section>
+    </PressBackground>
   );
 };
 
