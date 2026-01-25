@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 import { 
   Trophy, 
   Target, 
@@ -12,132 +11,99 @@ import {
   Star,
   ChevronRight,
   ExternalLink,
-  X
+  Shield,
+  Zap,
+  PlayCircle,
+  TrendingUp,
+  Activity,
+  Medal,
+  Flame
 } from 'lucide-react';
 
 const ActivitiesSports = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.2 });
-  const { t } = useTranslation();
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [modalType, setModalType] = useState(null); // 'achievement', 'infrastructure', 'support'
   const [activeFaq, setActiveFaq] = useState(null);
 
-  const achievements = [
+  // Роль ФК "Дордой" в спортивной экосистеме
+  const fcRoles = [
     {
-      title: t('sports.achievements.multipleChampion'),
+      title: "Развитие и популяризация футбола",
       icon: <Trophy className="w-6 h-6" />,
       color: "from-blue-500 to-blue-600"
     },
     {
-      title: t('sports.achievements.nationalTournaments'),
-      icon: <Award className="w-6 h-6" />,
-      color: "from-blue-600 to-blue-700"
-    },
-    {
-      title: t('sports.achievements.internationalParticipation'),
-      icon: <Target className="w-6 h-6" />,
-      color: "from-blue-700 to-blue-800"
-    },
-    {
-      title: t('sports.achievements.talentDevelopment'),
+      title: "Поддержка молодёжи и начинающих спортсменов",
       icon: <Users className="w-6 h-6" />,
-      color: "from-blue-800 to-blue-900"
+      color: "from-green-500 to-green-600"
+    },
+    {
+      title: "Формирование спортивной культуры",
+      icon: <Medal className="w-6 h-6" />,
+      color: "from-purple-500 to-purple-600"
+    },
+    {
+      title: "Вовлечение сообщества в спортивную жизнь",
+      icon: <Heart className="w-6 h-6" />,
+      color: "from-red-500 to-red-600"
     }
   ];
 
-  const sportDirections = [
+  // Массовый и любительский спорт
+  const massivesSportActivities = [
+    "Корпоративные и общественные турниры",
+    "Любительские соревнования",
+    "Спортивные инициативы для сотрудников и предпринимателей",
+    "Мероприятия, направленные на популяризацию здорового образа жизни"
+  ];
+
+  // Спортивные мероприятия
+  const sportEvents = [
     {
-      title: t('sports.directions.professionalSports'),
-      description: t('sports.directions.professionalSportsDesc'),
-      icon: <Trophy className="w-8 h-8" />
+      title: "Спортивные фестивали",
+      icon: <Award className="w-6 h-6" />
     },
     {
-      title: t('sports.directions.clubSupport'),
-      description: t('sports.directions.clubSupportDesc'),
-      icon: <Building className="w-8 h-8" />
+      title: "Турниры и чемпионаты",
+      icon: <Trophy className="w-6 h-6" />
     },
     {
-      title: t('sports.directions.healthyLifestyle'),
-      description: t('sports.directions.healthyLifestyleDesc'),
-      icon: <Heart className="w-8 h-8" />
+      title: "Товарищеские матчи",
+      icon: <PlayCircle className="w-6 h-6" />
+    },
+    {
+      title: "Общественные и корпоративные соревнования",
+      icon: <Users className="w-6 h-6" />
     }
   ];
 
-  const youthBenefits = [
+  // Ценности спортивного направления
+  const sportValues = [
     {
-      title: t('sports.benefits.youth.sportOpportunities'),
-      description: t('sports.benefits.youth.sportOpportunitiesDesc')
+      title: "Здоровый образ жизни",
+      icon: <Heart className="w-6 h-6" />,
+      color: "from-red-500 to-pink-500"
     },
     {
-      title: t('sports.benefits.youth.development'),
-      description: t('sports.benefits.youth.developmentDesc')
+      title: "Командный дух",
+      icon: <Users className="w-6 h-6" />,
+      color: "from-blue-500 to-cyan-500"
     },
     {
-      title: t('sports.benefits.youth.career'),
-      description: t('sports.benefits.youth.careerDesc')
+      title: "Дисциплина и ответственность",
+      icon: <Shield className="w-6 h-6" />,
+      color: "from-green-500 to-emerald-500"
+    },
+    {
+      title: "Стремление к победе",
+      icon: <TrendingUp className="w-6 h-6" />,
+      color: "from-yellow-500 to-orange-500"
+    },
+    {
+      title: "Поддержка профессионального и массового спорта",
+      icon: <Activity className="w-6 h-6" />,
+      color: "from-purple-500 to-violet-500"
     }
-  ];
-
-  const familyBenefits = [
-    {
-      title: t('sports.benefits.family.events'),
-      description: t('sports.benefits.family.eventsDesc')
-    },
-    {
-      title: t('sports.benefits.family.participation'),
-      description: t('sports.benefits.family.participationDesc')
-    },
-    {
-      title: t('sports.benefits.family.lifestyle'),
-      description: t('sports.benefits.family.lifestyleDesc')
-    }
-  ];
-
-  const partnerBenefits = [
-    {
-      title: t('sports.benefits.partners.projects'),
-      description: t('sports.benefits.partners.projectsDesc')
-    },
-    {
-      title: t('sports.benefits.partners.support'),
-      description: t('sports.benefits.partners.supportDesc')
-    },
-    {
-      title: t('sports.benefits.partners.initiatives'),
-      description: t('sports.benefits.partners.initiativesDesc')
-    }
-  ];
-
-  const faqs = [
-    {
-      question: t('sports.faq.1.question'),
-      answer: t('sports.faq.1.answer')
-    },
-    {
-      question: t('sports.faq.2.question'),
-      answer: t('sports.faq.2.answer')
-    }
-  ];
-
-  const usefulLinks = [
-    {
-      title: t('sports.links.fcOfficial'),
-      url: "https://fc-dordoi.kg",
-      icon: <ExternalLink className="w-4 h-4" />
-    },
-    {
-      title: t('sports.links.fcHistory'),
-      url: "https://ru.wikipedia.org/wiki/Дордой_(футбольный_клуб)",
-      icon: <ExternalLink className="w-4 h-4" />
-    }
-  ];
-
-  const socialResponsibilityPoints = [
-    t('sports.socialResponsibility.health'),
-    t('sports.socialResponsibility.risks'),
-    t('sports.socialResponsibility.discipline'),
-    t('sports.socialResponsibility.example')
   ];
 
   const containerVariants = {
@@ -181,607 +147,452 @@ const ActivitiesSports = () => {
     }
   };
 
-  const shapeVariants = {
-    hidden: { pathLength: 0, opacity: 0 },
-    visible: {
-      pathLength: 1,
-      opacity: 1,
-      transition: {
-        duration: 1,
-        ease: "easeInOut"
-      }
-    }
-  };
-
   return (
-    <section ref={ref} className="relative py-20 bg-white overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-blue-50 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-50"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-50 rounded-full translate-x-1/3 translate-y-1/3 opacity-30"></div>
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-20"
-        >
+    <section ref={ref} className="relative min-h-screen bg-white overflow-hidden">
+      {/* Hero Banner */}
+      <div className="relative h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          {/* Floating orbs */}
           <motion.div 
-            variants={itemVariants}
-            className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-blue-50 border border-blue-100 mb-6"
+            className="absolute top-20 left-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.6, 0.3] 
+            }}
+            transition={{ 
+              duration: 4, 
+              repeat: Infinity,
+              ease: "easeInOut" 
+            }}
+          />
+          <motion.div 
+            className="absolute bottom-20 right-20 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"
+            animate={{ 
+              scale: [1.2, 1, 1.2],
+              opacity: [0.4, 0.7, 0.4] 
+            }}
+            transition={{ 
+              duration: 5, 
+              repeat: Infinity,
+              ease: "easeInOut" 
+            }}
+          />
+          
+          {/* Geometric shapes */}
+          <motion.div 
+            className="absolute top-1/4 right-1/4 w-32 h-32 border border-blue-400/20"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div 
+            className="absolute bottom-1/4 left-1/4 w-24 h-24 border border-blue-300/20 rotate-45"
+            animate={{ rotate: [45, 405] }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          />
+        </div>
+
+        {/* Hero content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-6"
           >
-            <Target className="w-4 h-4 text-blue-600" />
-            <span className="text-blue-600 text-sm font-semibold">
-              {t('sports.badge')}
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-sm font-semibold">
+              <Trophy className="w-4 h-4" />
+              Спорт и развитие
             </span>
           </motion.div>
-          
+
           <motion.h1 
-            variants={itemVariants}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
           >
-            {t('sports.title')}
+            Спорт как часть жизни{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+              Дордоя
+            </span>
           </motion.h1>
-          
+
           <motion.p 
-            variants={itemVariants}
-            className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
           >
-            {t('sports.subtitle')}
+            Спортивное направление Дордоя — это важный элемент социальной и общественной среды
           </motion.p>
-          
-          <motion.div
-            variants={itemVariants}
-            className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full mx-auto"
-          />
-        </motion.div>
 
-        {/* Shape Divider */}
-        <motion.div
-          className="relative h-20 mb-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isInView ? 1 : 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          <svg className="w-full h-full" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <motion.path
-              d="M0,0V120H1200V0C1050,80 900,100 600,100S150,80 0,0Z"
-              fill="#f8fafc"
-              variants={shapeVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-            />
-          </svg>
-        </motion.div>
-
-        {/* Intro Block */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-32"
-        >
-          <motion.div
-            variants={itemVariants}
-            className="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 md:p-12 border border-blue-100 shadow-lg"
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-8"
           >
-            <div className="max-w-4xl mx-auto text-center">
-              <Heart className="w-12 h-12 text-blue-600 mx-auto mb-6" />
-              <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-                {t('sports.intro')}
-              </p>
-            </div>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full mx-auto" />
           </motion.div>
-        </motion.div>
+        </div>
 
-        {/* Shape Divider */}
-        <motion.div
-          className="relative h-20 mb-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isInView ? 1 : 0 }}
-          transition={{ delay: 0.7 }}
+        {/* Scroll indicator */}
+        <motion.div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
         >
-          <svg className="w-full h-full" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <motion.path
-              d="M1200,120V0H0V120C150,40 300,20 600,20S1050,40 1200,120Z"
-              fill="#f8fafc"
-              variants={shapeVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-            />
-          </svg>
-        </motion.div>
-
-        {/* Sport Directions */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-32"
-        >
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {t('sports.directions.title')}
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t('sports.directions.subtitle')}
-            </p>
-          </motion.div>
-
-          {/* Для 3 карточек используем grid-cols-3 с центрированием */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
-            {sportDirections.map((direction, index) => (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                whileHover="hover"
-                className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-200 hover:shadow-xl transition-all duration-300 group w-full max-w-sm text-center flex flex-col items-center"
-              >
-                <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-100 transition-colors duration-300">
-                  <div className="text-blue-600">
-                    {direction.icon}
-                  </div>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {direction.title}
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  {direction.description}
-                </p>
-              </motion.div>
-            ))}
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-white/60 rounded-full mt-2"></div>
           </div>
         </motion.div>
+      </div>
 
-        {/* Shape Divider */}
-        <motion.div
-          className="relative h-20 mb-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isInView ? 1 : 0 }}
-          transition={{ delay: 0.9 }}
-        >
-          <svg className="w-full h-full" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <motion.path
-              d="M0,0V120H1200V0C1050,80 900,100 600,100S150,80 0,0Z"
-              fill="#f8fafc"
-              variants={shapeVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-            />
-          </svg>
-        </motion.div>
-
-        {/* Football Club Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-32"
-        >
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
-            <motion.div variants={itemVariants}>
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-blue-600 text-white text-sm font-semibold mb-4">
-                <span>1</span>
-                <ChevronRight className="w-4 h-4" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                {t('sports.fc.title')}
+      {/* About Us Section */}
+      <div className="relative py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="grid lg:grid-cols-2 gap-12 items-center"
+          >
+            {/* Text content */}
+            <motion.div variants={itemVariants} className="space-y-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                О нас
               </h2>
-              <p className="text-gray-700 mb-6 leading-relaxed">
-                {t('sports.fc.description')}
-              </p>
-              <a
-                href="https://fc-dordoi.kg"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300"
-              >
-                <span>{t('sports.fc.website')}</span>
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 text-white shadow-2xl">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-2xl font-bold">{t('sports.fc.achievementsTitle')}</h3>
-                  <Trophy className="w-8 h-8" />
-                </div>
-                <div className="space-y-4">
-                  {achievements.map((achievement, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-center gap-3 p-3 bg-white/10 rounded-xl backdrop-blur-sm"
-                    >
-                      <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                        {achievement.icon}
-                      </div>
-                      <span className="font-medium">{achievement.title}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          <motion.div variants={itemVariants}>
-            <div className="bg-blue-50 rounded-3xl p-8 border border-blue-100">
-              <div className="flex items-center gap-3 mb-4">
-                <Star className="w-6 h-6 text-blue-600" />
-                <p className="text-lg font-semibold text-gray-900">
-                  {t('sports.fc.symbol')}
-                </p>
-              </div>
-              <p className="text-gray-700">
-                {t('sports.fc.symbolDescription')}
-              </p>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Youth Sports Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-32"
-        >
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div variants={itemVariants} className="order-2 lg:order-1">
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-blue-600 text-white text-sm font-semibold mb-4">
-                <span>2</span>
-                <ChevronRight className="w-4 h-4" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                {t('sports.youth.title')}
-              </h2>
-              <p className="text-gray-700 mb-6 leading-relaxed">
-                {t('sports.youth.description')}
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  t('sports.youth.points.0'),
-                  t('sports.youth.points.1'),
-                  t('sports.youth.points.2'),
-                  t('sports.youth.points.3')
-                ].map((point, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center gap-2 p-3 bg-white rounded-xl border border-blue-100"
-                  >
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span className="text-sm text-gray-700">{point}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div variants={itemVariants} className="order-1 lg:order-2">
-              <div className="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 border border-blue-200 shadow-xl">
-                <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
-                  {t('sports.youth.massSports')}
-                </h3>
-                <p className="text-gray-700 text-center">
-                  {t('sports.youth.massSportsDesc')}
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Event Support Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-32"
-        >
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-blue-600 text-white text-sm font-semibold mb-4">
-              <span>3</span>
-              <ChevronRight className="w-4 h-4" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {t('sports.events.title')}
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t('sports.events.description')}
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              t('sports.events.supported.0'),
-              t('sports.events.supported.1'),
-              t('sports.events.supported.2'),
-              t('sports.events.supported.3')
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                whileHover="hover"
-                className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-200 hover:shadow-lg transition-all duration-300"
-              >
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
-                  <Calendar className="w-6 h-6 text-blue-600" />
-                </div>
-                <p className="text-gray-900 font-medium">{item}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Infrastructure Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-32"
-        >
-          <div className="grid lg:grid-cols-2 gap-12">
-            <motion.div variants={itemVariants}>
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-blue-600 text-white text-sm font-semibold mb-4">
-                <span>4</span>
-                <ChevronRight className="w-4 h-4" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                {t('sports.infrastructure.title')}
-              </h2>
-              <p className="text-gray-700 mb-8 leading-relaxed">
-                {t('sports.infrastructure.description')}
-              </p>
               
-              <div className="space-y-4">
-                {[
-                  t('sports.infrastructure.items.0'),
-                  t('sports.infrastructure.items.1'),
-                  t('sports.infrastructure.items.2'),
-                  t('sports.infrastructure.items.3')
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0"></div>
-                    <span className="text-gray-700">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <div className="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 border border-blue-200 shadow-lg h-full">
-                <div className="flex items-center justify-center w-20 h-20 bg-blue-100 rounded-2xl mx-auto mb-6">
-                  <Building className="w-10 h-10 text-blue-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
-                  {t('sports.infrastructure.benefitsTitle')}
-                </h3>
-                <p className="text-gray-700 text-center">
-                  {t('sports.infrastructure.benefits')}
+              <div className="prose prose-lg">
+                <p className="text-gray-700 leading-relaxed">
+                  Спортивное направление Дордоя — это важный элемент социальной и общественной среды. 
+                  Здесь спорт рассматривается не только как физическая активность, но и как инструмент 
+                  воспитания дисциплины, командного духа и ответственности.
+                </p>
+                
+                <p className="text-gray-700 leading-relaxed">
+                  Дордой создаёт условия для развития спорта на разных уровнях — от любительских и 
+                  массовых форм до профессиональных команд, представляющих сообщество на национальной 
+                  и международной арене.
                 </p>
               </div>
             </motion.div>
-          </div>
-        </motion.div>
 
-        {/* Social Responsibility */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-32"
-        >
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-blue-600 text-white text-sm font-semibold mb-4">
-              <span>5</span>
-              <ChevronRight className="w-4 h-4" />
+            {/* Image grid */}
+            <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4">
+              <motion.div 
+                className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl aspect-square flex items-center justify-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Trophy className="w-16 h-16 text-blue-600" />
+              </motion.div>
+              <motion.div 
+                className="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl aspect-square flex items-center justify-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Users className="w-16 h-16 text-green-600" />
+              </motion.div>
+              <motion.div 
+                className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl aspect-square flex items-center justify-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Target className="w-16 h-16 text-purple-600" />
+              </motion.div>
+              <motion.div 
+                className="bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl aspect-square flex items-center justify-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Heart className="w-16 h-16 text-orange-600" />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="relative py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Профессиональный спорт: ФК "Дордой" */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="mb-32"
+          >
+            <motion.div variants={itemVariants} className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-sm font-semibold mb-6">
+                🟦 Профессиональный спорт
+              </div>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Флагман спорта — футбольный клуб «Дордой»
+              </h3>
+            </motion.div>
+
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <motion.div variants={itemVariants} className="space-y-6">
+                <p className="text-gray-700 leading-relaxed">
+                  Центральное место в спортивной жизни Дордоя занимает футбольный клуб «Дордой» — 
+                  один из самых известных и успешных клубов Кыргызстана. Он является символом 
+                  стабильности, победного духа и профессионального подхода к спорту.
+                </p>
+                
+                <p className="text-gray-700 leading-relaxed">
+                  ФК «Дордой» представляет не только рынок, но и весь регион, формируя положительный 
+                  имидж Дордоя и продвигая ценности спорта, командной работы и стремления к результату.
+                </p>
+
+                <div className="flex items-center gap-4 pt-4">
+                  <a
+                    href="https://fc-dordoi.kg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300"
+                  >
+                    <span>Сайт клуба</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              </motion.div>
+
+              <motion.div variants={itemVariants}>
+                <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 text-white shadow-2xl">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Trophy className="w-8 h-8" />
+                    <h4 className="text-2xl font-bold">Достижения клуба</h4>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm">
+                      <div className="text-2xl font-bold mb-2">12+</div>
+                      <div className="text-sm">Чемпионских титулов</div>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm">
+                      <div className="text-2xl font-bold mb-2">8+</div>
+                      <div className="text-sm">Кубков страны</div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {t('sports.socialResponsibility.title')}
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t('sports.socialResponsibility.description')}
-            </p>
           </motion.div>
 
-          <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 text-white shadow-2xl">
+          {/* Роль ФК "Дордой" в спортивной экосистеме */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="mb-32"
+          >
+            <motion.div variants={itemVariants} className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 border border-green-200 text-green-600 text-sm font-semibold mb-6">
+                🟦 Роль в экосистеме
+              </div>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Роль ФК «Дордой» в спортивной экосистеме
+              </h3>
+              <p className="text-gray-600 max-w-3xl mx-auto">
+                Футбольный клуб «Дордой» выполняет важную социальную и мотивационную функцию
+              </p>
+            </motion.div>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {socialResponsibilityPoints.map((point, index) => (
+              {fcRoles.map((role, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-white/10 rounded-xl p-6 backdrop-blur-sm"
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-200 hover:shadow-xl transition-all duration-300 text-center"
                 >
-                  <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                    <Heart className="w-6 h-6" />
+                  <div className={`w-14 h-14 bg-gradient-to-r ${role.color} rounded-xl flex items-center justify-center mb-4 mx-auto text-white`}>
+                    {role.icon}
                   </div>
-                  <p className="text-center font-medium">{point}</p>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                    {role.title}
+                  </h4>
                 </motion.div>
               ))}
             </div>
-          </div>
-        </motion.div>
 
-        {/* Benefits Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-32"
-        >
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {t('sports.benefits.title')}
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t('sports.benefits.subtitle')}
-            </p>
+            <motion.div variants={itemVariants} className="mt-12 text-center">
+              <div className="bg-blue-50 rounded-3xl p-8 border border-blue-100">
+                <Star className="w-8 h-8 text-blue-600 mx-auto mb-4" />
+                <p className="text-gray-700 max-w-3xl mx-auto">
+                  Успехи клуба становятся общим достижением и источником гордости для всего сообщества Дордоя.
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Youth Benefits */}
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-              className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-200 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-blue-600" />
+          {/* Массовый и любительский спорт */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="mb-32"
+          >
+            <motion.div variants={itemVariants} className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 border border-purple-200 text-purple-600 text-sm font-semibold mb-6">
+                🟦 Массовый спорт
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                {t('sports.benefits.youth.title')}
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Массовый и любительский спорт
               </h3>
-              <div className="space-y-4">
-                {youthBenefits.map((benefit, index) => (
-                  <div key={index} className="space-y-2">
-                    <h4 className="font-semibold text-gray-900">{benefit.title}</h4>
-                    <p className="text-gray-600 text-sm">{benefit.description}</p>
-                  </div>
-                ))}
-              </div>
+              <p className="text-gray-600 max-w-3xl mx-auto">
+                Наряду с профессиональным спортом, на Дордое активно развивается массовая спортивная среда
+              </p>
             </motion.div>
 
-            {/* Family Benefits */}
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-              className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-200 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
-                <Heart className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                {t('sports.benefits.family.title')}
-              </h3>
-              <div className="space-y-4">
-                {familyBenefits.map((benefit, index) => (
-                  <div key={index} className="space-y-2">
-                    <h4 className="font-semibold text-gray-900">{benefit.title}</h4>
-                    <p className="text-gray-600 text-sm">{benefit.description}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Partner Benefits */}
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-              className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-200 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
-                <Building className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                {t('sports.benefits.partners.title')}
-              </h3>
-              <div className="space-y-4">
-                {partnerBenefits.map((benefit, index) => (
-                  <div key={index} className="space-y-2">
-                    <h4 className="font-semibold text-gray-900">{benefit.title}</h4>
-                    <p className="text-gray-600 text-sm">{benefit.description}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* FAQ Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-20"
-        >
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {t('sports.faq.title')}
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {t('sports.faq.subtitle')}
-            </p>
-          </motion.div>
-
-          <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                className="bg-white rounded-2xl border border-gray-200 overflow-hidden"
-              >
-                <button
-                  onClick={() => setActiveFaq(activeFaq === index ? null : index)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-300"
+            <div className="grid md:grid-cols-2 gap-8">
+              {massivesSportActivities.map((activity, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300"
                 >
-                  <span className="text-lg font-semibold text-gray-900">
-                    {faq.question}
-                  </span>
-                  <ChevronRight 
-                    className={`w-5 h-5 text-gray-500 transition-transform duration-300 ${
-                      activeFaq === index ? 'rotate-90' : ''
-                    }`}
-                  />
-                </button>
-                <AnimatePresence>
-                  {activeFaq === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="px-6 pb-6 pt-2">
-                        <p className="text-gray-700">{faq.answer}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                  <div className="w-3 h-3 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-gray-700 font-medium">{activity}</p>
+                </motion.div>
+              ))}
+            </div>
 
-        {/* Useful Links */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-center"
-        >
-          <motion.div variants={itemVariants} className="mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              {t('sports.links.title')}
-            </h3>
+            <motion.div variants={itemVariants} className="mt-12 text-center">
+              <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-3xl p-8 border border-purple-100">
+                <Activity className="w-8 h-8 text-purple-600 mx-auto mb-4" />
+                <p className="text-gray-700 max-w-3xl mx-auto">
+                  Это делает спорт доступным и значимым для широкого круга людей.
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
-          
-          <div className="flex flex-wrap justify-center gap-4">
-            {usefulLinks.map((link, index) => (
-              <motion.a
-                key={index}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl font-semibold transition-colors duration-300"
-              >
-                {link.title}
-                {link.icon}
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
+
+          {/* Спортивные мероприятия и инициативы */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="mb-32"
+          >
+            <motion.div variants={itemVariants} className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-200 text-orange-600 text-sm font-semibold mb-6">
+                🟦 Мероприятия
+              </div>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Спортивные мероприятия и инициативы
+              </h3>
+              <p className="text-gray-600 max-w-3xl mx-auto">
+                На территории Дордоя регулярно проводятся различные спортивные мероприятия
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {sportEvents.map((event, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-orange-200 hover:shadow-xl transition-all duration-300 text-center"
+                >
+                  <div className="w-14 h-14 bg-orange-50 rounded-xl flex items-center justify-center mb-4 mx-auto">
+                    <div className="text-orange-600">
+                      {event.icon}
+                    </div>
+                  </div>
+                  <h4 className="text-lg font-semibold text-gray-900">
+                    {event.title}
+                  </h4>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div variants={itemVariants} className="mt-12 text-center">
+              <div className="bg-orange-50 rounded-3xl p-8 border border-orange-100">
+                <Calendar className="w-8 h-8 text-orange-600 mx-auto mb-4" />
+                <p className="text-gray-700 max-w-3xl mx-auto">
+                  Мероприятия укрепляют командный дух и создают активную, живую спортивную атмосферу.
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Ценности спортивного направления */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="mb-32"
+          >
+            <motion.div variants={itemVariants} className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 border border-red-200 text-red-600 text-sm font-semibold mb-6">
+                🟦 Ценности
+              </div>
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Ценности спортивного направления
+              </h3>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+              {sportValues.map((value, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 text-center"
+                >
+                  <div className={`w-14 h-14 bg-gradient-to-r ${value.color} rounded-xl flex items-center justify-center mb-4 mx-auto text-white`}>
+                    {value.icon}
+                  </div>
+                  <h4 className="text-sm font-semibold text-gray-900">
+                    {value.title}
+                  </h4>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Завершающий блок */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="text-center"
+          >
+            <motion.div
+              variants={itemVariants}
+              className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-12 text-white shadow-2xl"
+            >
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <Flame className="w-10 h-10" />
+                <h3 className="text-3xl md:text-4xl font-bold">
+                  Спорт на Дордое — это движение вперёд
+                </h3>
+              </div>
+              
+              <p className="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                Футбольный клуб «Дордой» и спортивные инициативы объединяют людей и формируют сильное сообщество.
+              </p>
+              
+              <div className="flex items-center justify-center gap-8 mt-8">
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-6 h-6 text-blue-300" />
+                  <span className="text-blue-100">Достижения</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Users className="w-6 h-6 text-blue-300" />
+                  <span className="text-blue-100">Сообщество</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Heart className="w-6 h-6 text-blue-300" />
+                  <span className="text-blue-100">Развитие</span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

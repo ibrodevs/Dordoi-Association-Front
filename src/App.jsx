@@ -85,7 +85,7 @@ function App() {
             <Route path="/about/facts" element={<AboutFacts />} />
 
             {/* Страницы Activities */}
-            <Route path="/activities/culture-leisure" element={<CultureLeisure />} />
+            {/* <Route path="/activities/culture-leisure" element={<CultureLeisure />} /> */}
             <Route path="/activities/services" element={<BusinessAndTrade />} />
             <Route path="/activities/production" element={<Infrastructure />} />
             <Route path="/activities/education" element={<ActivitiesEducation />} />

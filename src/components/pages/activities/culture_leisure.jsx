@@ -128,15 +128,18 @@ const CultureLeisure = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+      {/* Hero Banner Section */}
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+        {/* Фоновые элементы */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-white" />
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#0000fe]/20 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,_rgba(0,0,254,0.3)_0%,_transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,_rgba(59,130,246,0.2)_0%,_transparent_50%)]" />
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
           
-          {/* Декоративные элементы */}
-          <div className="absolute top-20 -right-20 w-96 h-96 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 -left-20 w-80 h-80 bg-gradient-to-br from-emerald-500/5 to-cyan-500/5 rounded-full blur-3xl" />
+          {/* Анимированные частицы */}
+          <div className="absolute top-1/4 left-10 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+          <div className="absolute top-3/4 right-20 w-1 h-1 bg-white rounded-full animate-ping" />
+          <div className="absolute top-1/2 left-1/4 w-1.5 h-1.5 bg-blue-300 rounded-full animate-pulse delay-1000" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -144,19 +147,19 @@ const CultureLeisure = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center"
+            className="text-center text-white"
           >
             {/* Бейдж */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="relative inline-flex items-center gap-3 bg-gradient-to-r from-white to-gray-50 px-5 py-3 rounded-full shadow-lg border border-gray-200 mb-10 group"
+              className="relative inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20 mb-8 group"
             >
-              <div className="absolute -inset-3 bg-gradient-to-r from-[#0000fe]/0 via-[#0000fe]/10 to-[#0000fe]/0 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-full" />
-              <div className="w-2 h-2 bg-gradient-to-r from-[#0000fe] to-blue-600 rounded-full" />
-              <span className="text-sm font-semibold bg-gradient-to-r from-[#0000fe] to-blue-600 bg-clip-text text-transparent">
-                {t('culture.hero.badge')}
+              <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full" />
+              <SparklesIcon className="w-4 h-4 text-blue-300" />
+              <span className="text-sm font-semibold text-blue-100">
+                Культура и досуг
               </span>
             </motion.div>
             
@@ -165,10 +168,11 @@ const CultureLeisure = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight"
+              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
             >
-              <span className="bg-gradient-to-r from-[#0000fe] via-[#020617] to-[#0000fe] bg-clip-text text-transparent">
-                {t('culture.hero.title')}
+              Культура и досуг Дордой —{' '}
+              <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
+                место встреч и вдохновения
               </span>
             </motion.h1>
             
@@ -177,46 +181,156 @@ const CultureLeisure = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed"
+              className="text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed"
             >
-              {t('culture.subtitle')}
+              Рынок Дордой — это не только торговля, но и богатая культурная жизнь: фестивали, выставки, концерты и пространства для отдыха всей семьи.
             </motion.p>
+            
+            {/* Краткое описание */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-lg text-blue-200/80 mb-10 max-w-3xl mx-auto"
+            >
+              Тысячи посетителей ежедневно находят здесь не только товары, но и яркие впечатления, культурные события и места для качественного семейного отдыха.
+            </motion.p>
+
+            {/* CTA кнопки */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
+              <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-105">
+                <span className="font-semibold">Узнать больше</span>
+                <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 font-semibold">
+                Культурные события
+              </button>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Вводный блок */}
-      <section className="py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 md:p-10 shadow-xl border border-gray-100 relative overflow-hidden"
-          >
-            {/* Декоративные элементы */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/5 to-transparent rounded-bl-3xl" />
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-500/5 to-transparent rounded-tr-3xl" />
-            
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+      {/* Блок "О культуре и досуге" */}
+      <section className="py-24 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Текстовая часть */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8"
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
             >
-              {t('culture.intro')}
-            </motion.p>
+              <div>
+                <div className="inline-flex items-center gap-2 mb-6">
+                  <div className="w-3 h-8 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full" />
+                  <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">
+                    О РАЗДЕЛЕ
+                  </span>
+                </div>
+                
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+                  Культура и досуг — <span className="text-blue-600">сердце общественной жизни</span> Дордоя
+                </h2>
+              </div>
+              
+              <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+                <p>
+                  Культурно-досуговое направление на рынке Дордой — это одна из ключевых составляющих его социального развития. Здесь сосредоточены десятки культурных площадок, которые ежедневно объединяют предпринимателей, покупателей, сотрудников и гостей рынка.
+                </p>
+                
+                <p>
+                  Культурные события Дордоя охватывают широкий спектр направлений — от национальных празднований и выставок до семейных мероприятий и молодёжных фестивалей. Благодаря этому рынок становится не просто местом торговли, а центром общественной жизни со своими традициями и ритмами.
+                </p>
+                
+                <p>
+                  Каждое мероприятие здесь ориентировано на единение, традиции и создание позитивной атмосферы — именно те качества, которые особенно важны в условиях крупного торгового сообщества.
+                </p>
+              </div>
+              
+              {/* Дополнительный блок */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 border border-blue-100"
+              >
+                <p className="text-lg font-medium text-gray-800">
+                  Культурно-досуговая деятельность Дордоя постоянно развивается, адаптируясь к новым потребностям сообщества. Современные форматы мероприятий, творческие площадки и профессиональные организаторы помогают создавать незабываемые события для всех возрастов.
+                </p>
+              </motion.div>
+            </motion.div>
             
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+            {/* Изображения */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-xl font-semibold bg-gradient-to-r from-[#0000fe] to-blue-600 bg-clip-text text-transparent"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
             >
-              {t('culture.introConclusion')}
-            </motion.p>
-          </motion.div>
+              <div className="grid grid-cols-2 gap-6">
+                {/* Основное изображение */}
+                <motion.div
+                  whileHover={{ scale: 1.05, rotate: 1 }}
+                  className="col-span-2 relative group overflow-hidden rounded-3xl shadow-2xl"
+                >
+                  <img 
+                    src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070"
+                    alt="Культурные события на Дордое"
+                    className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <p className="font-semibold text-lg">Культурные мероприятия</p>
+                    <p className="text-sm text-gray-200">Фестивали и концерты</p>
+                  </div>
+                </motion.div>
+                
+                {/* Второстепенные изображения */}
+                <motion.div
+                  whileHover={{ scale: 1.05, rotate: -1 }}
+                  className="relative group overflow-hidden rounded-2xl shadow-lg"
+                >
+                  <img 
+                    src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=2070"
+                    alt="Семейный отдых"
+                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <div className="absolute bottom-3 left-3 text-white">
+                    <p className="font-medium text-sm">Семейные зоны</p>
+                  </div>
+                </motion.div>
+                
+                <motion.div
+                  whileHover={{ scale: 1.05, rotate: 1 }}
+                  className="relative group overflow-hidden rounded-2xl shadow-lg"
+                >
+                  <img 
+                    src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070"
+                    alt="Выставки и мастер-классы"
+                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <div className="absolute bottom-3 left-3 text-white">
+                    <p className="font-medium text-sm">Мастер-классы</p>
+                  </div>
+                </motion.div>
+              </div>
+              
+              {/* Декоративные элементы */}
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-xl animate-pulse" />
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-2xl" />
+            </motion.div>
+          </div>
         </div>
       </section>
 

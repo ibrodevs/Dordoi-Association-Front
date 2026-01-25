@@ -1038,7 +1038,371 @@
       "answer1": "At Salymbekov University and the International College of IT and Business, as well as at partner universities.",
       "question2": "Can I get an international diploma?",
       "answer2": "Yes - through programs with foreign partners of the college."
+    },
+    "activities": {
+      "hero": {
+        "badge": "Education",
+        "title": "Education in Dordoi — knowledge, experience and international prospects",
+        "subtitle": "Modern educational programs, leading international standards and practical training — all this is gathered in a unified educational ecosystem of Dordoi.",
+        "description": "From medical education to IT and business — we create the future for young leaders, professionals and entrepreneurs."
+      },
+      "about": {
+        "sectionTitle": "About section",
+        "title": "Education — the path to international success and professional growth",
+        "description1": "The field of education in Dordoi is a powerful environment that combines leading educational programs, international standards, practical training and real career opportunities. Here students receive not only a diploma, but also skills in demand worldwide: from medicine and IT to business and management.",
+        "description2": "The educational ecosystem includes modern universities, specialized colleges and international institutes, each offering unique programs and opportunities for professional development.",
+        "description3": "Thanks to partnerships with leading foreign educational institutions and the use of advanced educational technologies, our graduates successfully build careers both in Kyrgyzstan and abroad.",
+        "highlight": "Education in Dordoi is an investment in the future that opens doors to global opportunities and helps form a new generation of qualified specialists and leaders."
+      },
+      "directions": {
+        "title": "Main areas of study",
+        "subtitle": "Leading educational institutions with international recognition",
+        "items": [
+          {
+            "title": "Salymbekov University",
+            "description": "A modern educational institution with international quality standards and innovative approaches to learning.",
+            "features": [
+              "Founded in 2019",
+              "International accreditation",
+              "Innovative teaching methods",
+              "Modern campus"
+            ]
+          },
+          {
+            "title": "International Medical Faculty",
+            "description": "Training highly qualified medical specialists according to international standards.",
+            "features": [
+              "5-6 years of study",
+              "English-language program",
+              "Clinical practice",
+              "International exams"
+            ]
+          },
+          {
+            "title": "International College of IT and Business",
+            "description": "Specialization in training future IT specialists and business leaders with practical orientation.",
+            "features": [
+              "Computer science",
+              "Programming",
+              "Web development",
+              "Digital entrepreneurship"
+            ]
+          },
+          {
+            "title": "American Institute of Technology (AIT)",
+            "description": "A unique center of IT education in cooperation with experts from Silicon Valley.",
+            "features": [
+              "US standards",
+              "Silicon Valley experts",
+              "Practical orientation",
+              "International career"
+            ]
+          }
+        ]
+      },
+      "benefits": {
+        "title": "Why choose education in Dordoi",
+        "subtitle": "Advantages that open global opportunities",
+        "items": [
+          {
+            "title": "International standards",
+            "description": "Quality of education meets world standards"
+          },
+          {
+            "title": "Practical training",
+            "description": "Extensive practices and internships in leading companies"
+          },
+          {
+            "title": "English programs",
+            "description": "Education in international language for global opportunities"
+          },
+          {
+            "title": "Career support",
+            "description": "Assistance in employment and career development"
+          },
+          {
+            "title": "Innovation",
+            "description": "Modern infrastructure and laboratories"
+          },
+          {
+            "title": "International mobility",
+            "description": "Opportunities for study and work abroad"
+          }
+        ]
+      },
+      "faq": {
+        "items": [
+          {
+            "question": "What educational directions are available in Dordoi?",
+            "answer": "The educational ecosystem of Dordoi includes medicine, IT, business, engineering specialties and humanities. All programs meet international standards."
+          },
+          {
+            "question": "Are diplomas recognized abroad?",
+            "answer": "Yes, our educational institutions have international accreditation, and diplomas are recognized in most countries of the world. Many programs are conducted in English."
+          },
+          {
+            "question": "What opportunities for practice are provided?",
+            "answer": "Students undergo practice in modern laboratories, clinics, IT companies and business structures both in Kyrgyzstan and abroad."
+          }
+        ]
+      }
     }
+},
+"services": {
+  "activities": {
+    "hero": {
+      "badge": "Services",
+      "title": "Dordoi Services — everything for business and life in one place",
+      "subtitle": "Dordoi Market is not only trade, but also a developed ecosystem of services: from logistics and repair to financial, household and professional services.",
+      "description": "Thousands of entrepreneurs and clients daily use services that make work, shopping and life more convenient."
+    },
+    "about": {
+      "sectionTitle": "About section",
+      "title": "Services — the heart of Dordoi's daily life",
+      "description1": "The service sector at Dordoi Market is one of the key components of its sustainable development. Here are concentrated hundreds of services that daily serve entrepreneurs, wholesale buyers, employees and market guests.",
+      "description2": "Dordoi services cover a wide range of areas — from logistics and warehouse solutions to household, financial and professional services. Thanks to this, the market functions as an independent city with its own infrastructure and rhythm of life.",
+      "description3": "Every service here is focused on speed, accessibility and practicality — exactly those qualities that are especially important in a large shopping center.",
+      "highlight": "Dordoi's service sector is constantly developing, adapting to new business and customer requirements. Modern services, digital solutions and professional specialists help entrepreneurs focus on the main thing — developing their business."
+    },
+    "directions": {
+      "title": "Service areas",
+      "subtitle": "Comprehensive service for all business and daily life needs",
+      "items": [
+        {
+          "title": "Logistics services",
+          "description": "Delivery, storage and transportation of goods throughout the country and beyond.",
+          "features": [
+            "Warehouse services",
+            "City delivery",
+            "International transportation",
+            "Goods packaging"
+          ]
+        },
+        {
+          "title": "Repair and service",
+          "description": "Professional repair of equipment, clothing, shoes and other goods.",
+          "features": [
+            "Electronics repair",
+            "Tailoring and sewing services",
+            "Shoe repair",
+            "Technical maintenance"
+          ]
+        },
+        {
+          "title": "Financial services",
+          "description": "Banking operations, money transfers and financial consulting.",
+          "features": [
+            "Money transfers",
+            "Currency exchange",
+            "Banking services",
+            "Lending"
+          ]
+        },
+        {
+          "title": "Household services",
+          "description": "Hairdressers, cafes, laundries and other services for everyday life.",
+          "features": [
+            "Hairdressing services",
+            "Laundry and dry cleaning",
+            "Public catering",
+            "Household services"
+          ]
+        },
+        {
+          "title": "Digital services",
+          "description": "IT support, internet services, digital platforms and technical assistance.",
+          "features": [
+            "Internet and Wi-Fi",
+            "IT support",
+            "Digital payments",
+            "Technical assistance"
+          ]
+        },
+        {
+          "title": "Consulting services",
+          "description": "Legal assistance, business consulting and professional support.",
+          "features": [
+            "Legal services",
+            "Business consulting",
+            "Accounting services",
+            "Customs services"
+          ]
+        }
+      ]
+    },
+    "benefits": {
+      "items": [
+        {
+          "text": "Fast service"
+        },
+        {
+          "text": "Quality guarantee"
+        },
+        {
+          "text": "Affordable prices"
+        },
+        {
+          "text": "24/7 support"
+        }
+      ]
+    },
+    "faq": {
+      "items": [
+        {
+          "question": "What services are available at Dordoi Market?",
+          "answer": "The market offers a full range of services: from logistics and repair to financial and consulting. This makes Dordoi a full-fledged city with its own infrastructure."
+        },
+        {
+          "question": "How do service centers work?",
+          "answer": "Service centers work daily, providing quality repair and maintenance services. Experienced craftsmen use modern equipment and guarantee results."
+        },
+        {
+          "question": "Are financial services available?",
+          "answer": "Yes, bank branches, currency exchange points, money transfers and other financial services operate on the market territory for the convenience of entrepreneurs and customers."
+        }
+      ]
+    }
+  }
+},
+"production": {
+  "activities": {
+    "hero": {
+      "badge": "Production",
+      "title": "Production at Dordoi — the force that creates the product",
+      "subtitle": "Dordoi is not only a sales market, but also a powerful production center where goods are created for the entire country and beyond.",
+      "description": "Sewing workshops, processing, packaging and production — all this is part of Dordoi's large production community."
+    },
+    "about": {
+      "sectionTitle": "About section",
+      "title": "Production — the foundation of Dordoi's economy",
+      "description1": "The production sector of Dordoi Market plays a key role in shaping the local and regional economy. Small and medium-sized businesses are concentrated here, which daily create products for the domestic market and export.",
+      "description2": "Light industry occupies a special place: sewing workshops, textile production and packaging. Thousands of specialists work on creating quality goods, combining traditional experience and modern technologies.",
+      "description3": "Production at Dordoi is flexibility, speed and adaptation to market needs. This is what makes it competitive and in demand.",
+      "highlight": "Dordoi's production enterprises are not just workplaces, but a community of people united by the desire for development, quality and growth. Here a product is created that goes from idea to finished goods in the shortest possible time."
+    },
+    "directions": {
+      "title": "Production areas",
+      "subtitle": "From traditional crafts to high-tech solutions",
+      "items": [
+        {
+          "title": "Sewing production",
+          "description": "Modern sewing workshops with high-tech equipment for mass production of clothing.",
+          "features": [
+            "Mass clothing production",
+            "Individual orders",
+            "Work with designers",
+            "Quality materials"
+          ]
+        },
+        {
+          "title": "Textile industry",
+          "description": "Production of fabrics, textile products and related materials for various industries.",
+          "features": [
+            "Fabric production",
+            "Textile products",
+            "Home textiles",
+            "Technical fabrics"
+          ]
+        },
+        {
+          "title": "Packaging production",
+          "description": "Manufacturing of packaging materials and containers for goods of various categories.",
+          "features": [
+            "Cardboard packaging",
+            "Polymer materials",
+            "Packaging design",
+            "Eco-packaging"
+          ]
+        },
+        {
+          "title": "Logistics solutions",
+          "description": "Comprehensive services for organizing production logistics and warehouse activities.",
+          "features": [
+            "Warehouse logistics",
+            "Transportation",
+            "Process optimization",
+            "Automation"
+          ]
+        },
+        {
+          "title": "Small production business",
+          "description": "Support and development of small production enterprises in various directions.",
+          "features": [
+            "Production startups",
+            "Family workshops",
+            "Craft production",
+            "Innovative projects"
+          ]
+        },
+        {
+          "title": "Quality control",
+          "description": "Quality control system for products at all stages of the production process.",
+          "features": [
+            "Quality standards",
+            "Certification",
+            "Product testing",
+            "Quality guarantees"
+          ]
+        }
+      ]
+    },
+    "values": {
+      "items": [
+        {
+          "title": "Innovation",
+          "description": "Implementation of modern technologies"
+        },
+        {
+          "title": "Quality",
+          "description": "High standards in everything"
+        },
+        {
+          "title": "Responsibility",
+          "description": "Social responsibility of business"
+        },
+        {
+          "title": "Team",
+          "description": "Professional specialists"
+        }
+      ]
+    },
+    "stats": {
+      "items": [
+        {
+          "value": "500+",
+          "label": "Production enterprises"
+        },
+        {
+          "value": "15,000+",
+          "label": "Jobs"
+        },
+        {
+          "value": "50+",
+          "label": "Production areas"
+        },
+        {
+          "value": "24/7",
+          "label": "Operating mode"
+        }
+      ]
+    },
+    "faq": {
+      "items": [
+        {
+          "question": "What types of production are represented at Dordoi?",
+          "answer": "The market represents various types of production: from sewing workshops and textile enterprises to packaging production and logistics solutions. Light industry occupies a special place."
+        },
+        {
+          "question": "How is product quality ensured?",
+          "answer": "A multi-stage quality control system operates: from incoming inspection of raw materials to final inspection of finished products. Many enterprises have international quality certificates."
+        },
+        {
+          "question": "What are the opportunities for business development?",
+          "answer": "Dordoi provides all conditions for developing production business: affordable space, logistics capabilities, qualified personnel and entrepreneurship support."
+        }
+      ]
+    }
+  }
 },
 "partners": {
       "title": "Our Partners",

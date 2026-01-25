@@ -332,25 +332,80 @@ const AboutStructure = () => {
 
   return (
     <AboutBackground>
-      <section ref={ref} className="relative py-20 overflow-hidden">
+      <section ref={ref} className="relative py-20 overflow-hidden min-h-screen">
       {/* Фоновые элементы */}
-      <div className="absolute inset-0 opacity-3">
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        {/* Верхняя часть */}
         <motion.div
           variants={floatingVariants}
           animate="animate"
-          className="absolute top-10 left-10 w-64 h-64 bg-slate-200 rounded-full blur-3xl"
+          className="absolute top-10 left-10 w-64 h-64 bg-slate-300 rounded-full blur-3xl"
+        />
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 0.5 }}
+          className="absolute top-20 right-20 w-72 h-72 bg-gray-300 rounded-full blur-3xl"
+        />
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 1 }}
+          className="absolute top-32 left-1/3 w-56 h-56 bg-slate-400 rounded-full blur-3xl"
+        />
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 1.5 }}
+          className="absolute top-48 right-1/3 w-68 h-68 bg-gray-400 rounded-full blur-3xl"
         />
         <motion.div
           variants={floatingVariants}
           animate="animate"
           transition={{ delay: 2 }}
-          className="absolute bottom-10 right-10 w-80 h-80 bg-slate-300 rounded-full blur-3xl"
+          className="absolute top-16 left-1/2 w-60 h-60 bg-slate-300 rounded-full blur-3xl"
+        />
+        
+        {/* Средняя часть */}
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 2.5 }}
+          className="absolute top-[40%] left-1/4 w-80 h-80 bg-gray-300 rounded-full blur-3xl"
         />
         <motion.div
           variants={floatingVariants}
           animate="animate"
+          transition={{ delay: 3 }}
+          className="absolute top-[50%] right-1/4 w-60 h-60 bg-slate-400 rounded-full blur-3xl"
+        />
+        
+        {/* Средне-нижняя часть */}
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
           transition={{ delay: 4 }}
-          className="absolute top-1/2 left-1/3 w-48 h-48 bg-slate-200 rounded-full blur-3xl"
+          className="absolute top-[70%] left-1/3 w-72 h-72 bg-gray-400 rounded-full blur-3xl"
+        />
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 5 }}
+          className="absolute top-[80%] right-10 w-64 h-64 bg-slate-300 rounded-full blur-3xl"
+        />
+        
+        {/* Нижняя часть */}
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 6 }}
+          className="absolute bottom-10 left-20 w-80 h-80 bg-gray-300 rounded-full blur-3xl"
+        />
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 7 }}
+          className="absolute bottom-32 right-1/3 w-56 h-56 bg-slate-400 rounded-full blur-3xl"
         />
       </div>
 

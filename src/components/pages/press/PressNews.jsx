@@ -183,9 +183,204 @@ const PressNews = () => {
 
   return (
     <PressBackground>
-      <div className="min-h-screen">
+      <div className="min-h-screen relative">
+      {/* Динамичный фон */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        {/* Верхняя секция */}
+        <motion.div
+          animate={{
+            y: [0, -30, 0],
+            x: [0, 15, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-0 left-10 w-96 h-96 bg-gradient-to-br from-slate-200 to-gray-300 rounded-full opacity-20 blur-3xl"
+        />
+        <motion.div
+          animate={{
+            y: [0, 40, 0],
+            x: [0, -20, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+          className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-gray-300 to-slate-400 rounded-full opacity-25 blur-3xl"
+        />
+        <motion.div
+          animate={{
+            y: [0, -25, 0],
+            rotate: [0, 10, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute top-32 left-1/3 w-72 h-72 bg-gradient-to-br from-slate-300 to-gray-200 rounded-full opacity-20 blur-3xl"
+        />
+        <motion.div
+          animate={{
+            y: [0, 35, 0],
+            x: [0, 10, 0],
+          }}
+          transition={{
+            duration: 11,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3
+          }}
+          className="absolute top-48 right-1/4 w-64 h-64 bg-gradient-to-br from-gray-400 to-slate-300 rounded-full opacity-30 blur-3xl"
+        />
+        
+        {/* Средняя секция */}
+        <motion.div
+          animate={{
+            y: [0, -40, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1.5
+          }}
+          className="absolute top-[35%] left-1/4 w-96 h-96 bg-gradient-to-br from-slate-300 to-gray-300 rounded-full opacity-25 blur-3xl"
+        />
+        <motion.div
+          animate={{
+            y: [0, 30, 0],
+            x: [0, -15, 0],
+          }}
+          transition={{
+            duration: 13,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2.5
+          }}
+          className="absolute top-[45%] right-1/3 w-80 h-80 bg-gradient-to-br from-gray-400 to-slate-400 rounded-full opacity-20 blur-3xl"
+        />
+        <motion.div
+          animate={{
+            y: [0, -35, 0],
+            rotate: [0, -15, 0],
+          }}
+          transition={{
+            duration: 16,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3.5
+          }}
+          className="absolute top-[50%] left-10 w-88 h-88 bg-gradient-to-br from-slate-200 to-gray-300 rounded-full opacity-25 blur-3xl"
+        />
+        
+        {/* Средне-нижняя секция */}
+        <motion.div
+          animate={{
+            y: [0, 40, 0],
+            x: [0, 20, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 4
+          }}
+          className="absolute top-[65%] right-20 w-96 h-96 bg-gradient-to-br from-gray-300 to-slate-400 rounded-full opacity-30 blur-3xl"
+        />
+        <motion.div
+          animate={{
+            y: [0, -30, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 11,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 5
+          }}
+          className="absolute top-[75%] left-1/3 w-72 h-72 bg-gradient-to-br from-slate-300 to-gray-200 rounded-full opacity-25 blur-3xl"
+        />
+        
+        {/* Нижняя секция */}
+        <motion.div
+          animate={{
+            y: [0, -45, 0],
+            x: [0, -10, 0],
+          }}
+          transition={{
+            duration: 13,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+          className="absolute bottom-10 left-20 w-96 h-96 bg-gradient-to-br from-slate-400 to-gray-300 rounded-full opacity-25 blur-3xl"
+        />
+        <motion.div
+          animate={{
+            y: [0, 35, 0],
+            rotate: [0, 20, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute bottom-32 right-1/4 w-80 h-80 bg-gradient-to-br from-gray-400 to-slate-300 rounded-full opacity-30 blur-3xl"
+        />
+        <motion.div
+          animate={{
+            y: [0, -40, 0],
+            x: [0, 15, 0],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3
+          }}
+          className="absolute bottom-20 left-1/2 w-88 h-88 bg-gradient-to-br from-slate-300 to-gray-400 rounded-full opacity-20 blur-3xl"
+        />
+        
+        {/* Дополнительные акцентные элементы */}
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.15, 0.35, 0.15],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/4 right-10 w-64 h-64 bg-gradient-to-br from-slate-400 to-gray-500 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.25, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 9,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 4
+          }}
+          className="absolute bottom-1/4 left-1/4 w-72 h-72 bg-gradient-to-br from-gray-500 to-slate-400 rounded-full blur-3xl"
+        />
+      </div>
+      
       {/* Hero Section */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden z-10">
         <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
@@ -211,7 +406,7 @@ const PressNews = () => {
       </div>
 
       {/* Category Filters */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <div className="flex flex-wrap gap-3 justify-center">
           {categories.map((category) => (
             <button
@@ -231,7 +426,7 @@ const PressNews = () => {
 
       {/* Рекомендованные новости (слайдер) */}
       {recommendedNews.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-800">{t('press.recommended', 'Рекомендованные новости')}</h2>
             <span className="text-gray-500 text-sm">{recommendedNews.length} {t('press.items', 'новостей')}</span>
@@ -368,7 +563,7 @@ const PressNews = () => {
 
       {/* Все новости (карточки) */}
       {filteredNews.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -443,7 +638,7 @@ const PressNews = () => {
 
       {/* No News Message */}
       {filteredNews.length === 0 && !loading && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
             <svg className="w-12 h-12 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
