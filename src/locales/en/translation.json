@@ -2209,6 +2209,79 @@
     "ctaDescription": "Learn more about our cultural programs and leisure opportunities",
     "ctaButton": "Learn more"
   },
+  "activities": {
+    "sports": {
+      "hero": {
+        "badge": "Sports and Development",
+        "title": "Sports as Part of",
+        "titleHighlight": "Dordoi Life",
+        "description": "Dordoi's sports direction is an important element of social and community environment"
+      },
+      "about": {
+        "title": "About Us",
+        "description1": "Dordoi's sports direction is an important element of social and community environment. Here, sports is viewed not only as physical activity, but also as a tool for developing discipline, team spirit, and responsibility.",
+        "description2": "Dordoi creates conditions for sports development at different levels — from amateur and mass forms to professional teams representing the community on national and international stages."
+      },
+      "professional": {
+        "badge": "Professional Sports",
+        "title": "Sports Flagship — Dordoi Football Club",
+        "description1": "The central place in Dordoi's sporting life is occupied by Dordoi Football Club — one of Kyrgyzstan's most famous and successful clubs. It is a symbol of stability, winning spirit, and professional approach to sports.",
+        "description2": "FC Dordoi represents not only the market, but the entire region, forming a positive image of Dordoi and promoting the values of sports, teamwork, and striving for results.",
+        "clubWebsite": "Club Website",
+        "achievements": "Club Achievements",
+        "championshipTitles": "Championship Titles",
+        "countryCups": "Country Cups"
+      },
+      "fcRoles": {
+        "development": "Development and popularization of football",
+        "youthSupport": "Support for youth and beginning athletes",
+        "sportsCulture": "Formation of sports culture",
+        "communityEngagement": "Community engagement in sports life"
+      },
+      "fcRole": {
+        "badge": "Role in Ecosystem",
+        "title": "FC Dordoi's Role in Sports Ecosystem",
+        "description": "Dordoi Football Club performs an important social and motivational function",
+        "successMessage": "The club's successes become a common achievement and source of pride for the entire Dordoi community."
+      },
+      "massiveSport": {
+        "badge": "Mass Sports",
+        "title": "Mass and Amateur Sports",
+        "description": "Along with professional sports, Dordoi actively develops mass sports environment",
+        "corporateTournaments": "Corporate and community tournaments",
+        "amateurCompetitions": "Amateur competitions",
+        "sportsInitiatives": "Sports initiatives for employees and entrepreneurs",
+        "healthyLifestyle": "Events aimed at promoting healthy lifestyle",
+        "conclusionMessage": "This makes sports accessible and meaningful for a wide range of people."
+      },
+      "events": {
+        "badge": "Events",
+        "title": "Sports Events and Initiatives",
+        "description": "Various sports events are regularly held in Dordoi territory",
+        "festivals": "Sports festivals",
+        "tournaments": "Tournaments and championships",
+        "friendlyMatches": "Friendly matches",
+        "corporateCompetitions": "Community and corporate competitions",
+        "conclusionMessage": "Events strengthen team spirit and create an active, lively sports atmosphere."
+      },
+      "values": {
+        "badge": "Values",
+        "title": "Sports Direction Values",
+        "healthyLifestyle": "Healthy lifestyle",
+        "teamSpirit": "Team spirit",
+        "discipline": "Discipline and responsibility",
+        "willToWin": "Desire to win",
+        "sportsSupport": "Support for professional and mass sports"
+      },
+      "conclusion": {
+        "title": "Sports at Dordoi is Moving Forward",
+        "description": "Dordoi Football Club and sports initiatives unite people and form a strong community.",
+        "achievements": "Achievements",
+        "community": "Community",
+        "development": "Development"
+      }
+    }
+  },
   "missionAbout": {
     "badge": "Our Mission",
     "title": "Company",

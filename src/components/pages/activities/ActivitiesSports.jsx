@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   Trophy, 
   Target, 
@@ -21,6 +22,7 @@ import {
 } from 'lucide-react';
 
 const ActivitiesSports = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.2 });
   const [activeFaq, setActiveFaq] = useState(null);
@@ -28,22 +30,22 @@ const ActivitiesSports = () => {
   // Роль ФК "Дордой" в спортивной экосистеме
   const fcRoles = [
     {
-      title: "Развитие и популяризация футбола",
+      title: t('activities.sports.fcRoles.development'),
       icon: <Trophy className="w-6 h-6" />,
       color: "from-blue-500 to-blue-600"
     },
     {
-      title: "Поддержка молодёжи и начинающих спортсменов",
+      title: t('activities.sports.fcRoles.youthSupport'),
       icon: <Users className="w-6 h-6" />,
       color: "from-green-500 to-green-600"
     },
     {
-      title: "Формирование спортивной культуры",
+      title: t('activities.sports.fcRoles.sportsCulture'),
       icon: <Medal className="w-6 h-6" />,
       color: "from-purple-500 to-purple-600"
     },
     {
-      title: "Вовлечение сообщества в спортивную жизнь",
+      title: t('activities.sports.fcRoles.communityEngagement'),
       icon: <Heart className="w-6 h-6" />,
       color: "from-red-500 to-red-600"
     }
@@ -51,28 +53,28 @@ const ActivitiesSports = () => {
 
   // Массовый и любительский спорт
   const massivesSportActivities = [
-    "Корпоративные и общественные турниры",
-    "Любительские соревнования",
-    "Спортивные инициативы для сотрудников и предпринимателей",
-    "Мероприятия, направленные на популяризацию здорового образа жизни"
+    t('activities.sports.massiveSport.corporateTournaments'),
+    t('activities.sports.massiveSport.amateurCompetitions'),
+    t('activities.sports.massiveSport.sportsInitiatives'),
+    t('activities.sports.massiveSport.healthyLifestyle')
   ];
 
   // Спортивные мероприятия
   const sportEvents = [
     {
-      title: "Спортивные фестивали",
+      title: t('activities.sports.events.festivals'),
       icon: <Award className="w-6 h-6" />
     },
     {
-      title: "Турниры и чемпионаты",
+      title: t('activities.sports.events.tournaments'),
       icon: <Trophy className="w-6 h-6" />
     },
     {
-      title: "Товарищеские матчи",
+      title: t('activities.sports.events.friendlyMatches'),
       icon: <PlayCircle className="w-6 h-6" />
     },
     {
-      title: "Общественные и корпоративные соревнования",
+      title: t('activities.sports.events.corporateCompetitions'),
       icon: <Users className="w-6 h-6" />
     }
   ];
@@ -80,27 +82,27 @@ const ActivitiesSports = () => {
   // Ценности спортивного направления
   const sportValues = [
     {
-      title: "Здоровый образ жизни",
+      title: t('activities.sports.values.healthyLifestyle'),
       icon: <Heart className="w-6 h-6" />,
       color: "from-red-500 to-pink-500"
     },
     {
-      title: "Командный дух",
+      title: t('activities.sports.values.teamSpirit'),
       icon: <Users className="w-6 h-6" />,
       color: "from-blue-500 to-cyan-500"
     },
     {
-      title: "Дисциплина и ответственность",
+      title: t('activities.sports.values.discipline'),
       icon: <Shield className="w-6 h-6" />,
       color: "from-green-500 to-emerald-500"
     },
     {
-      title: "Стремление к победе",
+      title: t('activities.sports.values.willToWin'),
       icon: <TrendingUp className="w-6 h-6" />,
       color: "from-yellow-500 to-orange-500"
     },
     {
-      title: "Поддержка профессионального и массового спорта",
+      title: t('activities.sports.values.sportsSupport'),
       icon: <Activity className="w-6 h-6" />,
       color: "from-purple-500 to-violet-500"
     }
@@ -202,7 +204,7 @@ const ActivitiesSports = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-sm font-semibold">
               <Trophy className="w-4 h-4" />
-              Спорт и развитие
+              {t('activities.sports.hero.badge')}
             </span>
           </motion.div>
 
@@ -212,9 +214,9 @@ const ActivitiesSports = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
           >
-            Спорт как часть жизни{" "}
+            {t('activities.sports.hero.title')}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-              Дордоя
+              {t('activities.sports.hero.titleHighlight')}
             </span>
           </motion.h1>
 
@@ -224,7 +226,7 @@ const ActivitiesSports = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
           >
-            Спортивное направление Дордоя — это важный элемент социальной и общественной среды
+            {t('activities.sports.hero.description')}
           </motion.p>
 
           <motion.div 
@@ -261,20 +263,16 @@ const ActivitiesSports = () => {
             {/* Text content */}
             <motion.div variants={itemVariants} className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                О нас
+                {t('activities.sports.about.title')}
               </h2>
               
               <div className="prose prose-lg">
                 <p className="text-gray-700 leading-relaxed">
-                  Спортивное направление Дордоя — это важный элемент социальной и общественной среды. 
-                  Здесь спорт рассматривается не только как физическая активность, но и как инструмент 
-                  воспитания дисциплины, командного духа и ответственности.
+                  {t('activities.sports.about.description1')}
                 </p>
                 
                 <p className="text-gray-700 leading-relaxed">
-                  Дордой создаёт условия для развития спорта на разных уровнях — от любительских и 
-                  массовых форм до профессиональных команд, представляющих сообщество на национальной 
-                  и международной арене.
+                  {t('activities.sports.about.description2')}
                 </p>
               </div>
             </motion.div>
@@ -326,24 +324,21 @@ const ActivitiesSports = () => {
           >
             <motion.div variants={itemVariants} className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-sm font-semibold mb-6">
-                🟦 Профессиональный спорт
+                🟦 {t('activities.sports.professional.badge')}
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Флагман спорта — футбольный клуб «Дордой»
+                {t('activities.sports.professional.title')}
               </h3>
             </motion.div>
 
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <motion.div variants={itemVariants} className="space-y-6">
                 <p className="text-gray-700 leading-relaxed">
-                  Центральное место в спортивной жизни Дордоя занимает футбольный клуб «Дордой» — 
-                  один из самых известных и успешных клубов Кыргызстана. Он является символом 
-                  стабильности, победного духа и профессионального подхода к спорту.
+                  {t('activities.sports.professional.description1')}
                 </p>
                 
                 <p className="text-gray-700 leading-relaxed">
-                  ФК «Дордой» представляет не только рынок, но и весь регион, формируя положительный 
-                  имидж Дордоя и продвигая ценности спорта, командной работы и стремления к результату.
+                  {t('activities.sports.professional.description2')}
                 </p>
 
                 <div className="flex items-center gap-4 pt-4">
@@ -353,7 +348,7 @@ const ActivitiesSports = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300"
                   >
-                    <span>Сайт клуба</span>
+                    <span>{t('activities.sports.professional.clubWebsite')}</span>
                     <ExternalLink className="w-4 h-4" />
                   </a>
                 </div>
@@ -363,17 +358,17 @@ const ActivitiesSports = () => {
                 <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 text-white shadow-2xl">
                   <div className="flex items-center gap-3 mb-6">
                     <Trophy className="w-8 h-8" />
-                    <h4 className="text-2xl font-bold">Достижения клуба</h4>
+                    <h4 className="text-2xl font-bold">{t('activities.sports.professional.achievements')}</h4>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm">
                       <div className="text-2xl font-bold mb-2">12+</div>
-                      <div className="text-sm">Чемпионских титулов</div>
+                      <div className="text-sm">{t('activities.sports.professional.championshipTitles')}</div>
                     </div>
                     <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm">
                       <div className="text-2xl font-bold mb-2">8+</div>
-                      <div className="text-sm">Кубков страны</div>
+                      <div className="text-sm">{t('activities.sports.professional.countryCups')}</div>
                     </div>
                   </div>
                 </div>
@@ -390,13 +385,13 @@ const ActivitiesSports = () => {
           >
             <motion.div variants={itemVariants} className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 border border-green-200 text-green-600 text-sm font-semibold mb-6">
-                🟦 Роль в экосистеме
+                🟦 {t('activities.sports.fcRole.badge')}
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Роль ФК «Дордой» в спортивной экосистеме
+                {t('activities.sports.fcRole.title')}
               </h3>
               <p className="text-gray-600 max-w-3xl mx-auto">
-                Футбольный клуб «Дордой» выполняет важную социальную и мотивационную функцию
+                {t('activities.sports.fcRole.description')}
               </p>
             </motion.div>
 
@@ -422,7 +417,7 @@ const ActivitiesSports = () => {
               <div className="bg-blue-50 rounded-3xl p-8 border border-blue-100">
                 <Star className="w-8 h-8 text-blue-600 mx-auto mb-4" />
                 <p className="text-gray-700 max-w-3xl mx-auto">
-                  Успехи клуба становятся общим достижением и источником гордости для всего сообщества Дордоя.
+                  {t('activities.sports.fcRole.successMessage')}
                 </p>
               </div>
             </motion.div>
@@ -437,13 +432,13 @@ const ActivitiesSports = () => {
           >
             <motion.div variants={itemVariants} className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 border border-purple-200 text-purple-600 text-sm font-semibold mb-6">
-                🟦 Массовый спорт
+                🟦 {t('activities.sports.massiveSport.badge')}
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Массовый и любительский спорт
+                {t('activities.sports.massiveSport.title')}
               </h3>
               <p className="text-gray-600 max-w-3xl mx-auto">
-                Наряду с профессиональным спортом, на Дордое активно развивается массовая спортивная среда
+                {t('activities.sports.massiveSport.description')}
               </p>
             </motion.div>
 
@@ -464,7 +459,7 @@ const ActivitiesSports = () => {
               <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-3xl p-8 border border-purple-100">
                 <Activity className="w-8 h-8 text-purple-600 mx-auto mb-4" />
                 <p className="text-gray-700 max-w-3xl mx-auto">
-                  Это делает спорт доступным и значимым для широкого круга людей.
+                  {t('activities.sports.massiveSport.conclusionMessage')}
                 </p>
               </div>
             </motion.div>
@@ -479,13 +474,13 @@ const ActivitiesSports = () => {
           >
             <motion.div variants={itemVariants} className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-200 text-orange-600 text-sm font-semibold mb-6">
-                🟦 Мероприятия
+                🟦 {t('activities.sports.events.badge')}
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Спортивные мероприятия и инициативы
+                {t('activities.sports.events.title')}
               </h3>
               <p className="text-gray-600 max-w-3xl mx-auto">
-                На территории Дордоя регулярно проводятся различные спортивные мероприятия
+                {t('activities.sports.events.description')}
               </p>
             </motion.div>
 
@@ -513,7 +508,7 @@ const ActivitiesSports = () => {
               <div className="bg-orange-50 rounded-3xl p-8 border border-orange-100">
                 <Calendar className="w-8 h-8 text-orange-600 mx-auto mb-4" />
                 <p className="text-gray-700 max-w-3xl mx-auto">
-                  Мероприятия укрепляют командный дух и создают активную, живую спортивную атмосферу.
+                  {t('activities.sports.events.conclusionMessage')}
                 </p>
               </div>
             </motion.div>
@@ -528,10 +523,10 @@ const ActivitiesSports = () => {
           >
             <motion.div variants={itemVariants} className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 border border-red-200 text-red-600 text-sm font-semibold mb-6">
-                🟦 Ценности
+                🟦 {t('activities.sports.values.badge')}
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Ценности спортивного направления
+                {t('activities.sports.values.title')}
               </h3>
             </motion.div>
 
@@ -568,26 +563,26 @@ const ActivitiesSports = () => {
               <div className="flex items-center justify-center gap-3 mb-6">
                 <Flame className="w-10 h-10" />
                 <h3 className="text-3xl md:text-4xl font-bold">
-                  Спорт на Дордое — это движение вперёд
+                  {t('activities.sports.conclusion.title')}
                 </h3>
               </div>
               
               <p className="text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-                Футбольный клуб «Дордой» и спортивные инициативы объединяют людей и формируют сильное сообщество.
+                {t('activities.sports.conclusion.description')}
               </p>
               
               <div className="flex items-center justify-center gap-8 mt-8">
                 <div className="flex items-center gap-2">
                   <Trophy className="w-6 h-6 text-blue-300" />
-                  <span className="text-blue-100">Достижения</span>
+                  <span className="text-blue-100">{t('activities.sports.conclusion.achievements')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="w-6 h-6 text-blue-300" />
-                  <span className="text-blue-100">Сообщество</span>
+                  <span className="text-blue-100">{t('activities.sports.conclusion.community')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Heart className="w-6 h-6 text-blue-300" />
-                  <span className="text-blue-100">Развитие</span>
+                  <span className="text-blue-100">{t('activities.sports.conclusion.development')}</span>
                 </div>
               </div>
             </motion.div>
