@@ -1055,6 +1055,7 @@
         "highlight": "Education in Dordoi is an investment in the future that opens doors to global opportunities and helps form a new generation of qualified specialists and leaders."
       },
       "directions": {
+        "badge": "Main Directions",
         "title": "Main areas of study",
         "subtitle": "Leading educational institutions with international recognition",
         "items": [
@@ -1149,6 +1150,9 @@
     }
 },
 "services": {
+  "stats":{
+    "clients": "Clients served"
+  },
   "activities": {
     "hero": {
       "badge": "Services",
@@ -1165,6 +1169,7 @@
       "highlight": "Dordoi's service sector is constantly developing, adapting to new business and customer requirements. Modern services, digital solutions and professional specialists help entrepreneurs focus on the main thing — developing their business."
     },
     "directions": {
+      "badge": "Service Areas",
       "title": "Service areas",
       "subtitle": "Comprehensive service for all business and daily life needs",
       "items": [
@@ -1281,6 +1286,7 @@
       "highlight": "Dordoi's production enterprises are not just workplaces, but a community of people united by the desire for development, quality and growth. Here a product is created that goes from idea to finished goods in the shortest possible time."
     },
     "directions": {
+      "badge": "Production Areas",
       "title": "Production areas",
       "subtitle": "From traditional crafts to high-tech solutions",
       "items": [
@@ -1347,6 +1353,8 @@
       ]
     },
     "values": {
+      "title": "Core values",
+      "subtitle": "What drives our production community",
       "items": [
         {
           "title": "Innovation",
