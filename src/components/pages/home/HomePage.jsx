@@ -20,7 +20,7 @@ function HomePage() {
         <StructurePreview />
         <MissionAndValues />
         {/* <AchievementsSection /> */}
-        <ActivitiesSection />
+        {/* <ActivitiesSection /> */}
         <PartnersSection />
         {/* <InternationalPartnersSection /> */}
     </PremiumCorporateBackground>
