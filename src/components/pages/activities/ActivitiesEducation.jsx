@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import {
   AcademicCapIcon,
   GlobeAltIcon,
@@ -19,7 +20,9 @@ import {
   ClockIcon,
   SparklesIcon,
   ArrowRightIcon,
-  ArrowUpRightIcon
+  ArrowUpRightIcon,
+  HomeIcon,
+  PhoneIcon
 } from '@heroicons/react/24/outline';
 
 const ActivitiesEducation = () => {
@@ -27,6 +30,7 @@ const ActivitiesEducation = () => {
   const [educationDirections, setEducationDirections] = useState([]);
   const [benefits, setBenefits] = useState([]);
   const [stats, setStats] = useState([]);
+  const [organizations, setOrganizations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -40,8 +44,23 @@ const ActivitiesEducation = () => {
         // Определяем язык для API запроса
         const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
         
-        // Здесь можно добавить реальные API запросы
-        // const data = await apiRequest(`education/?lang=${lang}`);
+        // Загружаем организации образования из API
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/about-us/structure/?lang=${lang}`);
+        const apiData = await response.json();
+        
+        // Определяем категории образования для разных языков
+        const educationCategories = {
+          ru: ['Образование'],
+          en: ['Education'],
+          kg: ['Билим берүү']
+        };
+        
+        // Фильтруем организации образования
+        const educationOrgs = apiData.filter(org => 
+          educationCategories[lang]?.includes(org.category)
+        );
+        
+        setOrganizations(educationOrgs);
         
         // Временные данные из перевода
         const directions = t('education.activities.directions.items', { returnObjects: true });
@@ -378,6 +397,111 @@ const ActivitiesEducation = () => {
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 border border-red-200">
                 <span className="text-red-600 text-sm font-semibold">
                   {t('common.error', 'Ошибка загрузки данных')}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Образовательные организации */}
+      <section className="relative py-20 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Заголовок секции */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-6">
+              <AcademicCapIcon className="w-5 h-5 text-blue-600 mr-2" />
+              <span className="text-blue-600 text-sm font-semibold">
+                {i18n.language === 'en' ? 'Our Educational Institutions' : 
+                 i18n.language === 'kg' ? 'Биздин билим берүү мекемелери' : 
+                 'Наши образовательные учреждения'}
+              </span>
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              {i18n.language === 'en' ? 'Educational Organizations' : 
+               i18n.language === 'kg' ? 'Билим берүү уюмдары' : 
+               'Организации образовательной сферы'}
+            </h2>
+            
+            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mx-auto mb-6"></div>
+            
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              {i18n.language === 'en' ? 'Educational institutions and organizations that are part of the Dordoi Association' : 
+               i18n.language === 'kg' ? '"Дордой" Ассоциациясынын курамына кирген билим берүү мекемелери жана уюмдары' : 
+               'Образовательные учреждения и организации, входящие в состав Ассоциации "Дордой"'}
+            </p>
+          </div>
+
+          {/* Сетка организаций */}
+          {organizations.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {organizations.map((org) => (
+                <motion.div
+                  key={org.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="group"
+                >
+                  <Link
+                    to={`/about/structure/${org.slug}`}
+                    className="block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200/60 hover:border-blue-300/50"
+                  >
+                    <div className="p-8">
+                      {/* Иконка */}
+                      <div className="mb-6">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                          <AcademicCapIcon className="w-7 h-7 text-white" />
+                        </div>
+                      </div>
+                      
+                      {/* Название */}
+                      <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors duration-300 leading-tight line-clamp-2">
+                        {org.name}
+                      </h3>
+                      
+                      {/* Контактная информация */}
+                      <div className="space-y-3 text-sm text-slate-600">
+                        {org.address && (
+                          <div className="flex items-start gap-3">
+                            <HomeIcon className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                            <span className="line-clamp-2">{org.address}</span>
+                          </div>
+                        )}
+                        
+                        {org.phone && (
+                          <div className="flex items-center gap-3">
+                            <PhoneIcon className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                            <span>{org.phone}</span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Кнопка перехода */}
+                      <div className="mt-6 flex items-center text-blue-600 font-semibold text-sm group-hover:text-blue-700 transition-colors duration-300">
+                        <span>
+                          {i18n.language === 'en' ? 'Learn More' : 
+                           i18n.language === 'kg' ? 'Толугураак' : 
+                           'Подробнее'}
+                        </span>
+                        <ArrowUpRightIcon className="w-4 h-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                      </div>
+                    </div>
+
+                    {/* Нижняя акцентная линия */}
+                    <div className="h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center px-6 py-3 rounded-full bg-slate-50 border border-slate-200">
+                <AcademicCapIcon className="w-5 h-5 text-slate-400 mr-2" />
+                <span className="text-slate-600 font-medium">
+                  {t('common.noOrganizationsEducation', 'Образовательные организации не найдены')}
                 </span>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { 
   Trophy, 
   Target, 
@@ -18,7 +19,10 @@ import {
   TrendingUp,
   Activity,
   Medal,
-  Flame
+  Flame,
+  MapPin,
+  Phone,
+  ArrowUpRight
 } from 'lucide-react';
 
 const ActivitiesSports = () => {
@@ -27,6 +31,8 @@ const ActivitiesSports = () => {
   const isInView = useInView(ref, { once: true, threshold: 0.2 });
   const [activeFaq, setActiveFaq] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [organizations, setOrganizations] = useState([]);
+  const [error, setError] = useState(null);
   const [stats, setStats] = useState([
     { value: '12+', label: t('activities.sports.stats.championships') },
     { value: '2000+', label: t('activities.sports.stats.athletes') },
@@ -39,9 +45,28 @@ const ActivitiesSports = () => {
     const fetchSportsData = async () => {
       try {
         setLoading(true);
+        setError(null);
         
         // Определяем язык для API запроса
         const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        
+        // Загружаем организации из API
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/about-us/structure/?lang=${lang}`);
+        const apiData = await response.json();
+        
+        // Определяем категории спорта для разных языков
+        const sportCategories = {
+          ru: ['Спорт'],
+          en: ['Sport'],
+          kg: ['Спорт']
+        };
+        
+        // Фильтруем спортивные организации
+        const sportOrgs = apiData.filter(org => 
+          sportCategories[lang]?.includes(org.category)
+        );
+        
+        setOrganizations(sportOrgs);
         
         // Здесь можно добавить реальные API запросы
         // const data = await apiRequest(`sports/?lang=${lang}`);
@@ -126,6 +151,7 @@ const ActivitiesSports = () => {
         
       } catch (error) {
         console.error('Error fetching sports data:', error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -449,6 +475,126 @@ const ActivitiesSports = () => {
               })}
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Спортивные организации */}
+      <section className="relative py-20 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Заголовок секции */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-6">
+              <Trophy className="w-5 h-5 text-blue-600 mr-2" />
+              <span className="text-blue-600 text-sm font-semibold">
+                {i18n.language === 'en' ? 'Our Sports Organizations' : 
+                 i18n.language === 'kg' ? 'Биздин спорттук уюмдар' : 
+                 'Наши спортивные организации'}
+              </span>
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              {i18n.language === 'en' ? 'Sports Organizations' : 
+               i18n.language === 'kg' ? 'Спорттук уюмдар' : 
+               'Организации спортивной сферы'}
+            </h2>
+            
+            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mx-auto mb-6"></div>
+            
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              {i18n.language === 'en' ? 'Sports clubs and organizations that are part of the Dordoi Association' : 
+               i18n.language === 'kg' ? '"Дордой" Ассоциациясынын курамына кирген спорттук клубдар жана уюмдар' : 
+               'Спортивные клубы и организации, входящие в состав Ассоциации "Дордой"'}
+            </p>
+          </div>
+
+          {/* Сетка организаций */}
+          {loading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+          ) : organizations.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {organizations.map((org) => (
+                <motion.div
+                  key={org.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="group h-full"
+                >
+                  <Link
+                    to={`/about/structure/${org.slug}`}
+                    className="flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200/60 hover:border-blue-300/50"
+                  >
+                    <div className="flex-1 flex flex-col p-8">
+                      {/* Иконка */}
+                      <div className="mb-6">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                          <Trophy className="w-7 h-7 text-white" />
+                        </div>
+                      </div>
+                      
+                      {/* Название */}
+                      <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors duration-300 leading-tight line-clamp-2 min-h-[3.5rem]">
+                        {org.name}
+                      </h3>
+                      
+                      {/* Контактная информация */}
+                      <div className="space-y-3 text-sm text-slate-600 flex-1">
+                        {org.address && (
+                          <div className="flex items-start gap-3">
+                            <MapPin className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                            <span className="line-clamp-2">{org.address}</span>
+                          </div>
+                        )}
+                        
+                        {org.phone && (
+                          <div className="flex items-center gap-3">
+                            <Phone className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                            <span>{org.phone}</span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Кнопка перехода */}
+                      <div className="mt-6 flex items-center text-blue-600 font-semibold text-sm group-hover:text-blue-700 transition-colors duration-300">
+                        <span>
+                          {i18n.language === 'en' ? 'Learn More' : 
+                           i18n.language === 'kg' ? 'Толугураак' : 
+                           'Подробнее'}
+                        </span>
+                        <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                      </div>
+                    </div>
+
+                    {/* Нижняя акцентная линия */}
+                    <div className="h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center px-6 py-3 rounded-full bg-slate-50 border border-slate-200">
+                <Trophy className="w-5 h-5 text-slate-400 mr-2" />
+                <span className="text-slate-600 font-medium">
+                  {t('common.noOrganizationsSports', 'Спортивные организации не найдены')}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Сообщение об ошибке */}
+          {error && (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center px-6 py-3 rounded-full bg-red-50 border border-red-200">
+                <span className="text-red-600 font-medium">
+                  {t('common.error', 'Ошибка загрузки данных')}: {error}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </div>

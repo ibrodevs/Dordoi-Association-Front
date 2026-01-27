@@ -48,6 +48,10 @@
     "cancel": "Cancel",
     "save": "Save",
     "edit": "Edit",
+    "noOrganizationsEducation": "No educational organizations found",
+    "noOrganizationsMedical": "No medical organizations found",
+    "noOrganizationsSports": "No sports organizations found",
+    "noOrganizationsLeisure": "No leisure organizations found",
     "delete": "Delete",
     "search": "Search",
     "filter": "Filter",
@@ -56,7 +60,9 @@
     "download": "Download",
     "share": "Share",
     "more": "More",
-    "less": "Less"
+    "less": "Less",
+    "moreDetails": "More Details",
+    "noDescription": "Description not available"
   },
   "hero": {
     "contactButton": "Contact Us",
@@ -1258,7 +1264,8 @@
             "answer": "Yes, bank branches, currency exchange offices, money transfer points, and other financial services operate on the market territory for the convenience of entrepreneurs and customers."
           }
         ]
-      }
+      },
+      "noOrganizations": "No organizations found"
     }
   }
 ,
@@ -1402,7 +1409,8 @@
             "answer": "Dordoy provides all conditions for manufacturing business growth: affordable facilities, logistics capabilities, skilled workforce, and entrepreneurial support."
           }
         ]
-      }
+      },
+      "noOrganizations": "Currently, information about production organizations is not available"
     }
   },
 
@@ -3761,6 +3769,8 @@
     "title": "International",
     "titleHighlight": "Cooperation",
     "subtitle": "Global network of partners and joint projects worldwide",
+    "partnerBadge": "Association partner",
+    "moreDetails": "More details",
     "mapCaption": "Click on country for cooperation information",
     "projects": "projects",
     "tradeVolume": "Trade volume",

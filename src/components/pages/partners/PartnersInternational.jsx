@@ -1,21 +1,21 @@
-import React, { useRef, useState, useEffect, Suspense, lazy } from 'react';
+import React, { useRef, useState, useEffect, Suspense, lazy, useCallback, useMemo } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { SearchIcon, MapIcon, ListIcon } from '../../icons';
+import axios from 'axios';
 
 import 'leaflet/dist/leaflet.css';
 
 // Add custom styles for markers
 const markerStyles = `
-  .custom-country-marker {
+  .custom-partner-marker {
     background: transparent !important;
     border: none !important;
   }
-  .custom-country-marker div {
+  .custom-partner-marker div {
     transition: transform 0.2s ease-in-out;
   }
-  .custom-country-marker:hover div {
+  .custom-partner-marker:hover div {
     transform: scale(1.1);
   }
   .leaflet-popup-content-wrapper {
@@ -24,6 +24,12 @@ const markerStyles = `
   }
   .leaflet-popup-tip {
     box-shadow: none;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 `;
 
@@ -34,52 +40,191 @@ if (typeof document !== 'undefined') {
   document.head.appendChild(styleSheet);
 }
 
-// Custom markers for different regions
-const createCustomMarker = (region, isHovered = false) => {
-  const colors = {
-    europe: '#3B82F6', // blue
-    asia: '#10B981',   // green
-    america: '#8B5CF6' // purple
-  };
-
-  const size = isHovered ? 40 : 35;
-
-  if (typeof window !== 'undefined' && window.L) {
-    return window.L.divIcon({
-      className: 'custom-country-marker',
-      html: `<div style="
-        background-color: ${colors[region] || '#6b7280'};
-        width: ${size}px;
-        height: ${size}px;
-        border-radius: 50%;
-        border: 3px solid white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        cursor: pointer;
-      "></div>`,
-      iconSize: [size, size],
-      iconAnchor: [size/2, size/2],
-      popupAnchor: [0, -size/2]
-    });
+// Отдельный мемоизированный компонент карты
+const MapComponent = React.memo(({ 
+  isClient, 
+  isLoading, 
+  error, 
+  partners, 
+  hoveredPartner, 
+  createPartnerMarker, 
+  handlePartnerClick, 
+  handlePartnerMouseOver, 
+  handlePartnerMouseOut, 
+  t 
+}) => {
+  if (!isClient) {
+    return (
+      <div className="w-full h-[500px] bg-gray-100 rounded-lg flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">{t('partnersInternational.mapLoading', 'Загрузка карты...')}</p>
+        </div>
+      </div>
+    );
   }
-  return null;
-};
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-[500px] bg-gray-100 rounded-lg flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">{t('partnersInternational.loading', 'Загрузка партнеров...')}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-full h-[500px] bg-gray-100 rounded-lg flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-500 text-xl mb-4">⚠️</div>
+          <p className="text-gray-600">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-lg overflow-hidden shadow-lg">
+      <MapContainer
+        center={[42.8746, 74.5698]}
+        zoom={3}
+        style={{ height: '500px', width: '100%' }}
+        className="z-0"
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        {partners.map((partner) => {
+          const markerIcon = createPartnerMarker(partner, hoveredPartner === partner.id);
+          
+          if (!markerIcon) return null;
+          
+          return (
+            <Marker
+              key={partner.id}
+              position={[parseFloat(partner.coord1), parseFloat(partner.coord2)]}
+              icon={markerIcon}
+              eventHandlers={{
+                click: () => handlePartnerClick(partner),
+                mouseover: () => handlePartnerMouseOver(partner.id),
+                mouseout: handlePartnerMouseOut,
+              }}
+            >
+              <Popup className="custom-popup">
+                <div className="p-3 min-w-[280px]">
+                  <div className="flex items-center mb-3">
+                    {partner.logo && (
+                      <img 
+                        src={partner.logo} 
+                        alt={partner.name} 
+                        className="w-12 h-12 rounded-full object-cover mr-3 border-2 border-blue-200"
+                      />
+                    )}
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 text-base">
+                        {partner.name}
+                      </h3>
+                      <div className="text-xs text-gray-600">
+                        {t('partnersInternational.partnerBadge', 'Партнер ассоциации')}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <div 
+                      className="text-sm text-gray-700 line-clamp-3"
+                      dangerouslySetInnerHTML={{ 
+                        __html: partner.description?.length > 150 
+                          ? partner.description.substring(0, 150) + '...' 
+                          : partner.description 
+                      }}
+                    />
+                  </div>
+
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handlePartnerClick(partner)}
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-medium transition-colors"
+                    >
+                      {t('partnersInternational.moreDetails', 'Подробнее')}
+                    </button>
+                  </div>
+                </div>
+              </Popup>
+            </Marker>
+          );
+        })}
+      </MapContainer>
+    </div>
+  );
+});
 
 const PartnersInternational = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation(); // Добавляем i18n деструктуризацию
   const [selectedCountry, setSelectedCountry] = useState(null);
-  const [hoveredCountry, setHoveredCountry] = useState(null);
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [viewMode, setViewMode] = useState('map');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedPartner, setSelectedPartner] = useState(null);
+  const [hoveredPartner, setHoveredPartner] = useState(null);
   const [isClient, setIsClient] = useState(false);
+  const [partners, setPartners] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Мемоизированная функция создания маркера
+  const createPartnerMarker = useCallback((partner, isHovered = false) => {
+    const size = isHovered ? 45 : 40;
+
+    if (typeof window !== 'undefined' && window.L) {
+      return window.L.divIcon({
+        className: 'custom-partner-marker',
+        html: `<div style="
+          background-color: #3B82F6;
+          width: ${size}px;
+          height: ${size}px;
+          border-radius: 50%;
+          border: 3px solid white;
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: bold;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          overflow: hidden;
+        ">
+          ${partner.logo ? `<img src="${partner.logo}" alt="${partner.name}" style="width: ${size - 8}px; height: ${size - 8}px; border-radius: 50%; object-fit: cover;" />` : `<span style="font-size: ${size/3}px;">🏢</span>`}
+        </div>`,
+        iconSize: [size, size],
+        iconAnchor: [size/2, size/2],
+        popupAnchor: [0, -size/2]
+      });
+    }
+    return null;
+  }, []);
+
+  // Мемоизированные обработчики событий
+  const handlePartnerClick = useCallback((partner) => {
+    setSelectedPartner(partner);
+  }, []);
+
+  const handlePartnerMouseOver = useCallback((partnerId) => {
+    setHoveredPartner(partnerId);
+  }, []);
+
+  const handlePartnerMouseOut = useCallback(() => {
+    setHoveredPartner(null);
+  }, []);
+
+  const closePartnerModal = useCallback(() => {
+    setSelectedPartner(null);
+  }, []);
 
   useEffect(() => {
     setIsClient(true);
@@ -95,194 +240,39 @@ const PartnersInternational = () => {
     }
   }, []);
 
-  const countries = [
-    { 
-      code: 'RU', 
-      name: t('partnersInternational.countries.RU.name'), 
-      region: 'europe', 
-      coordinates: { lat: 61.5240, lng: 105.3188 },
-      stats: t('partnersInternational.countries.RU.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.RU.partners', { returnObjects: true }),
-      projects: t('partnersInternational.countries.RU.projects', { returnObjects: true }),
-      description: t('partnersInternational.countries.RU.description')
-    },
-    { 
-      code: 'TR', 
-      name: t('partnersInternational.countries.TR.name'), 
-      region: 'asia', 
-      coordinates: { lat: 38.9637, lng: 35.2433 },
-      stats: t('partnersInternational.countries.TR.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.TR.partners', { returnObjects: true }),
-      projects: t('partnersInternational.countries.TR.projects', { returnObjects: true }),
-      description: t('partnersInternational.countries.TR.description')
-    },
-    { 
-      code: 'CN', 
-      name: t('partnersInternational.countries.CN.name'), 
-      region: 'asia', 
-      coordinates: { lat: 35.8617, lng: 104.1954 },
-      stats: t('partnersInternational.countries.CN.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.CN.partners', { returnObjects: true }),
-      projects: t('partnersInternational.countries.CN.projects', { returnObjects: true }),
-      description: t('partnersInternational.countries.CN.description')
-    },
-    { 
-      code: 'KZ', 
-      name: t('partnersInternational.countries.KZ.name'), 
-      region: 'asia', 
-      coordinates: { lat: 48.0196, lng: 66.9237 },
-      stats: t('partnersInternational.countries.KZ.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.KZ.partners', { returnObjects: true }),
-      projects: t('partnersInternational.countries.KZ.projects', { returnObjects: true }),
-      description: t('partnersInternational.countries.KZ.description')
-    },
-    { 
-      code: 'UZ', 
-      name: t('partnersInternational.countries.UZ.name'), 
-      region: 'asia', 
-      coordinates: { lat: 41.3775, lng: 64.5853 },
-      stats: t('partnersInternational.countries.UZ.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.UZ.partners', { returnObjects: true }),
-      projects: t('partnersInternational.countries.UZ.projects', { returnObjects: true }),
-      description: t('partnersInternational.countries.UZ.description')
-    },
-    { 
-      code: 'TJ', 
-      name: t('partnersInternational.countries.TJ.name'), 
-      region: 'asia', 
-      coordinates: { lat: 38.8610, lng: 71.2761 },
-      stats: t('partnersInternational.countries.TJ.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.TJ.partners', { returnObjects: true }),
-      projects: t('partnersInternational.countries.TJ.projects', { returnObjects: true }),
-      description: t('partnersInternational.countries.TJ.description')
-    },
-    { 
-      code: 'BY', 
-      name: t('partnersInternational.countries.BY.name'), 
-      region: 'europe', 
-      coordinates: { lat: 53.7098, lng: 27.9534 },
-      stats: t('partnersInternational.countries.BY.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.BY.partners', { returnObjects: true }),
-      projects: t('partnersInternational.countries.BY.projects', { returnObjects: true }),
-      description: t('partnersInternational.countries.BY.description')
-    },
-    { 
-      code: 'KR', 
-      name: t('partnersInternational.countries.KR.name'), 
-      region: 'asia', 
-      coordinates: { lat: 35.9078, lng: 127.7669 },
-      stats: t('partnersInternational.countries.KR.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.KR.partners', { returnObjects: true }),
-      projects: t('partnersInternational.countries.KR.projects', { returnObjects: true }),
-      description: t('partnersInternational.countries.KR.description')
-    },
-    { 
-      code: 'US', 
-      name: t('partnersInternational.countries.US.name'), 
-      region: 'america', 
-      coordinates: { lat: 37.0902, lng: -95.7129 },
-      stats: t('partnersInternational.countries.US.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.US.partners', { returnObjects: true }),
-      projects: t('partnersInternational.countries.US.projects', { returnObjects: true }),
-      description: t('partnersInternational.countries.US.description')
-    },
-    { 
-      code: 'BR', 
-      name: t('partnersInternational.countries.BR.name'), 
-      region: 'america', 
-      coordinates: { lat: -14.2350, lng: -51.9253 },
-      stats: t('partnersInternational.countries.BR.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.BR.partners', { returnObjects: true }),
-      projects: t('partnersInternational.countries.BR.projects', { returnObjects: true }),
-      description: t('partnersInternational.countries.BR.description')
+  // Загрузка данных партнеров из API
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        
+        // Добавляем параметр языка в запрос
+        const currentLang = i18n.language || 'ru';
+        const response = await axios.get(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/partners/?lang=${currentLang}`);
+        
+        // Фильтруем партнеров, у которых есть координаты
+        const partnersWithCoordinates = response.data.filter(partner => 
+          partner.coord1 && partner.coord2 && 
+          !isNaN(parseFloat(partner.coord1)) && !isNaN(parseFloat(partner.coord2))
+        );
+        
+        setPartners(partnersWithCoordinates);
+      } catch (err) {
+        console.error('Error fetching partners:', err);
+        setError(t('partnersInternational.error.loading', 'Ошибка загрузки партнеров'));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (isInView) {
+      fetchPartners();
     }
-  ];
+  }, [isInView, i18n.language]); // Добавляем i18n.language как зависимость
 
-  const regionColors = {
-    europe: { 
-      bg: 'bg-blue-100', 
-      text: 'text-blue-600', 
-      border: 'border-blue-200', 
-      dot: 'bg-blue-500', 
-      gradient: 'from-blue-500 to-blue-600',
-      mapColor: '#3B82F6'
-    },
-    asia: { 
-      bg: 'bg-green-100', 
-      text: 'text-green-600', 
-      border: 'border-green-200', 
-      dot: 'bg-green-500', 
-      gradient: 'from-green-500 to-green-600',
-      mapColor: '#10B981'
-    },
-    america: { 
-      bg: 'bg-purple-100', 
-      text: 'text-purple-600', 
-      border: 'border-purple-200', 
-      dot: 'bg-purple-500', 
-      gradient: 'from-purple-500 to-purple-600',
-      mapColor: '#8B5CF6'
-    }
-  };
-
-  // SVG иконки для типов сотрудничества
-  const cooperationIcons = {
-    trade: (
-      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    education: (
-      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-      </svg>
-    ),
-    culture: (
-      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-      </svg>
-    ),
-    industry: (
-      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-      </svg>
-    ),
-    logistics: (
-      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-      </svg>
-    ),
-    innovation: (
-      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-      </svg>
-    )
-  };
-
-  const cooperationTypes = [
-    { icon: cooperationIcons.trade, label: t('partnersInternational.cooperation.trade'), key: 'trade' },
-    { icon: cooperationIcons.education, label: t('partnersInternational.cooperation.education'), key: 'education' },
-    { icon: cooperationIcons.culture, label: t('partnersInternational.cooperation.culture'), key: 'culture' },
-    { icon: cooperationIcons.industry, label: t('partnersInternational.cooperation.industry'), key: 'industry' },
-    { icon: cooperationIcons.logistics, label: t('partnersInternational.cooperation.logistics'), key: 'logistics' },
-    { icon: cooperationIcons.innovation, label: t('partnersInternational.cooperation.innovation'), key: 'innovation' }
-  ];
-
-  const filters = [
-    { key: 'all', label: t('partnersInternational.filters.all') },
-    { key: 'europe', label: t('partnersInternational.regions.europe') },
-    { key: 'asia', label: t('partnersInternational.regions.asia') },
-    { key: 'america', label: t('partnersInternational.regions.america') }
-  ];
-
-  // Фильтрация и поиск
-  const filteredCountries = countries.filter(country => {
-    const matchesFilter = activeFilter === 'all' || country.region === activeFilter;
-    const matchesSearch = country.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
-
-  const containerVariants = {
+  // Мемоизированные объекты анимации
+  const containerVariants = useMemo(() => ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -290,9 +280,9 @@ const PartnersInternational = () => {
         staggerChildren: 0.1
       }
     }
-  };
+  }), []);
 
-  const itemVariants = {
+  const itemVariants = useMemo(() => ({
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -302,30 +292,9 @@ const PartnersInternational = () => {
         ease: "easeOut"
       }
     }
-  };
+  }), []);
 
-  const cardVariants = {
-    hidden: { scale: 0.9, opacity: 0, y: 20 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    },
-    hover: {
-      y: -5,
-      scale: 1.02,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  const modalVariants = {
+  const modalVariants = useMemo(() => ({
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
@@ -335,9 +304,9 @@ const PartnersInternational = () => {
         ease: "easeOut"
       }
     }
-  };
+  }), []);
 
-  const floatingVariants = {
+  const floatingVariants = useMemo(() => ({
     animate: {
       y: [0, -10, 0],
       transition: {
@@ -346,112 +315,7 @@ const PartnersInternational = () => {
         ease: "easeInOut"
       }
     }
-  };
-
-  const getFlagEmoji = (countryCode) => {
-    const codePoints = countryCode
-      .toUpperCase()
-      .split('')
-      .map(char => 127397 + char.charCodeAt());
-    return String.fromCodePoint(...codePoints);
-  };
-
-  // Simple Map Component без сложной логики
-  const SimpleMap = () => {
-    if (!isClient) {
-      return (
-        <div className="w-full h-[500px] bg-gray-100 rounded-lg flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">{t('partnersInternational.mapLoading')}</p>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="rounded-lg overflow-hidden shadow-lg">
-        <MapContainer
-          center={[30, 0]}
-          zoom={2}
-          style={{ height: '500px', width: '100%' }}
-          className="z-0"
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-
-          {filteredCountries.map((country) => {
-            const markerIcon = createCustomMarker(country.region, hoveredCountry === country.code);
-            
-            if (!markerIcon) return null;
-            
-            return (
-              <Marker
-                key={country.code}
-                position={[country.coordinates.lat, country.coordinates.lng]}
-                icon={markerIcon}
-                eventHandlers={{
-                  click: () => setSelectedCountry(country),
-                  mouseover: () => setHoveredCountry(country.code),
-                  mouseout: () => setHoveredCountry(null),
-                }}
-              >
-                <Popup className="custom-popup">
-                  <div className="p-2 min-w-[250px]">
-                    {/* Country Header in Popup */}
-                    <div className="flex items-center mb-3">
-                      <span className="text-2xl mr-2">{getFlagEmoji(country.code)}</span>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 text-sm">
-                          {country.name}
-                        </h3>
-                        <div className="text-xs text-gray-600">
-                          {country.stats.projects} {t('partnersInternational.projects')}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Region badge */}
-                    <div className="mb-3">
-                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                        regionColors[country.region].bg
-                      } ${regionColors[country.region].text}`}>
-                        {t(`partnersInternational.regions.${country.region}`)}
-                      </span>
-                    </div>
-
-                    {/* Stats */}
-                    <div className="grid grid-cols-2 gap-2 mb-3">
-                      <div className="text-center p-2 bg-gray-50 rounded">
-                        <div className="text-sm font-bold text-gray-900">{country.stats.tradeVolume}</div>
-                        <div className="text-xs text-gray-600">{t('partnersInternational.tradeVolume')}</div>
-                      </div>
-                      <div className="text-center p-2 bg-gray-50 rounded">
-                        <div className="text-sm font-bold text-gray-900">{country.stats.since}</div>
-                        <div className="text-xs text-gray-600">{t('partnersInternational.since')}</div>
-                      </div>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex space-x-2">
-                      <button
-                        onClick={() => setSelectedCountry(country)}
-                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-medium transition-colors"
-                      >
-                        {t('partnersInternational.details')}
-                      </button>
-                    </div>
-                  </div>
-                </Popup>
-              </Marker>
-            );
-          })}
-        </MapContainer>
-      </div>
-    );
-  };
+  }), []);
 
   return (
     <section ref={ref} className="relative py-16 sm:py-20 lg:py-28 bg-white overflow-hidden">
@@ -510,234 +374,40 @@ const PartnersInternational = () => {
           </motion.p>
         </motion.div>
 
-        {/* Переключение вида, фильтры и поиск */}
+        {/* Карта партнеров */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mb-8 sm:mb-12"
+          className="mb-12 sm:mb-16 lg:mb-20"
         >
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
-            {/* Переключение вида */}
-            <div className="flex bg-slate-100 rounded-2xl p-1">
-              {[
-                { key: 'map', label: t('partnersInternational.view.map'), icon: <MapIcon className="w-4 h-4" /> },
-                { key: 'list', label: t('partnersInternational.view.list'), icon: <ListIcon className="w-4 h-4" /> }
-              ].map((view) => (
-                <motion.button
-                  key={view.key}
-                  onClick={() => setViewMode(view.key)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-semibold transition-all duration-300 ${
-                    viewMode === view.key
-                      ? 'bg-white text-slate-900 shadow-lg'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span>{view.icon}</span>
-                  <span>{view.label}</span>
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Поиск */}
-            <div className="relative w-full sm:w-64">
-              <input
-                type="text"
-                placeholder={t('partnersInternational.search.placeholder')}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 pl-10 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">
-                <SearchIcon className="w-4 h-4" />
-              </div>
-            </div>
-
-            {/* Фильтры */}
-            <div className="flex flex-wrap gap-2">
-              {filters.map((filter) => (
-                <motion.button
-                  key={filter.key}
-                  onClick={() => setActiveFilter(filter.key)}
-                  className={`px-4 py-2 rounded-xl font-semibold transition-all duration-300 ${
-                    activeFilter === filter.key
-                      ? 'bg-blue-600 text-white shadow-lg'
-                      : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-300'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {filter.label}
-                </motion.button>
-              ))}
-            </div>
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <MapComponent
+              isClient={isClient}
+              isLoading={isLoading}
+              error={error}
+              partners={partners}
+              hoveredPartner={hoveredPartner}
+              createPartnerMarker={createPartnerMarker}
+              handlePartnerClick={handlePartnerClick}
+              handlePartnerMouseOver={handlePartnerMouseOver}
+              handlePartnerMouseOut={handlePartnerMouseOut}
+              t={t}
+              key={i18n.language} // Добавляем ключ для принудительной перерисовки при смене языка
+            />
           </div>
-        </motion.div>
-
-        {/* Контент в зависимости от выбранного вида */}
-        {viewMode === 'map' ? (
-          /* Простая карта как в примере */
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="mb-12 sm:mb-16 lg:mb-20"
-          >
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  {t('partnersInternational.map.title')}
-                </h2>
-                <p className="text-gray-600">
-                  {t('partnersInternational.map.subtitle')}
-                </p>
-              </div>
-
-              <SimpleMap />
-            </div>
-          </motion.div>
-        ) : (
-          /* Список стран */
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="mb-12 sm:mb-16 lg:mb-20"
-          >
-            {filteredCountries.length === 0 ? (
-              <motion.div
-                variants={itemVariants}
-                className="text-center py-12"
-              >
-                <div className="text-6xl mb-4 text-slate-400">
-                  <SearchIcon className="w-16 h-16" />
-                </div>
-                <h3 className="text-xl font-semibold text-slate-700 mb-2">
-                  {t('partnersInternational.search.noResults')}
-                </h3>
-                <p className="text-slate-500">
-                  {t('partnersInternational.search.tryDifferent')}
-                </p>
-              </motion.div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCountries.map((country) => {
-                  const regionColor = regionColors[country.region];
-                  return (
-                    <motion.div
-                      key={country.code}
-                      variants={cardVariants}
-                      className={`bg-white rounded-2xl p-6 border-2 ${
-                        selectedCountry?.code === country.code 
-                          ? `${regionColor.border} shadow-2xl` 
-                          : 'border-slate-200 hover:border-slate-300 shadow-lg'
-                      } transition-all duration-300 cursor-pointer group`}
-                      whileHover="hover"
-                      onClick={() => setSelectedCountry(country)}
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center space-x-3">
-                          <span className="text-3xl">{getFlagEmoji(country.code)}</span>
-                          <div>
-                            <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">
-                              {country.name}
-                            </h3>
-                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                              regionColor.bg
-                            } ${regionColor.text}`}>
-                              {t(`partnersInternational.regions.${country.region}`)}
-                            </span>
-                          </div>
-                        </div>
-                        <motion.div
-                          className="text-right"
-                          whileHover={{ scale: 1.1 }}
-                        >
-                          <div className="text-2xl font-bold text-slate-900">
-                            {country.stats.projects}
-                          </div>
-                          <div className="text-sm text-slate-600">
-                            {t('partnersInternational.projects')}
-                          </div>
-                        </motion.div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div className="text-center p-3 bg-slate-50 rounded-xl">
-                          <div className="text-lg font-bold text-slate-900">{country.stats.tradeVolume}</div>
-                          <div className="text-sm text-slate-600">{t('partnersInternational.tradeVolume')}</div>
-                        </div>
-                        <div className="text-center p-3 bg-slate-50 rounded-xl">
-                          <div className="text-lg font-bold text-slate-900">{country.stats.since}</div>
-                          <div className="text-sm text-slate-600">{t('partnersInternational.since')}</div>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2">
-                        {cooperationTypes.slice(0, 3).map((type, index) => (
-                          <span
-                            key={index}
-                            className="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-600 rounded-lg text-sm"
-                          >
-                            {type.icon} {type.label}
-                          </span>
-                        ))}
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            )}
-          </motion.div>
-        )}
-
-        {/* Типы сотрудничества */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-center"
-        >
-          <motion.div
-            variants={itemVariants}
-            className="bg-gradient-to-r from-blue-50 to-green-50 rounded-3xl p-8 sm:p-12 border border-blue-200 shadow-xl"
-          >
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-8">
-              {t('partnersInternational.cooperation.title')}
-            </h3>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
-              {cooperationTypes.map((type, index) => (
-                <motion.div
-                  key={index}
-                  variants={cardVariants}
-                  className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-blue-300 transition-all duration-300 group cursor-pointer"
-                  whileHover={{ y: -8, scale: 1.05 }}
-                >
-                  <div className="text-3xl sm:text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                    {type.icon}
-                  </div>
-                  <div className="text-base sm:text-lg font-semibold text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
-                    {type.label}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
         </motion.div>
       </div>
 
-      {/* Модальное окно с информацией о стране */}
+      {/* Модальное окно с информацией о партнере */}
       <AnimatePresence>
-        {selectedCountry && (
+        {selectedPartner && (
           <motion.div
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedCountry(null)}
+            onClick={closePartnerModal}
           >
             <motion.div
               variants={modalVariants}
@@ -751,25 +421,26 @@ const PartnersInternational = () => {
                 {/* Заголовок модального окна */}
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center space-x-4">
-                    <span className="text-5xl">{getFlagEmoji(selectedCountry.code)}</span>
+                    {selectedPartner.logo && (
+                      <img 
+                        src={selectedPartner.logo} 
+                        alt={selectedPartner.name}
+                        className="w-16 h-16 rounded-xl object-cover border-2 border-gray-200"
+                      />
+                    )}
                     <div>
                       <h2 className="text-3xl font-bold text-slate-900">
-                        {selectedCountry.name}
+                        {selectedPartner.name}
                       </h2>
                       <div className="flex items-center space-x-2 mt-2">
-                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                          regionColors[selectedCountry.region].bg
-                        } ${regionColors[selectedCountry.region].text}`}>
-                          {t(`partnersInternational.regions.${selectedCountry.region}`)}
-                        </span>
-                        <span className="text-sm text-slate-500">
-                          {t('partnersInternational.cooperatingSince')} {selectedCountry.stats.since}
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-600">
+                          {t('partnersInternational.partnerBadge', 'Партнер ассоциации')}
                         </span>
                       </div>
                     </div>
                   </div>
                   <motion.button
-                    onClick={() => setSelectedCountry(null)}
+                    onClick={closePartnerModal}
                     className="text-slate-400 hover:text-slate-600 transition-colors duration-300 p-2"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
@@ -780,107 +451,17 @@ const PartnersInternational = () => {
                   </motion.button>
                 </div>
 
-                {/* Статистика */}
+                {/* Описание */}
                 <motion.div
                   variants={itemVariants}
-                  className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+                  className="mb-6"
                 >
-                  {Object.entries(selectedCountry.stats).map(([key, value]) => (
-                    <div key={key} className="bg-slate-50 rounded-2xl p-4 text-center">
-                      <div className="text-2xl font-bold text-slate-900 mb-1">{value}</div>
-                      <div className="text-sm text-slate-600">
-                        {t(`partnersInternational.stats.${key}`)}
-                      </div>
-                    </div>
-                  ))}
-                </motion.div>
-
-                <div className="grid lg:grid-cols-2 gap-8">
-                  {/* Направления сотрудничества */}
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-4">
-                      {t('partnersInternational.modal.cooperationAreas')}
-                    </h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      {cooperationTypes.map((type, index) => (
-                        <motion.div
-                          key={index}
-                          className="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl border border-slate-200"
-                          whileHover={{ x: 5 }}
-                        >
-                          <span className="text-2xl">{type.icon}</span>
-                          <span className="text-sm font-medium text-slate-700">{type.label}</span>
-                        </motion.div>
-                      ))}
-                    </div>
+                  <div className="bg-white border border-slate-200 rounded-xl p-6">
+                    <div 
+                      className="text-slate-700 text-base leading-relaxed prose prose-slate max-w-none"
+                      dangerouslySetInnerHTML={{ __html: selectedPartner.description }}
+                    />
                   </div>
-
-                  {/* Ключевые партнеры */}
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-4">
-                      {t('partnersInternational.modal.keyPartners')}
-                    </h3>
-                    <div className="space-y-3">
-                      {selectedCountry.partners && selectedCountry.partners.length > 0 ? (
-                        selectedCountry.partners.map((partner, index) => (
-                          <div
-                            key={index}
-                            className="p-3 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl border border-blue-200"
-                          >
-                            <h4 className="font-semibold text-slate-900 mb-1">{partner.name}</h4>
-                            <p className="text-slate-600 text-sm">{partner.description}</p>
-                          </div>
-                        ))
-                      ) : (
-                        <p className="text-slate-500 text-sm">{t('partnersInternational.noData')}</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Примеры проектов */}
-                <motion.div
-                  variants={itemVariants}
-                  className="mt-8"
-                >
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
-                    {t('partnersInternational.modal.projects')}
-                  </h3>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {selectedCountry.projects && selectedCountry.projects.length > 0 ? (
-                      selectedCountry.projects.map((project, index) => (
-                        <motion.div
-                          key={index}
-                          className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300"
-                          whileHover={{ y: -2 }}
-                        >
-                          <h4 className="font-bold text-slate-900 mb-2">
-                            {project.title}
-                          </h4>
-                          <p className="text-slate-600 text-sm leading-relaxed">
-                            {project.description}
-                          </p>
-                        </motion.div>
-                      ))
-                    ) : (
-                      <div className="col-span-3 text-center py-8">
-                        <p className="text-slate-500">{t('partnersInternational.noData')}</p>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-
-                {/* Дополнительная информация */}
-                <motion.div
-                  variants={itemVariants}
-                  className="mt-8 pt-6 border-t border-slate-200"
-                >
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">
-                    {t('partnersInternational.modal.additionalInfo')}
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    {selectedCountry.description}
-                  </p>
                 </motion.div>
               </div>
             </motion.div>

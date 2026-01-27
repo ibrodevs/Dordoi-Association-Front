@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import {
   Cog6ToothIcon,
   BuildingOffice2Icon,
@@ -21,12 +22,15 @@ import {
   ChartBarIcon,
   DocumentTextIcon,
   BeakerIcon,
-  CogIcon
+  CogIcon,
+  HomeIcon,
+  PhoneIcon
 } from '@heroicons/react/24/outline';
 
 const ProductionSection = () => {
   const { t, i18n } = useTranslation();
   const [productionAreas, setProductionAreas] = useState([]);
+  const [productionOrganizations, setProductionOrganizations] = useState([]);
   const [values, setValues] = useState([]);
   const [stats, setStats] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,78 +44,27 @@ const ProductionSection = () => {
         setError(null);
         
         // Определяем язык для API запроса
-        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const apiLang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
         
-        // Здесь можно добавить реальные API запросы
-        // const data = await apiRequest(`production/?lang=${lang}`);
+        // Получаем данные из API с учетом языка
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/about-us/structure/?lang=${apiLang}`);
+        const data = await response.json();
         
-        // Временные данные из перевода
-        const directions = t('production.activities.directions.items', { returnObjects: true });
-        const valuesData = t('production.activities.values.items', { returnObjects: true });
-        const statsData = t('production.activities.stats.items', { returnObjects: true });
-        
-        const iconMap = {
-          0: ScissorsIcon,
-          1: SwatchIcon,
-          2: CubeIcon,
-          3: TruckIcon,
-          4: BuildingOffice2Icon,
-          5: ShieldCheckIcon,
-          6: BeakerIcon,
-          7: CogIcon
+        // Фильтруем организации, связанные с производством
+        const productionCategories = {
+          ru: ['Производство', 'Өндүрүш'],
+          en: ['Manufacturing', 'Production'],
+          kg: ['Өндүрүш', 'Производство']
         };
         
-        const gradientMap = [
-          'from-violet-500 to-purple-600',
-          'from-blue-500 to-cyan-600',
-          'from-emerald-500 to-green-600',
-          'from-amber-500 to-orange-600',
-          'from-rose-500 to-pink-600',
-          'from-indigo-500 to-blue-600',
-          'from-teal-500 to-emerald-600',
-          'from-fuchsia-500 to-purple-600'
-        ];
+        const currentLangCategories = productionCategories[apiLang] || productionCategories.ru;
+        const productionOrgs = data.filter(org => 
+          currentLangCategories.some(category => 
+            org.category && org.category.includes(category)
+          )
+        );
         
-        const formattedProduction = directions.map((item, index) => ({
-          id: index + 1,
-          title: item.title,
-          description: item.description,
-          icon: iconMap[index] || Cog6ToothIcon,
-          gradient: gradientMap[index] || 'from-blue-500 to-cyan-500',
-          features: item.features || []
-        }));
-        
-        const formattedValues = valuesData.map((item, index) => ({
-          icon: [LightBulbIcon, StarIcon, HeartIcon, UsersIcon, ShieldCheckIcon, DocumentTextIcon][index] || StarIcon,
-          title: item.title,
-          description: item.description,
-          gradient: [
-            'from-violet-500 to-purple-500',
-            'from-amber-500 to-orange-500',
-            'from-rose-500 to-pink-500',
-            'from-blue-500 to-cyan-500',
-            'from-emerald-500 to-green-500',
-            'from-indigo-500 to-blue-500'
-          ][index]
-        }));
-        
-        const formattedStats = statsData.map((item, index) => ({
-          value: item.value,
-          label: item.label,
-          icon: [BuildingOffice2Icon, UsersIcon, Cog6ToothIcon, ClockIcon, ArrowTrendingUpIcon, ChartBarIcon][index],
-          gradient: [
-            'from-violet-500/20 to-violet-600/20',
-            'from-blue-500/20 to-blue-600/20',
-            'from-emerald-500/20 to-emerald-600/20',
-            'from-amber-500/20 to-amber-600/20',
-            'from-rose-500/20 to-rose-600/20',
-            'from-indigo-500/20 to-indigo-600/20'
-          ][index]
-        }));
-        
-        setProductionAreas(formattedProduction);
-        setValues(formattedValues);
-        setStats(formattedStats);
+        setProductionOrganizations(productionOrgs);
         
       } catch (error) {
         console.error('Error fetching production data:', error);
@@ -122,6 +75,77 @@ const ProductionSection = () => {
     };
 
     fetchProductionData();
+  }, [i18n.language]);
+
+  // Отдельный useEffect для обновления переводов при смене языка
+  useEffect(() => {        
+    // Временные данные из перевода
+    const directions = t('production.activities.directions.items', { returnObjects: true }) || [];
+    const valuesData = t('production.activities.values.items', { returnObjects: true }) || [];
+    const statsData = t('production.activities.stats.items', { returnObjects: true }) || [];
+        
+    const iconMap = {
+      0: ScissorsIcon,
+      1: SwatchIcon,
+      2: CubeIcon,
+      3: TruckIcon,
+      4: BuildingOffice2Icon,
+      5: ShieldCheckIcon,
+      6: BeakerIcon,
+      7: CogIcon
+    };
+    
+    const gradientMap = [
+      'from-violet-500 to-purple-600',
+      'from-blue-500 to-cyan-600',
+      'from-emerald-500 to-green-600',
+      'from-amber-500 to-orange-600',
+      'from-rose-500 to-pink-600',
+      'from-indigo-500 to-blue-600',
+      'from-teal-500 to-emerald-600',
+      'from-fuchsia-500 to-purple-600'
+    ];
+    
+    const formattedProduction = directions.map((item, index) => ({
+      id: index + 1,
+      title: item.title,
+      description: item.description,
+      icon: iconMap[index] || Cog6ToothIcon,
+      gradient: gradientMap[index] || 'from-blue-500 to-cyan-500',
+      features: item.features || []
+    }));
+    
+    const formattedValues = valuesData.map((item, index) => ({
+      icon: [LightBulbIcon, StarIcon, HeartIcon, UsersIcon, ShieldCheckIcon, DocumentTextIcon][index] || StarIcon,
+      title: item.title,
+      description: item.description,
+      gradient: [
+        'from-violet-500 to-purple-500',
+        'from-amber-500 to-orange-500',
+        'from-rose-500 to-pink-500',
+        'from-blue-500 to-cyan-500',
+        'from-emerald-500 to-green-500',
+        'from-indigo-500 to-blue-500'
+      ][index]
+    }));
+    
+    const formattedStats = statsData.map((item, index) => ({
+      value: item.value,
+      label: item.label,
+      icon: [BuildingOffice2Icon, UsersIcon, Cog6ToothIcon, ClockIcon, ArrowTrendingUpIcon, ChartBarIcon][index],
+      gradient: [
+        'from-violet-500/20 to-violet-600/20',
+        'from-blue-500/20 to-blue-600/20',
+        'from-emerald-500/20 to-emerald-600/20',
+        'from-amber-500/20 to-amber-600/20',
+        'from-rose-500/20 to-rose-600/20',
+        'from-indigo-500/20 to-indigo-600/20'
+      ][index]
+    }));
+    
+    setProductionAreas(formattedProduction);
+    setValues(formattedValues);
+    setStats(formattedStats);
   }, [i18n.language, t]);
 
   if (loading) {
@@ -332,6 +356,84 @@ const ProductionSection = () => {
                   {t('common.error', 'Ошибка загрузки данных')}
                 </span>
               </div>
+            </div>
+          )}
+
+          {/* Карточки организаций производства */}
+          {!error && productionOrganizations.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {productionOrganizations.map((organization, index) => (
+                <motion.div
+                  key={organization.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col min-h-[500px]"
+                >
+                  {/* Логотип организации */}
+                  <div className="h-48 overflow-hidden">
+                    <img
+                      src={organization.logo || '/placeholder-logo.png'}
+                      alt={organization.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.target.src = '/placeholder-logo.png';
+                      }}
+                    />
+                  </div>
+
+                  <div className="p-6 flex flex-col flex-grow">
+                    {/* Название организации */}
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-violet-600 transition-colors duration-300">
+                      {organization.name}
+                    </h3>
+
+                    {/* Краткое описание (первые 150 символов) */}
+                    <div 
+                      className="text-slate-600 text-sm mb-4 line-clamp-3 flex-grow"
+                      dangerouslySetInnerHTML={{
+                        __html: organization.description 
+                          ? organization.description.replace(/<[^>]*>/g, '').substring(0, 150) + '...'
+                          : t('common.noDescription', 'Описание недоступно')
+                      }}
+                    />
+
+                    {/* Контактная информация */}
+                    {organization.address && (
+                      <div className="flex items-center text-slate-500 text-sm mb-2">
+                        <HomeIcon className="w-4 h-4 mr-2" />
+                        <span className="line-clamp-1">{organization.address}</span>
+                      </div>
+                    )}
+
+                    {organization.phone && (
+                      <div className="flex items-center text-slate-500 text-sm mb-4">
+                        <PhoneIcon className="w-4 h-4 mr-2" />
+                        <span>{organization.phone}</span>
+                      </div>
+                    )}
+
+                    {/* Кнопка "Подробнее" */}
+                    <Link
+                      to={`/about/structure/${organization.slug}`}
+                      className="inline-flex items-center justify-center w-full px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 transition-colors duration-300 mt-auto"
+                    >
+                      {t('common.moreDetails', 'Подробнее')}
+                      <ChevronRightIcon className="w-4 h-4 ml-2" />
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {/* Показать сообщение, если нет данных */}
+          {!loading && !error && productionOrganizations.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-slate-600 text-lg">
+                {t('production.noOrganizations', 'На данный момент информация о производственных организациях недоступна')}
+              </p>
             </div>
           )}
 

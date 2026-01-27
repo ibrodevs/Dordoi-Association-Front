@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import {
   CogIcon,
   TruckIcon,
@@ -41,61 +42,28 @@ const ServicesSection = () => {
         setError(null);
         
         // Определяем язык для API запроса
-        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const apiLang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
         
-        // Здесь можно добавить реальные API запросы
-        // const data = await apiRequest(`services/?lang=${lang}`);
+        // Получаем данные из API с учетом языка
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/about-us/structure/?lang=${apiLang}`);
+        const data = await response.json();
         
-        // Временные данные из перевода
-        const directions = t('services.activities.directions.items', { returnObjects: true });
-        const benefitsData = t('services.activities.benefits.items', { returnObjects: true });
-        
-        const iconMap = {
-          0: TruckIcon,
-          1: WrenchScrewdriverIcon,
-          2: BanknotesIcon,
-          3: HomeIcon,
-          4: ComputerDesktopIcon,
-          5: UserGroupIcon,
-          6: DocumentTextIcon,
-          7: ChartBarIcon
+        // Фильтруем организации, связанные со сферой услуг
+        // Включаем несколько категорий, которые могут относиться к услугам в зависимости от языка
+        const servicesCategories = {
+          ru: ['Сферы услуг', 'Услуги', 'Медицина', 'Образование'],
+          en: ['Services', 'Medicine', 'Education'],
+          kg: ['Кызмат көрсөтүүлөр', 'Медицина', 'Билим берүү']
         };
         
-        const gradientMap = [
-          'from-blue-500 to-cyan-500',
-          'from-emerald-500 to-teal-500',
-          'from-violet-500 to-purple-500',
-          'from-amber-500 to-orange-500',
-          'from-indigo-500 to-blue-500',
-          'from-rose-500 to-pink-500',
-          'from-sky-500 to-blue-400',
-          'from-lime-500 to-green-400'
-        ];
+        const currentLangCategories = servicesCategories[apiLang] || servicesCategories.ru;
+        const servicesOrganizations = data.filter(org => 
+          currentLangCategories.some(category => 
+            org.category && org.category.includes(category)
+          )
+        );
         
-        const formattedServices = directions.map((item, index) => ({
-          id: index + 1,
-          title: item.title,
-          description: item.description,
-          icon: iconMap[index] || CogIcon,
-          gradient: gradientMap[index] || 'from-blue-500 to-cyan-500',
-          features: item.features || []
-        }));
-        
-        const formattedBenefits = benefitsData.map((item, index) => ({
-          icon: [ClockIcon, ShieldCheckIcon, CreditCardIcon, PhoneIcon, UsersIcon, ShieldExclamationIcon][index] || CheckCircleIcon,
-          text: item.text,
-          gradient: [
-            'from-blue-500 to-blue-600',
-            'from-emerald-500 to-emerald-600',
-            'from-violet-500 to-violet-600',
-            'from-amber-500 to-amber-600',
-            'from-rose-500 to-rose-600',
-            'from-indigo-500 to-indigo-600'
-          ][index]
-        }));
-        
-        setServiceAreas(formattedServices);
-        setBenefits(formattedBenefits);
+        setServiceAreas(servicesOrganizations);
         
       } catch (error) {
         console.error('Error fetching services data:', error);
@@ -106,6 +74,26 @@ const ServicesSection = () => {
     };
 
     fetchServicesData();
+  }, [i18n.language]);
+
+  // Отдельный useEffect для обновления преимуществ при смене языка
+  useEffect(() => {
+    const benefitsData = t('services.activities.benefits.items', { returnObjects: true }) || [];
+    
+    const formattedBenefits = benefitsData.map((item, index) => ({
+      icon: [ClockIcon, ShieldCheckIcon, CreditCardIcon, PhoneIcon, UsersIcon, ShieldExclamationIcon][index] || CheckCircleIcon,
+      text: item.text,
+      gradient: [
+        'from-blue-500 to-blue-600',
+        'from-emerald-500 to-emerald-600',
+        'from-violet-500 to-violet-600',
+        'from-amber-500 to-amber-600',
+        'from-rose-500 to-rose-600',
+        'from-indigo-500 to-indigo-600'
+      ][index]
+    }));
+    
+    setBenefits(formattedBenefits);
   }, [i18n.language, t]);
 
   if (loading) {
@@ -291,9 +279,6 @@ const ServicesSection = () => {
             
             <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mx-auto mb-6"></div>
             
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              {t('services.activities.directions.subtitle')}
-            </p>
           </div>
 
           {/* Error Message */}
@@ -304,6 +289,84 @@ const ServicesSection = () => {
                   {t('common.error', 'Ошибка загрузки данных')}
                 </span>
               </div>
+            </div>
+          )}
+
+          {/* Карточки организаций сферы услуг */}
+          {!error && serviceAreas.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {serviceAreas.map((organization, index) => (
+                <motion.div
+                  key={organization.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col min-h-[500px]"
+                >
+                  {/* Логотип организации */}
+                  <div className="h-48 overflow-hidden">
+                    <img
+                      src={organization.logo || '/placeholder-logo.png'}
+                      alt={organization.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.target.src = '/placeholder-logo.png';
+                      }}
+                    />
+                  </div>
+
+                  <div className="p-6 flex flex-col flex-grow">
+                    {/* Название организации */}
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                      {organization.name}
+                    </h3>
+
+                    {/* Краткое описание (первые 150 символов) */}
+                    <div 
+                      className="text-slate-600 text-sm mb-4 line-clamp-3 flex-grow"
+                      dangerouslySetInnerHTML={{
+                        __html: organization.description 
+                          ? organization.description.replace(/<[^>]*>/g, '').substring(0, 150) + '...'
+                          : t('common.noDescription', 'Описание недоступно')
+                      }}
+                    />
+
+                    {/* Контактная информация */}
+                    {organization.address && (
+                      <div className="flex items-center text-slate-500 text-sm mb-2">
+                        <HomeIcon className="w-4 h-4 mr-2" />
+                        <span className="line-clamp-1">{organization.address}</span>
+                      </div>
+                    )}
+
+                    {organization.phone && (
+                      <div className="flex items-center text-slate-500 text-sm mb-4">
+                        <PhoneIcon className="w-4 h-4 mr-2" />
+                        <span>{organization.phone}</span>
+                      </div>
+                    )}
+
+                    {/* Кнопка "Подробнее" */}
+                    <Link
+                      to={`/about/structure/${organization.slug}`}
+                      className="inline-flex items-center justify-center w-full px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300 mt-auto"
+                    >
+                      {t('common.moreDetails', 'Подробнее')}
+                      <ChevronRightIcon className="w-4 h-4 ml-2" />
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {/* Показать сообщение, если нет данных */}
+          {!loading && !error && serviceAreas.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-slate-600 text-lg">
+                {t('services.noOrganizations', 'На данный момент информация о организациях сферы услуг недоступна')}
+              </p>
             </div>
           )}
         </div>

@@ -279,7 +279,7 @@ const ContactsInfo = () => {
           33% {
             transform: translateY(-20px) rotate(2deg);
           }
-          66% {
+          66% {.  
             transform: translateY(-10px) rotate(-2deg);
           }
         }

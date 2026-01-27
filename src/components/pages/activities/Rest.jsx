@@ -1,8 +1,9 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import {
   SparklesIcon,
   HeartIcon,
@@ -19,7 +20,10 @@ import {
   XMarkIcon,
   CameraIcon,
   MegaphoneIcon,
-  HomeModernIcon
+  HomeModernIcon,
+  HomeIcon,
+  PhoneIcon,
+  ArrowUpRightIcon
 } from '@heroicons/react/24/outline';
 import {
   StarIcon as StarSolidIcon,
@@ -27,9 +31,51 @@ import {
 } from '@heroicons/react/24/solid';
 
 const Rest = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedDirection, setSelectedDirection] = useState(null);
   const [selectedBenefit, setSelectedBenefit] = useState(null);
+  const [organizations, setOrganizations] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Загрузка организаций отдыха из API
+  useEffect(() => {
+    const fetchLeisureOrganizations = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Определяем язык для API запроса
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        
+        // Загружаем организации из API
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/about-us/structure/?lang=${lang}`);
+        const apiData = await response.json();
+        
+        // Определяем категории отдыха для разных языков
+        const leisureCategories = {
+          ru: ['Отдых', 'Культура'],
+          en: ['Leisure', 'Culture'],
+          kg: ['Эс алуу', 'Маданият']
+        };
+        
+        // Фильтруем организации отдыха
+        const leisureOrgs = apiData.filter(org => 
+          leisureCategories[lang]?.includes(org.category)
+        );
+        
+        setOrganizations(leisureOrgs);
+        
+      } catch (error) {
+        console.error('Error fetching leisure organizations:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLeisureOrganizations();
+  }, [i18n.language]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -146,25 +192,123 @@ const Rest = () => {
         </div>
       </section>
 
-      {/* Основные направления */}
-      <section className="relative py-20 bg-gradient-to-b from-white to-purple-50">
+      {/* Организации сферы отдыха */}
+      <section className="relative py-20 bg-gradient-to-b from-purple-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-          >
-            {/* Заголовок секции */}
-            <motion.div variants={itemVariants} className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-                {t('culture_leisure.mainDirections')}
-              </h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
-                {t('culture_leisure.mainDirectionsDescription')}
-              </p>
-            </motion.div>
-          </motion.div>
+          {/* Заголовок секции */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-50 border border-purple-200 mb-6">
+              <SparklesIcon className="w-5 h-5 text-purple-600 mr-2" />
+              <span className="text-purple-600 text-sm font-semibold">
+                {i18n.language === 'en' ? 'Our Leisure Organizations' : 
+                 i18n.language === 'kg' ? 'Биздин эс алуу уюмдары' : 
+                 'Наши организации отдыха'}
+              </span>
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              {i18n.language === 'en' ? 'Leisure & Culture Organizations' : 
+               i18n.language === 'kg' ? 'Эс алуу жана маданият уюмдары' : 
+               'Организации отдыха и культуры'}
+            </h2>
+            
+            <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-6"></div>
+            
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              {i18n.language === 'en' ? 'Entertainment, leisure and cultural organizations that are part of the Dordoi Association' : 
+               i18n.language === 'kg' ? '"Дордой" Ассоциациясынын курамына кирген көңүл ачуу, эс алуу жана маданий уюмдар' : 
+               'Развлекательные, досуговые и культурные организации, входящие в состав Ассоциации "Дордой"'}
+            </p>
+          </div>
+
+          {/* Сетка организаций */}
+          {loading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+            </div>
+          ) : organizations.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {organizations.map((org) => (
+                <motion.div
+                  key={org.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="group h-full"
+                >
+                  <Link
+                    to={`/about/structure/${org.slug}`}
+                    className="flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200/60 hover:border-purple-300/50"
+                  >
+                    <div className="flex-1 flex flex-col p-8">
+                      {/* Иконка */}
+                      <div className="mb-6">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                          <SparklesIcon className="w-7 h-7 text-white" />
+                        </div>
+                      </div>
+                      
+                      {/* Название */}
+                      <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-purple-600 transition-colors duration-300 leading-tight line-clamp-2 min-h-[3.5rem]">
+                        {org.name}
+                      </h3>
+                      
+                      {/* Контактная информация */}
+                      <div className="space-y-3 text-sm text-slate-600 flex-1">
+                        {org.address && (
+                          <div className="flex items-start gap-3">
+                            <HomeIcon className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                            <span className="line-clamp-2">{org.address}</span>
+                          </div>
+                        )}
+                        
+                        {org.phone && (
+                          <div className="flex items-center gap-3">
+                            <PhoneIcon className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                            <span>{org.phone}</span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Кнопка перехода */}
+                      <div className="mt-6 flex items-center text-purple-600 font-semibold text-sm group-hover:text-purple-700 transition-colors duration-300">
+                        <span>
+                          {i18n.language === 'en' ? 'Learn More' : 
+                           i18n.language === 'kg' ? 'Толугураак' : 
+                           'Подробнее'}
+                        </span>
+                        <ArrowUpRightIcon className="w-4 h-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                      </div>
+                    </div>
+
+                    {/* Нижняя акцентная линия */}
+                    <div className="h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center px-6 py-3 rounded-full bg-slate-50 border border-slate-200">
+                <SparklesIcon className="w-5 h-5 text-slate-400 mr-2" />
+                <span className="text-slate-600 font-medium">
+                  {t('common.noOrganizationsLeisure', 'Организации сферы отдыха не найдены')}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Сообщение об ошибке */}
+          {error && (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center px-6 py-3 rounded-full bg-red-50 border border-red-200">
+                <span className="text-red-600 font-medium">
+                  {t('common.error', 'Ошибка загрузки данных')}: {error}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </div>
