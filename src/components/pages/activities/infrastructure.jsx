@@ -182,15 +182,7 @@ const ProductionSection = () => {
               </span>
             </h1>
             
-            {/* Подзаголовок */}
-            <p className="text-xl md:text-2xl text-slate-200 mb-8 max-w-4xl mx-auto leading-relaxed">
-              {t('production.activities.hero.subtitle')}
-            </p>
             
-            {/* Краткое описание */}
-            <p className="text-lg text-slate-300/80 mb-12 max-w-3xl mx-auto">
-              {t('production.activities.hero.description')}
-            </p>
           </div>
         </div>
       </section>
@@ -210,10 +202,8 @@ const ProductionSection = () => {
                 </div>
                 
                 <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-                  {t('production.activities.about.title').split(' — ')[0]} —{' '}
-                  <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent">
-                    {t('production.activities.about.title').split(' — ')[1]}
-                  </span>
+                  {t('production.activities.about.title').split(' — ')[0]} {' '}
+                 
                 </h2>
               </div>
               
@@ -334,63 +324,6 @@ const ProductionSection = () => {
             </p>
           </div>
 
-          {/* Сетка направлений */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {productionAreas.map((area) => {
-              const Icon = area.icon;
-              return (
-                <motion.div
-                  key={area.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: area.id * 0.1 }}
-                  className="group relative bg-white rounded-3xl overflow-hidden border border-slate-200/60 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:border-violet-300/50"
-                >
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-violet-50/0 via-transparent to-purple-50/0 group-hover:from-violet-50/30 group-hover:to-purple-50/30 transition-all duration-500 rounded-3xl"></div>
-                  
-                  {/* Content */}
-                  <div className="relative p-8">
-                    {/* Icon */}
-                    <div className="mb-6">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${area.gradient} flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110`}>
-                        <Icon className="w-7 h-7 text-white" />
-                      </div>
-                    </div>
-                    
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-violet-600 transition-colors duration-300 leading-tight">
-                      {area.title}
-                    </h3>
-                    
-                    {/* Description */}
-                    <p className="text-slate-600 mb-6 leading-relaxed">
-                      {area.description}
-                    </p>
-                    
-                    {/* Features */}
-                    {area.features && area.features.length > 0 && (
-                      <div className="space-y-3 mb-8">
-                        {area.features.slice(0, 3).map((feature, index) => (
-                          <div key={index} className="flex items-start gap-3">
-                            <CheckCircleIcon className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-slate-700">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    
-                    
-                  </div>
-
-                  {/* Bottom accent line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 via-purple-500 to-violet-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                </motion.div>
-              );
-            })}
-          </div>
-
           {/* Error Message */}
           {error && (
             <div className="text-center mt-8">
@@ -401,49 +334,6 @@ const ProductionSection = () => {
               </div>
             </div>
           )}
-
-          {/* Ценности компании */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-20"
-          >
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-slate-900 mb-4">
-                {t('production.activities.values.title')}
-              </h3>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                {t('production.activities.values.subtitle')}
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {values.map((value, index) => {
-                const Icon = value.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="group bg-white rounded-2xl p-6 border border-slate-200 hover:border-violet-200 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${value.gradient} mb-4`}>
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h4 className="text-lg font-semibold text-slate-900 mb-2 group-hover:text-violet-600 transition-colors">
-                      {value.title}
-                    </h4>
-                    <p className="text-sm text-slate-600">
-                      {value.description}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
 
           
         </div>

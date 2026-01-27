@@ -20,6 +20,8 @@ import ActivitiesEducation from './components/pages/activities/ActivitiesEducati
 import BusinessAndTrade from './components/pages/activities/business_trade';
 import Infrastructure from './components/pages/activities/infrastructure';
 import ActivitiesSports from './components/pages/activities/ActivitiesSports';
+import Rest from './components/pages/activities/Rest';
+import Medicine from './components/pages/activities/Medicine';
 
 // Подразделы Press
 import PressNews from './components/pages/press/PressNews';
@@ -90,6 +92,8 @@ function App() {
             <Route path="/activities/production" element={<Infrastructure />} />
             <Route path="/activities/education" element={<ActivitiesEducation />} />
             <Route path="/activities/sports" element={<ActivitiesSports />} />
+            <Route path="/activities/rest" element={<Rest />} />
+            <Route path="/activities/medicine" element={<Medicine />} />
 
             {/* Страницы Press */}
             <Route path="/press/news" element={<PressNews />} />

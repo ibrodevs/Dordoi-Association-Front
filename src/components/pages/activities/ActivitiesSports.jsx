@@ -255,12 +255,6 @@ const ActivitiesSports = () => {
                   </span>
                 </div>
                 
-                <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-                  {t('activities.sports.about.title')} —{' '}
-                  <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                    {t('activities.sports.hero.titleHighlight')}
-                  </span>
-                </h2>
               </div>
               
               <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
@@ -270,6 +264,9 @@ const ActivitiesSports = () => {
                 
                 <p>
                   {t('activities.sports.about.description2')}
+                </p>
+                <p>
+                  {t('activities.sports.about.description3')}
                 </p>
               </div>
               
@@ -452,162 +449,6 @@ const ActivitiesSports = () => {
               })}
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Спортивные мероприятия */}
-      <section className="relative py-20 bg-gradient-to-b from-slate-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-50 border border-green-200 mb-6">
-              <span className="text-green-600 text-sm font-semibold">
-                {t('activities.sports.events.badge')}
-              </span>
-            </div>
-            
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
-              {t('activities.sports.events.title')}
-            </h2>
-            
-            <div className="w-20 h-1 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mx-auto mb-6"></div>
-            
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              {t('activities.sports.events.description')}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: t('activities.sports.events.festivals'),
-                icon: Award,
-                gradient: "from-yellow-500 to-orange-500"
-              },
-              {
-                title: t('activities.sports.events.tournaments'),
-                icon: Trophy,
-                gradient: "from-blue-500 to-indigo-500"
-              },
-              {
-                title: t('activities.sports.events.friendlyMatches'),
-                icon: PlayCircle,
-                gradient: "from-green-500 to-emerald-500"
-              },
-              {
-                title: t('activities.sports.events.corporateCompetitions'),
-                icon: Users,
-                gradient: "from-purple-500 to-violet-500"
-              }
-            ].map((event, index) => {
-              const Icon = event.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group relative bg-white rounded-3xl overflow-hidden border border-slate-200/60 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:border-green-300/50"
-                >
-                  <div className="relative p-8">
-                    <div className="mb-6">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${event.gradient} flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110`}>
-                        <Icon className="w-7 h-7 text-white" />
-                      </div>
-                    </div>
-                    
-                    <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-green-600 transition-colors duration-300 leading-tight">
-                      {event.title}
-                    </h3>
-                    
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                      <div className="flex-1"></div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm font-medium text-slate-600 group-hover:text-green-600 transition-colors duration-300">
-                          {t('activities.sports.learnMore')}
-                        </span>
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
-                          <ChevronRight className="w-4 h-4 text-white transform group-hover:translate-x-0.5 transition-transform duration-300" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Ценности спортивного направления */}
-      <section className="relative py-20 bg-gradient-to-b from-white to-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-rose-50 border border-rose-200 mb-6">
-              <span className="text-rose-600 text-sm font-semibold">
-                {t('activities.sports.values.badge')}
-              </span>
-            </div>
-            
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
-              {t('activities.sports.values.title')}
-            </h2>
-            
-            <div className="w-20 h-1 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full mx-auto mb-6"></div>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {[
-              {
-                title: t('activities.sports.values.healthyLifestyle'),
-                icon: Heart,
-                gradient: "from-rose-500 to-pink-500"
-              },
-              {
-                title: t('activities.sports.values.teamSpirit'),
-                icon: Users,
-                gradient: "from-blue-500 to-cyan-500"
-              },
-              {
-                title: t('activities.sports.values.discipline'),
-                icon: Shield,
-                gradient: "from-green-500 to-emerald-500"
-              },
-              {
-                title: t('activities.sports.values.willToWin'),
-                icon: TrendingUp,
-                gradient: "from-amber-500 to-orange-500"
-              },
-              {
-                title: t('activities.sports.values.sportsSupport'),
-                icon: Activity,
-                gradient: "from-purple-500 to-violet-500"
-              }
-            ].map((value, index) => {
-              const Icon = value.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group text-center bg-white rounded-2xl p-6 border border-slate-200 hover:border-rose-200 hover:shadow-lg transition-all duration-300"
-                >
-                  <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${value.gradient} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h4 className="text-sm font-semibold text-slate-900 group-hover:text-rose-600 transition-colors">
-                    {value.title}
-                  </h4>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          
         </div>
       </section>
     </div>

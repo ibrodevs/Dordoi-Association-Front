@@ -103,8 +103,10 @@ const Navbar = () => {
         { key: 'activities_services', label: t('nav.activities_services'), path: '/activities/services' },
         { key: 'activities_production', label: t('nav.activities_production'), path: '/activities/production' },
         { key: 'activities_education', label: t('nav.activities_education'), path: '/activities/education' },
+        { key: 'activities_medicine', label: t('nav.activities_medicine'), path: '/activities/medicine' },
         // { key: 'activities_culture_leisure', label: t('nav.activities_culture_leisure'), path: '/activities/culture-leisure' },
         { key: 'activities_sports', label: t('nav.activities_sports'), path: '/activities/sports' },
+        { key: 'activities_rest', label: t('nav.activities_rest'), path: '/activities/rest' },
       ]
     },
     {

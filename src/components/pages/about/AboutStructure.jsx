@@ -33,9 +33,10 @@ const AboutStructure = () => {
         console.log('Fetching subsidiaries with lang:', lang);
         const data = await apiRequest(`about-us/structure/?lang=${lang}`);
         console.log('Received subsidiaries:', data);
-        // Сортируем по order
+        // Сортируем по order и фильтруем неактивные
         const sortedData = data.sort((a, b) => a.order - b.order);
-        setSubsidiaries(sortedData);
+        const inactiveSubsidiaries = sortedData.filter(sub => !sub.is_active);
+        setSubsidiaries(inactiveSubsidiaries);
       } catch (error) {
         console.error('Error fetching subsidiaries:', error);
         // Error handled silently
@@ -570,7 +571,7 @@ const AboutStructure = () => {
           variants={containerVariants}
           initial="hidden"
           animate={hasAnimated ? "visible" : "hidden"}
-          className="rounded-3xl p-8 md:p-12 border border-slate-200 bg-white shadow-lg"
+          className="rounded-3xl p-8 md:p-12"
         >
           {loading ? (
             <div className="flex items-center justify-center py-12">
@@ -589,12 +590,12 @@ const AboutStructure = () => {
                   key={subsidiary.id}
                   variants={cardVariants}
                   whileHover="hover"
-                  className="group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-slate-200 transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 overflow-hidden"
+                  className="group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-slate-200 transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 overflow-hidden flex flex-col"
                 >
                   {/* Фоновый градиент при ховере */}
                   <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
                   
-                  <div className="relative z-10">
+                  <div className="relative z-10 flex flex-col flex-grow">
                     {/* Фото компании */}
                     <div className="mb-6">
                       <div className="w-full aspect-video bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-xl transition-all duration-500 overflow-hidden">
@@ -607,7 +608,7 @@ const AboutStructure = () => {
                     </div>
                     
                     {/* Контент */}
-                    <div className="text-center">
+                    <div className="text-center flex-grow flex flex-col justify-between">
                       <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-900 transition-colors duration-300">
                         {subsidiary.name}
                       </h4>
@@ -615,14 +616,11 @@ const AboutStructure = () => {
                       {/* Кнопка */}
                       <motion.button
                         onClick={() => navigate(`/about/structure/${subsidiary.slug}`, { state: { subsidiary } })}
-                        className="inline-flex items-center space-x-2 px-6 py-3 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition-all duration-300 shadow-sm hover:shadow-md group-hover:bg-blue-600 group-hover:shadow-blue-200"
+                        className="w-full px-6 py-3 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition-all duration-300 shadow-sm hover:shadow-md mt-auto text-center"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
                         <span>{t('structure.subsidiaries.learnMore')}</span>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
                       </motion.button>
                     </div>
                   </div>

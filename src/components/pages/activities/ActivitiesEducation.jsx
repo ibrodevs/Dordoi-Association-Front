@@ -382,51 +382,6 @@ const ActivitiesEducation = () => {
               </div>
             </div>
           )}
-
-          {/* Преимущества образования */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-20"
-          >
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-slate-900 mb-4">
-                {t('education.activities.benefits.title')}
-              </h3>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                {t('education.activities.benefits.subtitle')}
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {benefits.slice(0, 8).map((benefit, index) => {
-                const Icon = benefit.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="group text-center bg-white rounded-2xl p-6 border border-slate-200 hover:border-blue-200 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${benefit.gradient} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h4 className="text-lg font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                      {benefit.title}
-                    </h4>
-                    <p className="text-sm text-slate-600">
-                      {benefit.description}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-
-          
         </div>
       </section>
     </div>

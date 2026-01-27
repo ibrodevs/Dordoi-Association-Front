@@ -214,28 +214,6 @@ const ServicesSection = () => {
                   {t('services.activities.about.description3')}
                 </p>
               </div>
-              
-              {/* Преимущества */}
-              <div className="grid grid-cols-2 gap-4">
-                {benefits.slice(0, 4).map((benefit, index) => {
-                  const Icon = benefit.icon;
-                  return (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300"
-                    >
-                      <div className={`p-2 rounded-lg bg-gradient-to-br ${benefit.gradient}`}>
-                        <Icon className="w-5 h-5 text-white" />
-                      </div>
-                      <span className="text-sm font-medium text-slate-700">{benefit.text}</span>
-                    </motion.div>
-                  );
-                })}
-              </div>
             </div>
             
             {/* Изображения */}
@@ -316,62 +294,6 @@ const ServicesSection = () => {
             <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
               {t('services.activities.directions.subtitle')}
             </p>
-          </div>
-
-          {/* Сетка услуг */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {serviceAreas.map((service) => {
-              const Icon = service.icon;
-              return (
-                <motion.div
-                  key={service.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: service.id * 0.1 }}
-                  className="group relative bg-white rounded-3xl overflow-hidden border border-slate-200/60 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:border-blue-300/50"
-                >
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 via-transparent to-cyan-50/0 group-hover:from-blue-50/30 group-hover:to-cyan-50/30 transition-all duration-500 rounded-3xl"></div>
-                  
-                  {/* Content */}
-                  <div className="relative p-8">
-                    {/* Icon */}
-                    <div className="mb-6">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110`}>
-                        <Icon className="w-7 h-7 text-white" />
-                      </div>
-                    </div>
-                    
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors duration-300 leading-tight">
-                      {service.title}
-                    </h3>
-                    
-                    {/* Description */}
-                    <p className="text-slate-600 mb-6 leading-relaxed">
-                      {service.description}
-                    </p>
-                    
-                    {/* Features */}
-                    {service.features && service.features.length > 0 && (
-                      <div className="space-y-3 mb-8">
-                        {service.features.slice(0, 3).map((feature, index) => (
-                          <div key={index} className="flex items-start gap-3">
-                            <CheckCircleIcon className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-slate-700">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    
-                  </div>
-
-                  {/* Bottom accent line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                </motion.div>
-              );
-            })}
           </div>
 
           {/* Error Message */}

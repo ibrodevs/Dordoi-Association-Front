@@ -224,16 +224,7 @@ const ProductionSection = () => {
                 сила, создающая продукт
               </span>
             </motion.h1>
-            
-            {/* Подзаголовок */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-xl md:text-2xl text-indigo-100 mb-8 max-w-4xl mx-auto leading-relaxed"
-            >
-              Дордой — это не только рынок сбыта, но и мощный производственный центр, где создаются товары для всей страны и за её пределами.
-            </motion.p>
+
             
             {/* Краткое описание */}
             <motion.p
