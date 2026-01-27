@@ -170,7 +170,7 @@ const HeroSlider = () => {
                 <div className="max-w-4xl md:max-w-6xl">
                   <div className="space-y-3 md:space-y-6">
                     {/* Заголовок */}
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-white leading-tight">
+                    <h1 className="text-xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-white leading-tight">
                       {slide.title}
                     </h1>
                     

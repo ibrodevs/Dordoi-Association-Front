@@ -2281,6 +2281,13 @@
         "willToWin": "Desire to win",
         "sportsSupport": "Support for professional and mass sports"
       },
+      "learnMore": "Learn More",
+      "kpi": {
+        "professional": "Professional Sports",
+        "community": "Community",
+        "health": "Health",
+        "events": "Events"
+      },
       "conclusion": {
         "title": "Sports at Dordoi is Moving Forward",
         "description": "Dordoi Football Club and sports initiatives unite people and form a strong community.",
@@ -5142,6 +5149,7 @@
     "badge": "Contacts",
     "title": "Contact Information",
     "subtitle": "Contact the right department to solve your questions",
+    "tapForDetails": "Tap for details",
     "contactInformation": "Contact Information",
     "responseTime": "Response Time",
     "quickContact": "Quick Contact",

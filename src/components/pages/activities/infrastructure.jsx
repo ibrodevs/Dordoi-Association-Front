@@ -191,25 +191,6 @@ const ProductionSection = () => {
             <p className="text-lg text-slate-300/80 mb-12 max-w-3xl mx-auto">
               {t('production.activities.hero.description')}
             </p>
-
-            {/* Статистика */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-12">
-              {stats.slice(0, 4).map((stat, index) => {
-                const Icon = stat.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + index * 0.1 }}
-                    className="text-center p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10"
-                  >
-                    <div className="text-3xl md:text-4xl font-bold text-white mb-2">{stat.value}</div>
-                    <div className="text-sm text-slate-300">{stat.label}</div>
-                  </motion.div>
-                );
-              })}
-            </div>
           </div>
         </div>
       </section>
