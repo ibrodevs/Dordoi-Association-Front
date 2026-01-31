@@ -324,29 +324,31 @@ const ActivitiesSports = () => {
               </div>
             </div>
             
-            {/* Изображения/Иконки */}
+            {/* Изображения */}
             <div className="relative">
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: Trophy, gradient: 'from-blue-100 to-blue-200', color: 'text-blue-600' },
-                  { icon: Users, gradient: 'from-green-100 to-green-200', color: 'text-green-600' },
-                  { icon: Target, gradient: 'from-purple-100 to-purple-200', color: 'text-purple-600' },
-                  { icon: Heart, gradient: 'from-rose-100 to-rose-200', color: 'text-rose-600' }
-                ].map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className={`bg-gradient-to-br ${item.gradient} rounded-2xl aspect-square flex items-center justify-center group hover:scale-105 transition-transform duration-300`}
-                    >
-                      <Icon className={`w-16 h-16 ${item.color}`} />
-                    </motion.div>
-                  );
-                })}
+                  { src: "https://ru.kabar.kg/media/images/549571107_1242.max-2560x1440.format-webp.jpegquality-90.webp", alt: "Спортивные мероприятия" },
+                  { src: "https://sport.kg/uploads/posts/2021-03/1615298686_dordoj-prezent.jpg", alt: "Футбольный клуб Дордой" },
+                  { src: "https://cdn-1.aki.kg/cdn-st-0/qgr/5/3706437.d109452aa138764c382d75fdd000194e.jpg", alt: "Спортивные достижения" },
+                  { src: "https://sputnik.kg/img/104385/40/1043854007_0:0:3067:1735_600x0_80_0_0_ef06a7748d1f5ec72b2dbea15725a57f.jpg", alt: "Командные виды спорта" }
+                ].map((image, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-52 object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
@@ -528,12 +530,31 @@ const ActivitiesSports = () => {
                     className="flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200/60 hover:border-blue-300/50"
                   >
                     <div className="flex-1 flex flex-col p-8">
-                      {/* Иконка */}
-                      <div className="mb-6">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
-                          <Trophy className="w-7 h-7 text-white" />
+                      {/* Логотип организации */}
+                      {org.logo ? (
+                        <div className="mb-6 h-48 overflow-hidden rounded-xl">
+                          <img
+                            src={org.logo}
+                            alt={org.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                          {/* Fallback иконка */}
+                          <div className="hidden w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                            <Trophy className="w-7 h-7 text-white" />
+                          </div>
                         </div>
-                      </div>
+                      ) : (
+                        /* Иконка */
+                        <div className="mb-6">
+                          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                            <Trophy className="w-7 h-7 text-white" />
+                          </div>
+                        </div>
+                      )}
                       
                       {/* Название */}
                       <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors duration-300 leading-tight line-clamp-2 min-h-[3.5rem]">

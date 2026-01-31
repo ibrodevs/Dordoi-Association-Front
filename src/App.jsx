@@ -110,7 +110,7 @@ function App() {
             <Route path="/partners/international" element={<PartnersInternational />} />
             <Route path="/partners/projects" element={<PartnersProjects />} />
             {/* <Route path="/partners/conferences" element={<PartnersConferences />} /> */}
-            <Route path="/partners/role" element={<PartnersRole />} />
+            {/* <Route path="/partners/role" element={<PartnersRole />} /> */}
 
             {/* Страницы Contacts */}
             {/* <Route path="/contacts/address" element={<ContactsAddress />} /> */}
@@ -124,7 +124,6 @@ function App() {
         </main>
         <Footer />
       </div>
-
     </Router>
   );
 }

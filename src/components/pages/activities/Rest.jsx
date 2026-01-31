@@ -242,12 +242,31 @@ const Rest = () => {
                     className="flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200/60 hover:border-purple-300/50"
                   >
                     <div className="flex-1 flex flex-col p-8">
-                      {/* Иконка */}
-                      <div className="mb-6">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
-                          <SparklesIcon className="w-7 h-7 text-white" />
+                      {/* Логотип организации */}
+                      {org.logo ? (
+                        <div className="mb-6 h-40 overflow-hidden rounded-xl">
+                          <img
+                            src={org.logo}
+                            alt={org.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                          {/* Fallback иконка */}
+                          <div className="hidden w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                            <SparklesIcon className="w-7 h-7 text-white" />
+                          </div>
                         </div>
-                      </div>
+                      ) : (
+                        /* Иконка */
+                        <div className="mb-6">
+                          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                            <SparklesIcon className="w-7 h-7 text-white" />
+                          </div>
+                        </div>
+                      )}
                       
                       {/* Название */}
                       <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-purple-600 transition-colors duration-300 leading-tight line-clamp-2 min-h-[3.5rem]">

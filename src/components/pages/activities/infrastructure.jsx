@@ -279,7 +279,7 @@ const ProductionSection = () => {
                   className="col-span-2 relative group overflow-hidden rounded-2xl shadow-xl"
                 >
                   <img 
-                    src="https://images.unsplash.com/photo-1565377962779-0c06e4e2a1c4?q=80&w=2070"
+                    src="https://img.freepik.com/free-photo/factory-workshop-interior-machines-glass-production-background_645730-396.jpg?semt=ais_hybrid&w=740&q=80"
                     alt="Производственные цеха"
                     className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -299,7 +299,7 @@ const ProductionSection = () => {
                   className="relative group overflow-hidden rounded-2xl shadow-lg"
                 >
                   <img 
-                    src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=2070"
+                    src="https://promupac.com/files/blog/molochniy_ceh-s-nulya.jpg"
                     alt="Рабочие за станками"
                     className="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -314,7 +314,7 @@ const ProductionSection = () => {
                   className="relative group overflow-hidden rounded-2xl shadow-lg"
                 >
                   <img 
-                    src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?q=80&w=2070"
+                    src="https://eurasiatoday.ru/wp-content/uploads/2024/06/1429998.1.1517829879.jpg"
                     alt="Готовая продукция"
                     className="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-700"
                   />

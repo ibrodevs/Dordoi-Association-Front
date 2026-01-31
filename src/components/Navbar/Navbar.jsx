@@ -132,7 +132,7 @@ const Navbar = () => {
         { key: 'partners_international', label: t('nav.partners_international'), path: '/partners/international' },
         { key: 'partners_projects', label: t('nav.partners_projects'), path: '/partners/projects' },
         // { key: 'partners_conferences', label: t('nav.partners_conferences'), path: '/partners/conferences' },
-        { key: 'partners_role', label: t('nav.partners_role'), path: '/partners/role' }
+        // { key: 'partners_role', label: t('nav.partners_role'), path: '/partners/role' }
       ]
     },
     {

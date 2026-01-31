@@ -264,7 +264,7 @@ const ActivitiesEducation = () => {
                   className="col-span-2 relative group overflow-hidden rounded-2xl shadow-xl"
                 >
                   <img 
-                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070"
+                    src="https://salymbekov.com/wp-content/uploads/2023/02/bc0b2640-1920x1008.jpg"
                     alt="Студенты на занятиях"
                     className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -284,7 +284,7 @@ const ActivitiesEducation = () => {
                   className="relative group overflow-hidden rounded-2xl shadow-lg"
                 >
                   <img 
-                    src="https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?q=80&w=2070"
+                    src="https://pbs.twimg.com/media/ElPBLE_XYAEChzM.jpg"
                     alt="Лаборатории"
                     className="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -299,7 +299,7 @@ const ActivitiesEducation = () => {
                   className="relative group overflow-hidden rounded-2xl shadow-lg"
                 >
                   <img 
-                    src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070"
+                    src="https://i.ytimg.com/vi/6Z4tVgrCj9w/maxresdefault.jpg"
                     alt="Выпускники"
                     className="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -450,12 +450,31 @@ const ActivitiesEducation = () => {
                     className="block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200/60 hover:border-blue-300/50"
                   >
                     <div className="p-8">
-                      {/* Иконка */}
-                      <div className="mb-6">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
-                          <AcademicCapIcon className="w-7 h-7 text-white" />
+                      {/* Логотип организации */}
+                      {org.logo ? (
+                        <div className="mb-6 h-32 overflow-hidden rounded-xl">
+                          <img
+                            src={org.logo}
+                            alt={org.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                          {/* Фallback иконка */}
+                          <div className="hidden w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                            <AcademicCapIcon className="w-7 h-7 text-white" />
+                          </div>
                         </div>
-                      </div>
+                      ) : (
+                        /* Иконка */
+                        <div className="mb-6">
+                          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                            <AcademicCapIcon className="w-7 h-7 text-white" />
+                          </div>
+                        </div>
+                      )}
                       
                       {/* Название */}
                       <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors duration-300 leading-tight line-clamp-2">
