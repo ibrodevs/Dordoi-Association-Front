@@ -709,6 +709,7 @@ const NewsDetailPage = () => {
     </div>
       </PressBackground>
     </>
+  );
 };
 
 export default NewsDetailPage;

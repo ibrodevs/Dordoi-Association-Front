@@ -668,5 +668,7 @@ const PressNews = () => {
     </div>
     </PressBackground>
     </>
+  );
+};
 
 export default PressNews;
