@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import SEO from '../../SEO';
 import {
   CogIcon,
   TruckIcon,
@@ -98,7 +99,13 @@ const ServicesSection = () => {
 
   if (loading) {
     return (
-      <section className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+      <>
+        <SEO 
+          title="Сфера услуг и торговля | Ассоциация Дордой"
+          description="Торговля, логистика, безопасность и сфера услуг Ассоциации Дордой. Рынки, торговые центры, цифровые услуги и консалтинг. Комплексные решения для бизнеса."
+          keywords="услуги Дордой, торговля, логистика, безопасность, консалтинг, цифровые услуги, Ассоциация Дордой деятельность"
+        />
+        <section className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-6">

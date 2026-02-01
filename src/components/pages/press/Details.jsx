@@ -348,8 +348,18 @@ const NewsDetailPage = () => {
   };
 
   return (
-    <PressBackground>
-      <div className="min-h-screen bg-white">
+    <>
+      {newsData && (
+        <SEO 
+          title={newsData.title}
+          description={newsData.description || newsData.content?.substring(0, 160)}
+          ogImage={newsData.image}
+          article={true}
+          publishedTime={newsData.created_at}
+        />
+      )}
+      <PressBackground>
+        <div className="min-h-screen bg-white">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}

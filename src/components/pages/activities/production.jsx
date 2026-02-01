@@ -176,7 +176,13 @@ const ProductionSection = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white">
+    <>
+      <SEO 
+        title="Производство и промышленность | Ассоциация Дордой"
+        description="Производственный сектор Ассоциации Дордой: легкая промышленность, переработка, строительство и ремесленное производство. Создание рабочих мест и поддержка отечественного производителя."
+        keywords="производство Дордой, промышленность Кыргызстан, швейное производство, строительство, рабочие места, made in KG"
+      />
+      <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white">
       {/* Hero Banner Section */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-br from-slate-900 via-gray-800 to-slate-900">
         {/* Фоновые элементы */}

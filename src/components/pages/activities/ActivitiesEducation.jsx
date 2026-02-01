@@ -143,7 +143,19 @@ const ActivitiesEducation = () => {
 
   if (loading) {
     return (
-      <section className="relative py-20 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <>
+        <SEO 
+          title="Образование | Ассоциация Дордой"
+          description="Образовательные проекты Ассоциации Дордой: Университет Салымбекова, школы, стипендии и гранты для талантливой молодежи. Инвестиции в будущее Кыргызстана."
+          keywords="образование Дордой, университет Салымбекова, стипендии, гранты, обучение, школа Дордой, образовательные проекты"
+        />
+        <>
+        <SEO 
+          title="Образование | Ассоциация Дордой"
+          description="Образовательные проекты Ассоциации Дордой: Университет Салымбекова, школы, стипендии и гранты для талантливой молодежи. Инвестиции в будущее Кыргызстана."
+          keywords="образование Дордой, университет Салымбекова, стипендии, гранты, обучение, школа Дордой, образовательные проекты"
+        />
+        <section className="relative py-20 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-6">

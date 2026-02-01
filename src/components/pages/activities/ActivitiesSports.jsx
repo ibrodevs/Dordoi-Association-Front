@@ -226,7 +226,13 @@ const ActivitiesSports = () => {
   };
 
   return (
-    <div className="relative">
+    <>
+      <SEO 
+        title="Спорт и здоровый образ жизни | Ассоциация Дордой"
+        description="Спортивные достижения и проекты Ассоциации Дордой. Футбольный клуб Дордой — многократный чемпион Кыргызстана. Поддержка детского спорта и здорового образа жизни."
+        keywords="спорт, футбол, ФК Дордой, Dordoi FC, спорткомплекс Дордой, детский спорт, здоровый образ жизни"
+      />
+      <div className="relative">
       {/* Hero Banner */}
       <section className="relative py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden">
         {/* Фоновые элементы */}

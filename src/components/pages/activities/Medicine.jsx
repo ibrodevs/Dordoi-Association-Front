@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import SEO from '../../SEO';
 import {
   HeartIcon,
   UserGroupIcon,
@@ -111,7 +112,13 @@ const Medicine = () => {
   const leadStats = t('medicine.lead.stats', { returnObjects: true });
 
   return (
-    <div className="relative">
+    <>
+      <SEO 
+        title="Медицина и здравоохранение | Ассоциация Дордой"
+        description="Медицинские проекты Ассоциации Дордой: Dordoi Ophthalmic Service, клиники, социальные программы. Вклад в борьбу с пандемией и здоровье нации."
+        keywords="медицина Дордой, Dordoi Ophthalmic Service, здравоохранение, офтальмология, социальные проекты, клиника Дордой"
+      />
+      <div className="relative">
       {/* Hero Banner Section */}
       <section className="relative py-20 bg-gradient-to-br from-red-900 via-pink-900 to-red-800 overflow-hidden">
         {/* Фоновые элементы */}

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { apiRequest } from '../../../api';
+import SEO from '../../SEO';
 import PressBackground from '../../PressBackground';
 
 const PressNews = () => {
@@ -182,7 +183,13 @@ const PressNews = () => {
   }
 
   return (
-    <PressBackground>
+    <>
+      <SEO 
+        title="Новости | Ассоциация Дордой"
+        description="Актуальные новости и события Ассоциации Дордой. Пресс-релизы, отчеты, мероприятия и объявления. Будьте в курсе жизни крупнейшего бизнес-сообщества."
+        keywords="новости Дордой, события, пресс-релизы, мероприятия, Ассоциация Дордой новости, СМИ"
+      />
+      <PressBackground>
       <div className="min-h-screen relative">
       {/* Динамичный фон */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
