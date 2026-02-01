@@ -623,6 +623,7 @@ const ProductionSection = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

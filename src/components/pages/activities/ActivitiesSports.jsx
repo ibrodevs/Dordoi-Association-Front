@@ -625,6 +625,7 @@ const ActivitiesSports = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

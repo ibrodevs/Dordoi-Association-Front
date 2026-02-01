@@ -310,6 +310,7 @@ const Medicine = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

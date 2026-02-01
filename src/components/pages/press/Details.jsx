@@ -707,8 +707,8 @@ const NewsDetailPage = () => {
         )}
       </AnimatePresence>
     </div>
-    </PressBackground>
-  );
+      </PressBackground>
+    </>
 };
 
 export default NewsDetailPage;
