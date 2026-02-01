@@ -43,6 +43,7 @@ import PartnersRole from './components/pages/partners/PartnersRole';
 // Подразделы Contacts
 import ContactsInfo from './components/pages/contacts/ContactsInfo';
 import Footer from './components/Footer';
+import LightParticlesBackground from './components/LightParticlesBackground';
 
 
 import DordoiLoadingAnimation from './components/DordoiLoadingAnimation';
@@ -70,12 +71,14 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
+
         <ScrollToTop />
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-white">
           <Navbar />
           
           {/* Основной контент с отступом для фиксированного navbar */}
           <main className="pt-16">
+            <LightParticlesBackground>
             <Routes>
               {/* Главная страница */}
               <Route path="/" element={<HomePage />} />
@@ -125,6 +128,7 @@ function App() {
             {/* Страница 404 */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
+          </LightParticlesBackground>
         </main>
         <Footer />
       </div>

@@ -78,8 +78,8 @@ const HeroSlider = () => {
           title: banner.title,
           subtitle: banner.short_description,
           description: '',
-          buttonText: banner.link_url ? t('hero.bannerButton') : null,
-          buttonLink: banner.link_url,
+          buttonText: t('hero.bannerButton'),
+          buttonLink: `/press/news/${banner.id}`,
           image: banner.image,
           overlay: "bg-blue-900/70"
         }));
@@ -165,22 +165,24 @@ const HeroSlider = () => {
             <div className={`absolute inset-0 ${slide.overlay}`} />
             
             {/* Контент */}
-            <div className="relative h-full flex items-center">
+            <div className="relative h-full flex items-end pb-20 md:pb-24 lg:pb-32">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <div className="max-w-4xl md:max-w-6xl">
-                  <div className="space-y-3 md:space-y-6">
+                <div className="max-w-xl md:max-w-2xl lg:max-w-4xl">
+                  <div className="w-fit bg-slate-900/50 backdrop-blur-md p-5 sm:p-6 md:p-8 rounded-xl md:rounded-2xl border border-white/10 space-y-3 transition-all duration-300 hover:bg-slate-900/60 shadow-lg pr-8 md:pr-12">
                     {/* Заголовок */}
-                    <h1 className="text-xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-white leading-tight">
+                    <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white leading-tight shadow-sm">
                       {slide.title}
                     </h1>
                     
                     {/* Подзаголовок */}
-                    <p className="text-lg sm:text-xl md:text-2xl text-yellow-300 font-semibold max-w-2xl">
+                    <p className="text-xs sm:text-sm md:text-base text-yellow-300 font-medium leading-snug shadow-sm line-clamp-3">
                       {slide.subtitle}
                     </p>
                     
                     {/* Кнопка */}
-                    {buttonElement}
+                    <div className="pt-1">
+                       {buttonElement}
+                    </div>
                   </div>
                 </div>
               </div>

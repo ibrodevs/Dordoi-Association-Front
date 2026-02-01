@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { apiRequest } from '../../../api';
 import PressBackground from '../../PressBackground';
+import SEO from '../../SEO';
 
 const NewsDetailPage = () => {
   const { id } = useParams();
