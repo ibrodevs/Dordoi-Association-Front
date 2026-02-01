@@ -35,6 +35,7 @@ import PublicationDetail from './components/pages/press/PublicationDetail';
 import PartnersOur from './components/pages/partners/PartnersOur';
 import PartnersInternational from './components/pages/partners/PartnersInternational';
 import PartnersProjects from './components/pages/partners/PartnersProjects';
+import ProjectDetail from './components/pages/partners/ProjectDetail';
 import PartnersConferences from './components/pages/partners/PartnersConferences';
 import PartnersRole from './components/pages/partners/PartnersRole';
 
@@ -109,6 +110,7 @@ function App() {
             <Route path="/partners/our" element={<PartnersOur />} />
             <Route path="/partners/international" element={<PartnersInternational />} />
             <Route path="/partners/projects" element={<PartnersProjects />} />
+            <Route path="/partners/projects/:id" element={<ProjectDetail />} />
             {/* <Route path="/partners/conferences" element={<PartnersConferences />} /> */}
             {/* <Route path="/partners/role" element={<PartnersRole />} /> */}
 

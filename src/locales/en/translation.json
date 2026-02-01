@@ -3755,6 +3755,50 @@
     "testimonials": {
       "title": "Partner Testimonials",
       "subtitle": "What our international partners say about cooperation"
+    },
+    
+    "loading": "Loading projects...",
+    "error": {
+      "title": "Loading Error",
+      "message": "Failed to load projects"
+    },
+    "date": {
+      "unknown": "Date not specified"
+    },
+    "project": {
+      "more": "More details →"
+    },
+    "noProjects": {
+      "title": "No projects found",
+      "message": "There are no projects in the selected category yet."
+    }
+  },
+  "projectDetail": {
+    "loading": "Loading project...",
+    "error": {
+      "title": "Loading Error",
+      "message": "Project not found",
+      "backToProjects": "Back to Projects",
+      "tryAgain": "Try Again"
+    },
+    "date": {
+      "unknown": "Date not specified"
+    },
+    "navigation": {
+      "backToProjects": "Back to Projects",
+      "share": "Share"
+    },
+    "badge": "Project",
+    "photos": {
+      "single": "photo",
+      "few": "photos",
+      "many": "photos"
+    },
+    "gallery": {
+      "title": "Project Photo Gallery"
+    },
+    "content": {
+      "fallback": "Detailed project information will be added later."
     }
   },
   "partnersInternational": {
