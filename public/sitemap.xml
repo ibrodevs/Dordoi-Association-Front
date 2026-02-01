@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
-        <loc>https://dordoi.kg/</loc>
+        <loc>https://www.dordoi.info/</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://dordoi.kg/ru"/>
-        <xhtml:link rel="alternate" hreflang="ky" href="https://dordoi.kg/kg"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://dordoi.kg/en"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://www.dordoi.info/ru"/>
+        <xhtml:link rel="alternate" hreflang="ky" href="https://www.dordoi.info/kg"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.dordoi.info/en"/>
     </url>
     <url>
-        <loc>https://dordoi.kg/about/history</loc>
+        <loc>https://www.dordoi.info/about/history</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/about/mission</loc>
+        <loc>https://www.dordoi.info/about/mission</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/about/leadership</loc>
+        <loc>https://www.dordoi.info/about/leadership</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/about/structure</loc>
+        <loc>https://www.dordoi.info/about/structure</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/activities/services</loc>
+        <loc>https://www.dordoi.info/activities/services</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/activities/production</loc>
+        <loc>https://www.dordoi.info/activities/production</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/activities/education</loc>
+        <loc>https://www.dordoi.info/activities/education</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/activities/sports</loc>
+        <loc>https://www.dordoi.info/activities/sports</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/activities/medicine</loc>
+        <loc>https://www.dordoi.info/activities/medicine</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/press/news</loc>
+        <loc>https://www.dordoi.info/press/news</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/partners/our</loc>
+        <loc>https://www.dordoi.info/partners/our</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://dordoi.kg/contacts</loc>
+        <loc>https://www.dordoi.info/contacts</loc>
         <lastmod>2026-02-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>

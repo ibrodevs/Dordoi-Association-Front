@@ -26,7 +26,7 @@ const SEO = ({
 }) => {
   const { i18n } = useTranslation();
   const currentLang = i18n.language;
-  const baseUrl = 'https://dordoi.kg';
+  const baseUrl = 'https://www.dordoi.info';
   const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : baseUrl);
   
   // Базовые ключевые слова для всех страниц (SEO усиление)

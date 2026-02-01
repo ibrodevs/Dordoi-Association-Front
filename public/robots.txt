@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dordoi.kg/sitemap.xml
+Sitemap: https://www.dordoi.info/sitemap.xml
