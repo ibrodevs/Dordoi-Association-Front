@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import SEO from '../../SEO';
 import AboutBackground from '../../AboutBackground';
 
 const AboutMission = () => {
@@ -228,8 +229,14 @@ const AboutMission = () => {
   };
 
   return (
-    <AboutBackground>
-      <section ref={ref} className="relative py-16 sm:py-20 lg:py-28 overflow-hidden">
+    <>
+      <SEO 
+        title="Миссия и ценности Ассоциации Дордой"
+        description="Миссия, ценности и стратегические цели Ассоциации Дордой. Развитие бизнеса, образования и общества Кыргызстана. Профессионализм, инновации, партнерство и социальная ответственность."
+        keywords="миссия Дордой, ценности Дордой, стратегия развития, бизнес философия, корпоративная культура Кыргызстан"
+      />
+      <AboutBackground>
+        <section ref={ref} className="relative py-16 sm:py-20 lg:py-28 overflow-hidden">
       {/* Улучшенные фоновые элементы */}
       <div className="absolute inset-0 opacity-5 sm:opacity-10">
         <motion.div
@@ -478,6 +485,7 @@ const AboutMission = () => {
       </div>
     </section>
     </AboutBackground>
+    </>
   );
 };
 

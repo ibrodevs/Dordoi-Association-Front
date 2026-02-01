@@ -3,6 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { apiRequest } from '../../../api';
+import SEO from '../../SEO';
 import AboutBackground from '../../AboutBackground';
 
 const AboutStructure = () => {
@@ -332,8 +333,14 @@ const AboutStructure = () => {
   };
 
   return (
-    <AboutBackground>
-      <section ref={ref} className="relative py-20 overflow-hidden min-h-screen">
+    <>
+      <SEO 
+        title="Структура Ассоциации Дордой"
+        description="Структура компаний и подразделений Ассоциации Дордой. Торговля, логистика, финансы, образование, медицина, спорт, культура и производство. Дочерние компании и направления деятельности."
+        keywords="структура Дордой, компании Дордой, подразделения Дордой, бизнес структура, холдинг Дордой"
+      />
+      <AboutBackground>
+        <section ref={ref} className="relative py-20 overflow-hidden min-h-screen">
       {/* Фоновые элементы */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         {/* Верхняя часть */}
@@ -635,6 +642,7 @@ const AboutStructure = () => {
       </div>
     </section>
     </AboutBackground>
+    </>
   );
 };
 

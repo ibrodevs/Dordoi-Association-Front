@@ -1,4 +1,5 @@
 import React from 'react'
+import SEO from '../../SEO'
 import HeroSlider from './HeroSlider'
 import MissionAndValues from './MissionAndValues'
 import AboutSection from './AboutSection'
@@ -10,20 +11,28 @@ import PartnersSection from './PartnersSection'
 import StructurePreview from './StructurePreview'
 import HomeFacts from './HomeFacts'
 import PremiumCorporateBackground from '../../PremiumCorporateBackground'
+
 function HomePage() {
   return (
-    <PremiumCorporateBackground>
-        <HeroSlider />
-        <AboutSection />
-        <NewsAndEventsSection />
-        <HomeFacts />
-        <StructurePreview />
-        <MissionAndValues />
-        {/* <AchievementsSection /> */}
-        {/* <ActivitiesSection /> */}
-        <PartnersSection />
-        {/* <InternationalPartnersSection /> */}
-    </PremiumCorporateBackground>
+    <>
+      <SEO 
+        title="Главная"
+        description="Ассоциация Дордой — крупнейшая бизнес-ассоциация Кыргызстана с 35-летней историей. Развитие торговли, образования, спорта, медицины и культуры. Базар Дордой, ФК Дордой, социальные проекты и международное сотрудничество."
+        keywords="Дордой главная, Ассоциация Дордой официальный сайт, базар Дордой Бишкек, ФК Дордой футбольный клуб, бизнес Кыргызстан, предпринимательство, торговый комплекс Центральная Азия"
+      />
+      <PremiumCorporateBackground>
+          <HeroSlider />
+          <AboutSection />
+          <NewsAndEventsSection />
+          <HomeFacts />
+          <StructurePreview />
+          <MissionAndValues />
+          {/* <AchievementsSection /> */}
+          {/* <ActivitiesSection /> */}
+          <PartnersSection />
+          {/* <InternationalPartnersSection /> */}
+      </PremiumCorporateBackground>
+    </>
   )
 }
 

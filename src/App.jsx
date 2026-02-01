@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Navbar from "./components/Navbar/Navbar";
 import './App.css';
 
@@ -67,16 +68,17 @@ function App() {
   }
 
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="min-h-screen bg-slate-50">
-        <Navbar />
-        
-        {/* Основной контент с отступом для фиксированного navbar */}
-        <main className="pt-16">
-          <Routes>
-            {/* Главная страница */}
-            <Route path="/" element={<HomePage />} />
+    <HelmetProvider>
+      <Router>
+        <ScrollToTop />
+        <div className="min-h-screen bg-slate-50">
+          <Navbar />
+          
+          {/* Основной контент с отступом для фиксированного navbar */}
+          <main className="pt-16">
+            <Routes>
+              {/* Главная страница */}
+              <Route path="/" element={<HomePage />} />
             <Route path="/home" element={<HomePage />} />
 
             {/* Страницы About */}
@@ -126,7 +128,8 @@ function App() {
         </main>
         <Footer />
       </div>
-    </Router>
+      </Router>
+    </HelmetProvider>
   );
 }
 

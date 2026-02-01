@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import SEO from '../../SEO';
 import AboutBackground from '../../AboutBackground';
 
 const AboutHistory = () => {
@@ -66,8 +67,14 @@ const AboutHistory = () => {
   };
 
   return (
-    <AboutBackground>
-      <section ref={ref} className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
+    <>
+      <SEO 
+        title="История Ассоциации Дордой"
+        description="35 лет истории Ассоциации Дордой: от основания базара в 1991 году до крупнейшей бизнес-ассоциации Кыргызстана. Этапы развития, достижения и вклад в экономику страны."
+        keywords="история Дордой, базар Дордой история, Ассоциация Дордой 35 лет, основание Дордой 1991, развитие Дордой, история предпринимательства Кыргызстан"
+      />
+      <AboutBackground>
+        <section ref={ref} className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
       {/* Фоновые элементы */}
       <div className="absolute inset-0 opacity-3 sm:opacity-5">
         <motion.div
@@ -195,6 +202,7 @@ const AboutHistory = () => {
       </div>
     </section>
     </AboutBackground>
+    </>
   );
 };
 
