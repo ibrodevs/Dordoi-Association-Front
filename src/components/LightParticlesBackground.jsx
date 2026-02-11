@@ -1,10 +1,25 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const LightParticlesBackground = ({ children }) => {
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    const update = () => setIsMobile(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener('change', update);
+    return () => mediaQuery.removeEventListener('change', update);
+  }, []);
+
+  const shouldAnimate = !prefersReducedMotion && !isMobile;
+
   // Generate stable random particles - reduced quantity for minimalism
   const particles = React.useMemo(() => {
-    return Array.from({ length: 20 }).map((_, i) => ({
+    const count = shouldAnimate ? 14 : 6;
+    return Array.from({ length: count }).map((_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -15,11 +30,12 @@ const LightParticlesBackground = ({ children }) => {
       blur: Math.random() * 4 + 2,
       color: ['#3b82f6', '#0ea5e9', '#6366f1'][Math.floor(Math.random() * 3)] // Solid colors
     }));
-  }, []);
+  }, [shouldAnimate]);
 
   // Subtle gradient particles
   const gradientParticles = React.useMemo(() => {
-    return Array.from({ length: 8 }).map((_, i) => ({
+    const count = shouldAnimate ? 6 : 3;
+    return Array.from({ length: count }).map((_, i) => ({
       id: `grad-${i}`,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -31,7 +47,7 @@ const LightParticlesBackground = ({ children }) => {
         ? 'radial-gradient(circle, #6366f1 0%, transparent 70%)'
         : 'radial-gradient(circle, #0ea5e9 0%, transparent 70%)'
     }));
-  }, []);
+  }, [shouldAnimate]);
 
   return (
     <div className="relative min-h-screen bg-white overflow-hidden">
@@ -69,7 +85,7 @@ const LightParticlesBackground = ({ children }) => {
               height: particle.size,
               background: particle.gradient,
               opacity: particle.opacity,
-              filter: 'blur(20px)',
+              filter: shouldAnimate ? 'blur(20px)' : 'none',
               transform: 'translate3d(0,0,0)'
             }}
           />
@@ -77,90 +93,121 @@ const LightParticlesBackground = ({ children }) => {
         
         {/* Minimal floating particles */}
         {particles.map((particle) => (
-          <motion.div
-            key={particle.id}
-            className="absolute rounded-full"
-            style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              width: particle.size,
-              height: particle.size,
-              backgroundColor: particle.color,
-              opacity: particle.opacity,
-              filter: `blur(${particle.blur}px)`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              x: [0, Math.random() * 40 - 20, 0],
-              opacity: [particle.opacity, particle.opacity * 0.3, particle.opacity]
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: particle.delay
-            }}
-          />
+          shouldAnimate ? (
+            <motion.div
+              key={particle.id}
+              className="absolute rounded-full"
+              style={{
+                left: `${particle.x}%`,
+                top: `${particle.y}%`,
+                width: particle.size,
+                height: particle.size,
+                backgroundColor: particle.color,
+                opacity: particle.opacity,
+                filter: `blur(${particle.blur}px)`,
+              }}
+              animate={{
+                y: [0, -100, 0],
+                x: [0, Math.random() * 40 - 20, 0],
+                opacity: [particle.opacity, particle.opacity * 0.3, particle.opacity]
+              }}
+              transition={{
+                duration: particle.duration,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: particle.delay
+              }}
+            />
+          ) : (
+            <div
+              key={particle.id}
+              className="absolute rounded-full"
+              style={{
+                left: `${particle.x}%`,
+                top: `${particle.y}%`,
+                width: particle.size,
+                height: particle.size,
+                backgroundColor: particle.color,
+                opacity: particle.opacity,
+              }}
+            />
+          )
         ))}
 
         {/* Minimal animated shapes - fewer and more subtle */}
-        <motion.div 
+        {shouldAnimate ? (
+          <motion.div 
             className="absolute top-1/4 left-1/4 w-[35vw] h-[35vw] bg-gradient-to-r from-blue-100/10 to-indigo-100/10 rounded-full blur-[60px]"
             animate={{
-                scale: [1, 1.1, 1],
-                rotate: [0, 5, 0],
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, 0],
             }}
             transition={{
-                duration: 25,
-                repeat: Infinity,
-                ease: "easeInOut"
-            }}
-        />
-        
-        <motion.div 
-            className="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] bg-gradient-to-r from-sky-100/10 to-blue-100/10 rounded-full blur-[60px]"
-            animate={{
-                scale: [1, 1.15, 1],
-                y: [0, -40, 0],
-            }}
-            transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1
-            }}
-        />
-
-        {/* Subtle light beams */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div 
-            className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-blue-200/20 to-transparent"
-            animate={{
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 8,
+              duration: 25,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           />
+        ) : (
+          <div className="absolute top-1/4 left-1/4 w-[35vw] h-[35vw] bg-gradient-to-r from-blue-100/10 to-indigo-100/10 rounded-full" />
+        )}
+        
+        {shouldAnimate ? (
           <motion.div 
-            className="absolute top-0 left-3/4 w-[1px] h-full bg-gradient-to-b from-transparent via-indigo-200/20 to-transparent"
+            className="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] bg-gradient-to-r from-sky-100/10 to-blue-100/10 rounded-full blur-[60px]"
             animate={{
-              opacity: [0.3, 0.5, 0.3],
+              scale: [1, 1.15, 1],
+              y: [0, -40, 0],
             }}
             transition={{
-              duration: 6,
+              duration: 20,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: 2
+              delay: 1
             }}
           />
+        ) : (
+          <div className="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] bg-gradient-to-r from-sky-100/10 to-blue-100/10 rounded-full" />
+        )}
+
+        {/* Subtle light beams */}
+        <div className="absolute inset-0 overflow-hidden">
+          {shouldAnimate ? (
+            <motion.div 
+              className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-blue-200/20 to-transparent"
+              animate={{
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          ) : (
+            <div className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-blue-200/20 to-transparent" />
+          )}
+          {shouldAnimate ? (
+            <motion.div 
+              className="absolute top-0 left-3/4 w-[1px] h-full bg-gradient-to-b from-transparent via-indigo-200/20 to-transparent"
+              animate={{
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2
+              }}
+            />
+          ) : (
+            <div className="absolute top-0 left-3/4 w-[1px] h-full bg-gradient-to-b from-transparent via-indigo-200/20 to-transparent" />
+          )}
         </div>
       </div>
 
       {/* Content with subtle backdrop blur */}
-      <div className="relative z-10 w-full h-full backdrop-blur-[0.5px]">
+      <div className={`relative z-10 w-full h-full ${shouldAnimate ? 'backdrop-blur-[0.5px]' : ''}`}>
         {children}
       </div>
     </div>
