@@ -24,7 +24,7 @@ import {
   Phone,
   ArrowUpRight
 } from 'lucide-react';
-
+import SEO from '../../SEO';
 const ActivitiesSports = () => {
   const { t, i18n } = useTranslation();
   const ref = useRef(null);

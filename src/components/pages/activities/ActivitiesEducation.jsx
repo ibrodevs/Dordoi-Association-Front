@@ -24,6 +24,7 @@ import {
   HomeIcon,
   PhoneIcon
 } from '@heroicons/react/24/outline';
+import SEO from '../../SEO';
 
 const ActivitiesEducation = () => {
   const { t, i18n } = useTranslation();
